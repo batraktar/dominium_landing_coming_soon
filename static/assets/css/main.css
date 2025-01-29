@@ -31,10 +31,6 @@
     --surface-color: #ffffff;
 }
 
-.logo img:hover {
-    transform: scale(1.2); /* збільшення на 20% */
-}
-
 .logo {
     display: flex;
     justify-content: center;
@@ -43,18 +39,50 @@
     width: 100%; /* Щоб блок займав всю ширину */
 }
 
-.logo-img {
-    max-width: 25%;
-    max-height: 20%;
-    transition: transform 0.3s ease;
+.logo {
+    position: relative; /* Для позиціонування псевдоелемента */
+    display: inline-block; /* Зберігаємо логотип в inline-режимі */
 }
+
+/* Контейнер логотипу */
+.logo {
+    position: relative; /* Позиціюємо лінію відносно контейнера */
+    display: inline-block;
+}
+
+/* Псевдоелемент для лінії */
+.logo::before {
+    content: "";
+    position: fixed; /* Лінія буде фіксована на екрані */
+    top: 0; /* Лінія на самому верхньому краю екрану */
+    left: 0; /* Лінія починається з лівого краю екрану */
+    width: 100vw; /* Лінія на всю ширину екрану */
+    height: 20%; /* Висота лінії */
+    background-color: rgba(0, 0, 0, 0.3); /* Прозора чорна лінія */
+    z-index: 1; /* Лінія під логотипом */
+}
+
+/* Логотип */
+.logo-img {
+    width: auto;
+    height: 150px; /* Висота логотипу */
+    max-width: 100%;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2; /* Логотип знаходиться поверх лінії */
+}
+
 
 /* Десктопна версія (від 1024px і більше) */
 @media (min-width: 1024px) {
     .logo-img {
-        max-width: 15%;
-        max-height: 15%;
+        height: 150px; /* Висота для більших екранів */
     }
+}
+
+/* Збільшення лого при ховері */
+.logo img:hover {
+    transform: scale(1.2); /* Збільшення на 20% */
 }
 
 
@@ -230,8 +258,8 @@ h6 {
 }
 
 .header .logo img {
-    max-height: 32px;
-    margin-right: 8px;
+    max-height: none; /* Видаляємо обмеження */
+    height: 150px; /* Встановлюємо бажану висоту */
 }
 
 .header .logo h1 {

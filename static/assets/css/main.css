@@ -84,8 +84,12 @@ body {
     background-color: var(--background-color);
     font-family: var(--default-font);
 
-    /* Видаляємо старий фон */
-    background: none;
+    /* Фон через static */
+    background: url("../img/img.png") top center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    /* Встановлюємо висоту */
     min-height: 100vh;
     margin: 0;
     position: relative;
@@ -119,7 +123,6 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.3); /* Затемнення */
 }
-
 
 body::before {
     content: "";
@@ -814,6 +817,10 @@ section,
     color: var(--default-color);
 }
 
+.hero .hero-newsletter .newsletter-form input[type=email]:focus-visible {
+    outline: none;
+}
+
 :root {
     --accent-color: #164710; /* Зелене основне тло */
     --contrast-color: white; /* Білий текст на кнопці */
@@ -838,6 +845,9 @@ section,
     background: color-mix(in srgb, var(--accent-color), transparent 10%);
 }
 
+.hero .hero-newsletter .newsletter-form input[type=submit]:hover {
+    background: color-mix(in srgb, var(--accent-color), transparent 10%);
+}
 
 .hero .social-links {
     margin-top: 25px;

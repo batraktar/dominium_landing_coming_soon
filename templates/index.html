@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="uk">
 <head>
     <meta charset="utf-8">
@@ -25,21 +25,27 @@
 
 <body class="index-page">
 
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="{% static 'assets/video/background.mp4' %}" type="video/mp4">
+            Ваш браузер не підтримує відео.
+        </video>
+    </div>
 <header id="header" class="header d-flex align-items-center px-3 sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-        <a href="index.html" class="logo d-flex align-items-center">
-            <!-- Uncomment the line below if you also wish to use an image logo -->
-            <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 class="sitename">DOMINIUM</h1>
+        <a href="#" class="logo d-flex align-items-center justify-content-center">
+            <img src="{% static 'assets/img/Domion_logo (прозорий фон)-02.png' %}"
+                 alt="Logo" class="logo-img">
         </a>
 
-        <nav id="navmenu" class="navmenu" data-aos="slide-left">
-            <ul>
-                <li><a href="#hero" class="nav-item active">Home</a></li>
-                <li><a href="#about" class="nav-item active">About</a></li>
-                <li><a href="#contact" class="nav-item active">Contact</a></li>
-            </ul>
+
+        <nav id="navmenu" class="navmenu d-none" data-aos="slide-left">
+            <!--            <ul>-->
+            <!--                <li><a href="#hero" class="nav-item active">Home</a></li>-->
+            <!--                <li><a href="#about" class="nav-item active">About</a></li>-->
+            <!--                <li><a href="#contact" class="nav-item active">Contact</a></li>-->
+            <!--            </ul>-->
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
@@ -55,7 +61,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <h2>Невдовзі відкриття сайту</h2>
-                    <p>-------_____________--------</p>
+                    <p>-------______________--------</p>
                 </div>
 
 
@@ -140,7 +146,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="info-item" data-aos="fade-right" data-aos-delay="300">
+                            <div class="info-item" data-aos="fade-right" data-aos-delay="200">
                                 <i class="bi bi-telephone"></i>
                                 <h3>Контакти</h3>
                                 <p>+380 (77) 003-21-21</p>
@@ -148,7 +154,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="info-item" data-aos="fade-right" data-aos-delay="400">
+                            <div class="info-item" data-aos="fade-right" data-aos-delay="300">
                                 <i class="bi bi-envelope"></i>
                                 <h3>Пошта</h3>
                                 <p>dominium.realty.agency@gmail.com</p>
@@ -156,7 +162,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="info-item" data-aos="fade-right" data-aos-delay="500">
+                            <div class="info-item" data-aos="fade-right" data-aos-delay="300">
                                 <i class="bi bi-clock"></i>
                                 <h3>Графік роботи</h3>
                                 <div class="row justify-content-around">
@@ -179,7 +185,7 @@
                 <div class="col-lg-6">
                     <form action="../static/forms/contact.php" method="post" class="php-email-form"
                           data-aos="fade-right"
-                          data-aos-delay="200">
+                          data-aos-delay="350">
                         <div class="row gy-4">
 
                             <div class="col-md-6">

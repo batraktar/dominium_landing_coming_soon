@@ -32,6 +32,7 @@
 }
 
 .logo {
+    position: relative; /* Позиціюємо лінію відносно контейнера */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,33 +40,10 @@
     width: 100%; /* Щоб блок займав всю ширину */
 }
 
-.logo {
-    position: relative; /* Для позиціонування псевдоелемента */
-    display: inline-block; /* Зберігаємо логотип в inline-режимі */
-}
-
-/* Контейнер логотипу */
-.logo {
-    position: relative; /* Позиціюємо лінію відносно контейнера */
-    display: inline-block;
-}
-
-/* Псевдоелемент для лінії */
-.logo::before {
-    content: "";
-    position: fixed; /* Лінія буде фіксована на екрані */
-    top: 0; /* Лінія на самому верхньому краю екрану */
-    left: 0; /* Лінія починається з лівого краю екрану */
-    width: 100vw; /* Лінія на всю ширину екрану */
-    height: 20%; /* Висота лінії */
-    background-color: rgba(0, 0, 0, 0.3); /* Прозора чорна лінія */
-    z-index: 1; /* Лінія під логотипом */
-}
-
 /* Логотип */
 .logo-img {
     width: auto;
-    height: 150px; /* Висота логотипу */
+    height: 80px; /* Висота логотипу */
     max-width: 100%;
     transition: transform 0.3s ease;
     position: relative;
@@ -76,7 +54,7 @@
 /* Десктопна версія (від 1024px і більше) */
 @media (min-width: 1024px) {
     .logo-img {
-        height: 150px; /* Висота для більших екранів */
+        height: 80px; /* Висота для більших екранів */
     }
 }
 
@@ -113,7 +91,7 @@ body {
     font-family: var(--default-font);
 
     /* Фон через static */
-    background: url("../img/img.png") top center no-repeat;
+    background: url("../img/img_1.png") top center no-repeat;
     background-size: cover;
     background-attachment: fixed;
 
@@ -259,7 +237,7 @@ h6 {
 
 .header .logo img {
     max-height: none; /* Видаляємо обмеження */
-    height: 150px; /* Встановлюємо бажану висоту */
+    height: none; /* Встановлюємо бажану висоту */
 }
 
 .header .logo h1 {
@@ -547,16 +525,16 @@ h6 {
 }
 
 .footer .social-links {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .footer .social-links a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 40%;
     border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
     font-size: 16px;
     color: color-mix(in srgb, var(--default-color), transparent 50%);
@@ -608,39 +586,6 @@ h6 {
     100% {
         transform: rotate(360deg);
     }
-}
-
-/*--------------------------------------------------------------
-# Scroll Top Button
---------------------------------------------------------------*/
-.scroll-top {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    right: 15px;
-    bottom: 15px;
-    z-index: 99999;
-    background-color: var(--accent-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    transition: all 0.4s;
-}
-
-.scroll-top i {
-    font-size: 24px;
-    color: var(--contrast-color);
-    line-height: 0;
-}
-
-.scroll-top:hover {
-    background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
-    color: var(--contrast-color);
-}
-
-.scroll-top.active {
-    visibility: visible;
-    opacity: 1;
 }
 
 /*--------------------------------------------------------------
@@ -767,48 +712,6 @@ section,
 
     .hero p {
         font-size: 18px;
-    }
-}
-
-.hero .countdown {
-    margin-top: 25px;
-}
-
-.hero .countdown div {
-    text-align: center;
-    border-top: 2px solid var(--accent-color);
-    background-color: var(--surface-color);
-    margin: 10px 10px;
-    width: 100px;
-    padding: 15px 0;
-}
-
-.hero .countdown div h3 {
-    font-weight: 700;
-    font-size: 32px;
-    margin-bottom: 15px;
-}
-
-.hero .countdown div h4 {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-@media (max-width: 575px) {
-    .hero .countdown div {
-        width: 70px;
-        padding: 10px 0;
-        margin: 10px 8px;
-    }
-
-    .hero .countdown div h3 {
-        font-size: 28px;
-        margin-bottom: 10px;
-    }
-
-    .hero .countdown div h4 {
-        font-size: 14px;
-        font-weight: 500;
     }
 }
 
@@ -984,7 +887,7 @@ section,
 }
 
 .contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
+.contact .php-email-form input[type=tel], /* Замінили email на tel */
 .contact .php-email-form textarea {
     font-size: 14px;
     padding: 10px 15px;
@@ -996,13 +899,13 @@ section,
 }
 
 .contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type=tel]:focus, /* Замінили email на tel */
 .contact .php-email-form textarea:focus {
     border-color: var(--accent-color);
 }
 
 .contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type=tel]::placeholder, /* Замінили email на tel */
 .contact .php-email-form textarea::placeholder {
     color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
@@ -1018,4 +921,191 @@ section,
 
 .contact .php-email-form button[type=submit]:hover {
     background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+
+/*Call-button*/
+
+.call-button {
+    position: fixed;
+    bottom: 20px; /* Відстань від низу */
+    right: 20px; /* Відстань від правого краю */
+    background-color: rgba(76, 175, 80, 0.5);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 100px; /* Кругла кнопка */
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 9999; /* Щоб кнопка була поверх інших елементів */
+}
+
+.call-button:hover {
+    background-color: #45a049;
+}
+
+/* Загальні стилі для розділу послуг */
+.services {
+    padding: 60px 0;
+    background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+}
+
+.section-title {
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+
+}
+
+.section-title p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.service-item {
+    background-color: rgba(52, 72, 60, 0.3);
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.service-item h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.service-item ul {
+    list-style: none;
+    padding: 0;
+    color: #ffffff;
+}
+
+.service-item ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    border-radius: 50%; /* Круглі кнопки */
+}
+
+/* Для мобільних */
+@media (max-width: 767px) {
+    .service-item {
+        padding: 20px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+
+    .service-item h3 {
+        font-size: 20px;
+    }
+
+    .service-item ul li {
+        font-size: 14px;
+    }
+}
+
+
+.promotion-section {
+    display: flex;
+    gap: 20px;
+    background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+}
+
+/* Ліва колонка (заголовки) */
+.promotion-sidebar {
+    flex: 1;
+    max-width: 250px;
+}
+
+.service-title {
+    cursor: pointer;
+    padding: 10px;
+    border-left: 4px solid transparent;
+    transition: 0.3s ease-in-out;
+}
+
+.service-title:hover {
+    border-left: 4px solid #007bff;
+}
+
+/* Блок карток (контент праворуч) */
+.promotion-details {
+    flex: 2;
+    min-height: 325px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Контейнер для карток */
+.service-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Окрема картка */
+.service-card {
+    position: absolute;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Активна картка */
+.service-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Мобільна версія: картки перелистуються горизонтально */
+@media screen and (max-width: 768px) {
+    .promotion-section {
+        flex-direction: column;
+    }
+
+    .service-title {
+        text-align: center;
+    }
+
+    .service-cards {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+
+    .service-card {
+        min-width: 100%;
+        transform: translateX(20px);
+        scroll-snap-align: center;
+    }
+
+    .service-card.active {
+        transform: translateX(0);
+    }
 }

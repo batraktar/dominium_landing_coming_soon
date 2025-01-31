@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Dominium</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+
+    <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{% static '/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+<!--<div class="video-container">-->
+<!--    <video autoplay muted loop>-->
+<!--        <source src="{% static 'assets/video/background.mp4' %}" type="video/mp4">-->
+<!--        Ваш браузер не підтримує відео.-->
+<!--    </video>-->
+<!--</div>-->
+<header id="header" class="header d-flex align-items-center px-3">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+        <a href="#" class="logo d-flex align-items-center justify-content-center">
+            <img src="{% static 'assets/img/Domion_logo-02.png' %}"
+                 alt="Logo" class="logo-img">
+        </a>
+
+
+        <nav id="navmenu" class="navmenu d-none" data-aos="slide-left">
+            <ul>
+                <li><a href="#hero" class="nav-item active">Home</a></li>
+                <li><a href="#about" class="nav-item active">About</a></li>
+                <li><a href="#contact" class="nav-item active">Contact</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main">
+
+
+    <section id="hero" class="hero section transparent-background">
+
+        <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h3>Усі види нерухомості в одному місці!</h3>
+                    <p class="fs-5"><em>Ваш простір - наша турбота</em></p>
+                </div>
+
+
+                <!--                <div class="col-lg-5 hero-newsletter">-->
+                <!--                    <p>Підпишись, щоб дізнатись першим про запуск сайту!</p>-->
+                <!--                    <form action="../static/forms/newsletter.php" method="post" class="php-email-form">-->
+                <!--                        <div class="newsletter-form"><input type="email" name="email" placeholder="Пошта"><input-->
+                <!--                                type="submit"-->
+                <!--                                value="Підписатись"></div>-->
+                <!--                        <div class="loading">Завантаження</div>-->
+                <!--                        <div class="error-message"></div>-->
+                <!--                        <div class="sent-message">Ти маєш змогу дізнатись про запуск першим. Вітаю!</div>-->
+                <!--                    </form>-->
+                <!--                </div>-->
+
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+
+            </div>
+        </div>

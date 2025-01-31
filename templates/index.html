@@ -31,9 +31,8 @@
 <!--        Ваш браузер не підтримує відео.-->
 <!--    </video>-->
 <!--</div>-->
-<header id="header" class="header d-flex align-items-center px-3 sticky-top">
+<header id="header" class="header d-flex align-items-center px-3">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-
         <a href="#" class="logo d-flex align-items-center justify-content-center">
             <img src="{% static 'assets/img/Domion_logo-02.png' %}"
                  alt="Logo" class="logo-img">
@@ -41,16 +40,21 @@
 
 
         <nav id="navmenu" class="navmenu d-none" data-aos="slide-left">
-            <!--            <ul>-->
-            <!--                <li><a href="#hero" class="nav-item active">Home</a></li>-->
-            <!--                <li><a href="#about" class="nav-item active">About</a></li>-->
-            <!--                <li><a href="#contact" class="nav-item active">Contact</a></li>-->
-            <!--            </ul>-->
+            <ul>
+                <li><a href="#hero" class="nav-item active">Home</a></li>
+                <li><a href="#about" class="nav-item active">About</a></li>
+                <li><a href="#contact" class="nav-item active">Contact</a></li>
+            </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
     </div>
 </header>
+
+<a href="tel:+380770032121" class="call-button">
+    <i class="bi bi-telephone-fill"></i> <!-- Іконка телефону -->
+</a>
+
 
 <main class="main">
 
@@ -60,64 +64,170 @@
         <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <h2>Невдовзі відкриття сайту</h2>
-                    <p>-------______________--------</p>
-                </div>
-
-
-                <div class="col-lg-5 hero-newsletter">
-                    <p>Підпишись, щоб дізнатись першим про запуск сайту!</p>
-                    <form action="../static/forms/newsletter.php" method="post" class="php-email-form">
-                        <div class="newsletter-form"><input type="email" name="email" placeholder="Пошта"><input
-                                type="submit"
-                                value="Підписатись"></div>
-                        <div class="loading">Завантаження</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Ти маєш змогу дізнатись про запуск першим. Вітаю!</div>
-                    </form>
+                    <h3 class="text-uppercase">Усі види нерухомості в одному місці!</h3>
+                    <p class="text-lowercase fs-5">Ваш простір - наша турбота</p>
                 </div>
 
                 <div class="social-links">
                     <a href="#"><i class="bi bi-facebook"></i></a>
                     <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-tiktok"></i></a>
                 </div>
 
             </div>
         </div>
 
     </section>
-
-
     <section id="about" class="about section transparent-background">
-
         <div class="container">
-
             <div class="row gy-4">
-
                 <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
+                        Dominium – це сучасна агенція нерухомості, яка цінує час і комфорт наших клієнтів,
+                        тому пропонує лише перевірені об’єкти та індивідуальний підхід.
+                        Комплексні послуги щодо житлової та комерційної нерухомості, які ви зможете отримати:
                     </p>
                     <ul>
-                        <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                        <li><i class="bi bi-check2-circle"></i> <span>Купівля</span>
                         </li>
-                        <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span>
+                        <li><i class="bi bi-check2-circle"></i> <span>Продаж</span>
                         </li>
                         <li><i class="bi bi-check2-circle"></i>
-                            <span>Ullamco laboris nisi ut aliquip ex ea commodo</span></li>
+                            <span>Оренда</span></li>
                     </ul>
-                </div>
-
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <p>------__________-----_________---________</p>
                 </div>
 
             </div>
 
         </div>
 
+    </section>
+
+    <section id="services" class="services section transparent-background">
+        <div class="container">
+            <div class="section-title text-center" data-aos="fade-up" data-aos-delay="100">
+                <h2>Наші Послуги</h2>
+                <p>Ми надаємо повний спектр послуг у сфері нерухомості, щоб ви могли приймати правильні рішення з
+                    нами.</p>
+            </div>
+
+            <!-- Карусель для послуг -->
+            <div id="servicesCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Перша картка -->
+                    <div class="carousel-item active">
+                        <div class="service-item">
+                            <h3>Купівля та продаж нерухомості</h3>
+                            <ul>
+                                <li>Оцінка об’єкта</li>
+                                <li>Пошук покупців/продавців</li>
+                                <li>Супровід угод</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Друга картка -->
+                    <div class="carousel-item">
+                        <div class="service-item">
+                            <h3>Оренда житла та комерційної нерухомості</h3>
+                            <ul>
+                                <li>Підбір об’єктів під ваші потреби</li>
+                                <li>Юридичне оформлення угод</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Третя картка -->
+                    <div class="carousel-item">
+                        <div class="service-item">
+                            <h3>Інвестиції в нерухомість</h3>
+                            <ul>
+                                <li>Консультації з вигідних інвестицій</li>
+                                <li>Супровід забудовників</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Четверта картка -->
+                    <div class="carousel-item">
+                        <div class="service-item">
+                            <h3>Юридичний супровід угод</h3>
+                            <ul>
+                                <li>Перевірка документів</li>
+                                <li>Рішення спірних питань</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Контролери для навігації каруселі -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Попередній</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Наступний</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="promotion-section">
+        <div class="promotion-sidebar">
+            <h3 class="service-title" data-target="Що входить у наші послуги?">
+                Що входить у наші послуги?
+            </h3>
+            <h3 class="service-title" data-target="Чому варто обрати нас?">
+                Чому варто обрати нас?
+            </h3>
+            <h3 class="service-title" data-target="Основні послуги">
+                Основні послуги
+            </h3>
+        </div>
+
+        <div class="promotion-details">
+            <div class="service-cards">
+                <div class="service-card active" id="default-card">
+                    Виберіть заголовок, щоб дізнатися більше про наші послуги.
+                </div>
+                <div class="service-card" id="Що входить у наші послуги?">
+                    <h3>💼 Що входить у наші послуги?</h3>
+                    <ul>
+                        <li>Підготовка та перевірка правовстановлюючих документів</li>
+                        <li>Витяг з Державного реєстру речових прав на нерухоме майно</li>
+                        <li>Довідка про відсутність обтяжень та заборон</li>
+                        <li>Довідка про відсутність заборгованостей за комунальні послуги</li>
+                        <li>Експертна оцінка нерухомості</li>
+                        <li>Підготовка попереднього договору та основного договору купівлі-продажу</li>
+                        <li>Послуги нотаріуса: перевірка документів, посвідчення договору купівлі-продажу</li>
+                        <li>Юридичний супровід угоди</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" id="Чому варто обрати нас?">
+                    <h3>🤝 Чому варто обрати нас?</h3>
+                    <ul>
+                        <li>Професійний супровід від початку і до кінця</li>
+                        <li>Беремо на себе всі витрати на підготовку документів</li>
+                        <li>Економія часу та грошей</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" id="Основні послуги">
+                    <h3>📑 Основні послуги:</h3>
+                    <ul>
+                        <li>Купівля, продаж, оренда нерухомості</li>
+                        <li>Квартири, будинки, земельні ділянки, комерційні об'єкти</li>
+                        <li>Оцінка нерухомості</li>
+                        <li>Юридичний супровід угод</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
 
@@ -149,7 +259,9 @@
                             <div class="info-item" data-aos="fade-right" data-aos-delay="200">
                                 <i class="bi bi-telephone"></i>
                                 <h2>Контакти</h2>
-                                <p class="fs-5">+380 (77) 003-21-21</p>
+                                <p class="phone fs-4">
+                                    <a href="tel:+380770032121">+380 (77) 003-21-21</a>
+                                </p>
                             </div>
                         </div>
 
@@ -183,7 +295,10 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <form action="../static/forms/contact.php" method="post" class="php-email-form"
+                    <h1>Залиште заявку на консультацію</h1>
+                    <p class="text-break">Хочете знайти ідеальну нерухомість або отримати поради щодо продажу? Заповніть
+                        форму, і ми швидко зв'яжемося з вами для детальної консультації.</p>
+                    <form action="#" method="post" class="php-email-form"
                           data-aos="fade-right"
                           data-aos-delay="350">
                         <div class="row gy-4">
@@ -192,10 +307,11 @@
                                 <input type="text" name="name" class="form-control" placeholder="Імʼя" required="">
                             </div>
 
-                            <div class="col-md-6 ">
-                                <input type="email" class="form-control" name="email" placeholder="Пошта"
-                                       required="">
+                            <div class="col-md-6">
+                                <input type="tel" class="form-control" name="phone" placeholder="Телефон" required=""
+                                       pattern="^\+?\d{10,15}$" title="Введіть коректний номер телефону">
                             </div>
+
 
                             <div class="col-12">
                                 <input type="text" class="form-control" name="subject" placeholder="Тема звернення"
@@ -225,9 +341,10 @@
 
     </section>
 
+
 </main>
 
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+<a href="#" id="scroll-top" class="scroll-top d-none d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 
 

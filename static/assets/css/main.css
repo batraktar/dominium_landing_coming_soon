@@ -85,6 +85,13 @@
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
+.content {
+    margin: 0 auto; /* Центрує блок */
+    /*text-align: center; !* Вирівнює текст *!*/
+    max-width: 800px; /* Опціонально, щоб блок не розтягувався */
+}
+
+
 body {
     color: var(--default-color);
     background-color: var(--background-color);
@@ -101,34 +108,34 @@ body {
     position: relative;
 }
 
-/* Контейнер для відео */
-.video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Відправляємо відео на задній план */
-}
+/*!* Контейнер для відео *!*/
+/*.video-container {*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    overflow: hidden;*/
+/*    z-index: -1; !* Відправляємо відео на задній план *!*/
+/*}*/
 
-/* Відео займає всю область */
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Заповнює екран без спотворення */
-}
+/*!* Відео займає всю область *!*/
+/*.video-container video {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover; !* Заповнює екран без спотворення *!*/
+/*}*/
 
-/* Темне затемнення (необов’язково) */
-.video-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Затемнення */
-}
+/*!* Темне затемнення (необов’язково) *!*/
+/*.video-container::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: rgba(0, 0, 0, 0.3); !* Затемнення *!*/
+/*}*/
 
 body::before {
     content: "";
@@ -140,9 +147,13 @@ body::before {
     background: rgba(34, 34, 34, 0.8);
 }
 
-@media (min-width: 1366px) {
+@media (max-width: 728px) {
     body {
         background-attachment: fixed;
+    }
+
+    .content {
+        max-width: 90%;
     }
 }
 
@@ -928,8 +939,8 @@ section,
 
 .call-button {
     position: fixed;
-    bottom: 20px; /* Відстань від низу */
-    right: 20px; /* Відстань від правого краю */
+    bottom: 15px; /* Відстань від низу */
+    right: 15px; /* Відстань від правого краю */
     background-color: rgba(76, 175, 80, 0.5);
     color: white;
     padding: 15px 30px;
@@ -974,7 +985,9 @@ section,
     border-radius: 25px;
     text-align: center;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    height: 180px; /* фіксована висота для всіх карток */
 }
+
 
 .service-item h3 {
     font-size: 24px;
@@ -986,6 +999,7 @@ section,
 .service-item ul {
     list-style: none;
     padding: 0;
+    weight: 80px;
     color: #ffffff;
 }
 
@@ -1023,36 +1037,41 @@ section,
     }
 }
 
-
+/* Акція для Власників*/
 .promotion-section {
     display: flex;
     gap: 20px;
-    background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+    background-color: color-mix(in srgb, var(--default-color), transparent 100%);
+    max-width: 1290px;
+    margin: 0 auto;
 }
+
 
 /* Ліва колонка (заголовки) */
 .promotion-sidebar {
     flex: 1;
     max-width: 250px;
+    align-items: stretch; /* Розтягує дочірні елементи */
+
 }
 
 .service-title {
     cursor: pointer;
     padding: 10px;
-    border-left: 4px solid transparent;
+    border-bottom: 4px solid transparent;
     transition: 0.3s ease-in-out;
 }
 
 .service-title:hover {
-    border-left: 4px solid #007bff;
+    border-bottom: 4px solid #007bff; /* Додаємо нижній */
 }
 
 /* Блок карток (контент праворуч) */
 .promotion-details {
     flex: 2;
     min-height: 325px;
+    max-width: 80%;
     padding: 20px;
-    border: 1px solid #ddd;
     position: relative;
     overflow: hidden;
 }
@@ -1082,30 +1101,62 @@ section,
     transform: translateY(0);
 }
 
-/* Мобільна версія: картки перелистуються горизонтально */
 @media screen and (max-width: 768px) {
     .promotion-section {
-        flex-direction: column;
+        flex-direction: column; /* Переносить лілу колонку над картками */
+        align-items: flex-end;
+        margin: 0 auto;
+        width: 100%;
     }
 
+    /* Ліва колонка */
+    .promotion-sidebar {
+        width: 100%; /* Забираємо обмеження на ширину */
+        order: 0; /* Переносимо ліву колонку в верх */
+        padding: 10px; /* Додаємо паддінг */
+        text-align: right;
+    }
+
+    /* Заголовки як випадаюче меню */
     .service-title {
-        text-align: center;
+        display: block;
+        background-color: color-mix(in srgb, var(--default-color));
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Контейнер для карток */
+    .promotion-details {
+        max-width: 100%;
+        width: 100%;
+        min-height: 300px;
+        padding: 20px;
     }
 
     .service-cards {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        width: 100%;
+        min-height: 300px;
+        height: auto;
     }
-
     .service-card {
-        min-width: 100%;
-        transform: translateX(20px);
-        scroll-snap-align: center;
+        max-height: 0; /* Початково приховані */
+        opacity: 0;
+        overflow: hidden;
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .service-card.active {
-        transform: translateX(0);
+        max-height: 500px; /* Достатньо велике значення, щоб вміст помістився */
+        opacity: 1;
     }
 }
+
+
+.centered-text {
+    text-align: center;
+    color: yellow; /* Вирівнює текст по центру */
+    font-size: 50px;
+}
+
+
+

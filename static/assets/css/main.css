@@ -1,1162 +1,843 @@
 :root {
-    --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --heading-font: "Raleway", sans-serif;
-    --nav-font: "Poppins", sans-serif;
+  --default-font: "Century Gothic", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --heading-font: "Raleway", sans-serif;
+  --nav-font: "Poppins", sans-serif;
 }
 
+/* Підключення шрифта */
+
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+
 :root {
-    --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-    --default-color: #ffffff; /* Default color used for the majority of the text content across the entire website */
-    --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
-    --accent-color: #ec0606; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-    --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-    --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+  --background-color: #ffffff;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --accent-color: #ec0606;
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+
 :root {
-    --nav-color: rgba(255, 255, 255, 0.5); /* The default color of the main navmenu links */
-    --nav-hover-color: #ffffff; /* Applied to main navmenu links when they are hovered over or active */
-    --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
-    --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-    --nav-dropdown-color: #ffffff; /* Used for navigation links of the dropdown items in the navigation menu. */
-    --nav-dropdown-hover-color: #ec0606; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-color: rgba(255, 255, 255, 0.5);
+  --nav-hover-color: #ffffff;
+  --nav-mobile-background-color: #ffffff;
+  --nav-dropdown-background-color: #ffffff;
+  --nav-dropdown-color: #ffffff;
+  --nav-dropdown-hover-color: #ec0606;
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
-.light-background {
-    --background-color: #f9f9f9;
-    --surface-color: #ffffff;
-}
-
-.logo {
-    position: relative; /* Позиціюємо лінію відносно контейнера */
+@media (max-width: 1200px) {
+  .logo {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%; /* Щоб блок займав всю ширину */
+    width: 100%;
+  }
 }
 
 /* Логотип */
+
 .logo-img {
-    width: auto;
-    height: 80px; /* Висота логотипу */
-    max-width: 100%;
-    transition: transform 0.3s ease;
-    position: relative;
-    z-index: 2; /* Логотип знаходиться поверх лінії */
+  width: auto;
+  height: 80px;
+  max-width: 100%;
+  transition: transform 0.3s ease;
+  position: static;
+  z-index: 2;
 }
 
-
 /* Десктопна версія (від 1024px і більше) */
-@media (min-width: 1024px) {
-    .logo-img {
-        height: 80px; /* Висота для більших екранів */
-    }
+
+@media (min-width: 800px) {
+  .logo-img {
+    height: 73px;
+    color: rgb(3, 3, 215);
+    margin-left: 28px;
+  }
 }
 
 /* Збільшення лого при ховері */
+
 .logo img:hover {
-    transform: scale(1.2); /* Збільшення на 20% */
-}
-
-
-.dark-background {
-    --background-color: #060606;
-    --default-color: #ffffff;
-    --heading-color: #ffffff;
-    --surface-color: #252525;
-    --contrast-color: #ffffff;
+  transform: scale(1.20);
 }
 
 .transparent-background {
-    --background-color: rgba(255, 255, 255, 0);
-    --surface-color: rgba(255, 255, 255, 0.1);
+  --background-color: rgba(255, 255, 255, 0);
+  --surface-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Smooth scroll */
+
 :root {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # General Styling & Shared Classes
---------------------------------------------------------------*/
-.content {
-    margin: 0 auto; /* Центрує блок */
-    /*text-align: center; !* Вирівнює текст *!*/
-    max-width: 800px; /* Опціонально, щоб блок не розтягувався */
-}
+-------------------------------------------------------------- */
 
+.content {
+  margin: 0 auto;
+  max-width: 800px;
+}
 
 body {
-    color: var(--default-color);
-    background-color: var(--background-color);
-    font-family: var(--default-font);
-
-    /* Фон через static */
-    background: url("../img/img_1.png") top center no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-
-    /* Встановлюємо висоту */
-    min-height: 100vh;
-    margin: 0;
-    position: relative;
+  color: var(--default-color);
+  font-family: var(--default-font);
+  background: #133e44;
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
 }
 
-/*!* Контейнер для відео *!*/
-/*.video-container {*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    overflow: hidden;*/
-/*    z-index: -1; !* Відправляємо відео на задній план *!*/
-/*}*/
+/* !* Контейнер для відео *! */
+/* .video-container { */
+/* position: fixed; */
+/* top: 0; */
+/* left: 0; */
+/* width: 100%; */
+/* height: 100%; */
+/* overflow: hidden; */
+/* z-index: -1; !* Відправляємо відео на задній план *! */
+/* } */
+/* !* Відео займає всю область *! */
+/* .video-container video { */
+/* width: 100%; */
+/* height: 100%; */
+/* object-fit: cover; !* Заповнює екран без спотворення *! */
+/* } */
 
-/*!* Відео займає всю область *!*/
-/*.video-container video {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    object-fit: cover; !* Заповнює екран без спотворення *!*/
-/*}*/
+/* !* Темне затемнення (необов’язково) *! */
 
-/*!* Темне затемнення (необов’язково) *!*/
-/*.video-container::after {*/
-/*    content: "";*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    background: rgba(0, 0, 0, 0.3); !* Затемнення *!*/
-/*}*/
+/* .video-container::after { */
+
+/* content: ""; */
+
+/* position: absolute; */
+
+/* top: 0; */
+
+/* left: 0; */
+
+/* width: 100%; */
+
+/* height: 100%; */
+
+/* background: rgba(0, 0, 0, 0.3); !* Затемнення *! */
+
+/* } */
 
 body::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: rgba(34, 34, 34, 0.8);
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(34, 34, 34, 0.8);
 }
 
 @media (max-width: 728px) {
-    body {
-        background-attachment: fixed;
-    }
+  body {
+    background-attachment: fixed;
+  }
+}
 
-    .content {
-        max-width: 90%;
-    }
+@media (max-width: 728px) {
+  .content {
+    max-width: 90%;
+  }
 }
 
 a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: 0.3s;
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s;
 }
 
 a:hover {
-    color: color-mix(in srgb, var(--accent-color), transparent 25%);
-    text-decoration: none;
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--heading-color);
-    font-family: var(--heading-font);
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
 }
 
 /* PHP Email Form Messages
-------------------------------*/
+------------------------------ */
+
 .php-email-form .error-message {
-    display: none;
-    background: #df1529;
-    color: #ffffff;
-    text-align: left;
-    padding: 15px;
-    margin-bottom: 24px;
-    font-weight: 600;
+  display: none;
+  background: #df1529;
+  color: #ffffff;
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 600;
 }
 
 .php-email-form .sent-message {
-    display: none;
-    color: #ffffff;
-    background: #059652;
-    text-align: center;
-    padding: 15px;
-    margin-bottom: 24px;
-    font-weight: 600;
+  display: none;
+  color: #ffffff;
+  background: #059652;
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 600;
 }
 
 .php-email-form .loading {
-    display: none;
-    background: var(--surface-color);
-    text-align: center;
-    padding: 15px;
-    margin-bottom: 24px;
+  display: none;
+  background: var(--surface-color);
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
 }
 
 .php-email-form .loading:before {
-    content: "";
-    display: inline-block;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    margin: 0 10px -6px 0;
-    border: 3px solid var(--accent-color);
-    border-top-color: var(--surface-color);
-    animation: php-email-form-loading 1s linear infinite;
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid var(--accent-color);
+  border-top-color: var(--surface-color);
+  animation: php-email-form-loading 1s linear infinite;
 }
 
-@keyframes php-email-form-loading {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Global Header
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
+
 .header {
-    --background-color: rgba(255, 255, 255, 0);
-    color: var(--default-color);
-    background-color: var(--background-color);
-    padding: 15px 0;
-    transition: all 0.5s;
-    z-index: 997;
+  --background-color: rgba(255, 255, 255, 0);
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 15px 0;
+  transition: all 0.5s;
+  z-index: 997;
 }
 
 .header .logo {
-    line-height: 1;
+  line-height: 1;
 }
 
 .header .logo img {
-    max-height: none; /* Видаляємо обмеження */
-    height: none; /* Встановлюємо бажану висоту */
+  max-height: none;
+  height: 73px;
+  padding-top: 2px;
+  margin-top: -1px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: -2px;
+  padding-bottom: 0px;
 }
 
-.header .logo h1 {
-    font-size: 30px;
-    margin: 0;
-    font-weight: 700;
-    color: var(--heading-color);
-}
-
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Navigation Menu
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
+
 /* Desktop Navigation */
+
 @media (min-width: 1200px) {
-    .navmenu {
-        padding: 0;
-    }
+  .navmenu {
+    padding: 0;
+  }
+}
 
-    .navmenu ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        list-style: none;
-        align-items: center;
-    }
+@media (min-width: 1200px) {
+  .navmenu ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+}
 
-    .navmenu li {
-        position: relative;
-    }
+@media (min-width: 1200px) {
+  .navmenu li {
+    position: relative;
+  }
+}
 
-    .navmenu > ul > li {
-        white-space: nowrap;
-        padding: 15px 14px;
-    }
+@media (min-width: 1200px) {
+  .navmenu > ul > li {
+    white-space: nowrap;
+    padding: 15px 14px;
+  }
+}
 
-    .navmenu > ul > li:last-child {
-        padding-right: 0;
-    }
+@media (min-width: 1200px) {
+  .navmenu > ul > li:last-child {
+    padding-right: 0;
+  }
+}
 
-    .navmenu a,
-    .navmenu a:focus {
-        color: var(--nav-color);
-        font-size: 15px;
-        padding: 0 2px;
-        font-family: var(--nav-font);
-        font-weight: 400;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        white-space: nowrap;
-        transition: 0.3s;
-        position: relative;
-    }
+@media (min-width: 1200px) {
+  .navmenu a, .navmenu a:focus {
+    color: var(--nav-color);
+    font-size: 15px;
+    padding: 0 2px;
+    font-family: var(--nav-font);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+    position: relative;
+  }
+}
 
-    .navmenu a i,
-    .navmenu a:focus i {
-        font-size: 12px;
-        line-height: 0;
-        margin-left: 5px;
-        transition: 0.3s;
-    }
+@media (min-width: 1200px) {
+  .navmenu > ul > li > a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: var(--accent-color);
+    visibility: hidden;
+    width: 0px;
+    transition: all 0.3s ease-in-out 0s;
+  }
+}
 
-    .navmenu > ul > li > a:before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -6px;
-        left: 0;
-        background-color: var(--accent-color);
-        visibility: hidden;
-        width: 0px;
-        transition: all 0.3s ease-in-out 0s;
-    }
+@media (min-width: 1200px) {
+  .navmenu a:hover:before, .navmenu li:hover > a:before, .navmenu .active:before {
+    visibility: visible;
+    width: 100%;
+  }
+}
 
-    .navmenu a:hover:before,
-    .navmenu li:hover > a:before,
-    .navmenu .active:before {
-        visibility: visible;
-        width: 100%;
-    }
-
-    .navmenu li:hover > a,
-    .navmenu .active,
-    .navmenu .active:focus {
-        color: var(--nav-hover-color);
-    }
-
-    .navmenu .dropdown ul {
-        margin: 0;
-        padding: 10px 0;
-        background: var(--nav-dropdown-background-color);
-        display: block;
-        position: absolute;
-        visibility: hidden;
-        left: 14px;
-        top: 130%;
-        opacity: 0;
-        transition: 0.3s;
-        border-radius: 4px;
-        z-index: 99;
-        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .navmenu .dropdown ul li {
-        min-width: 200px;
-    }
-
-    .navmenu .dropdown ul a {
-        padding: 10px 20px;
-        font-size: 15px;
-        text-transform: none;
-        color: var(--nav-dropdown-color);
-    }
-
-    .navmenu .dropdown ul a i {
-        font-size: 12px;
-    }
-
-    .navmenu .dropdown ul a:hover,
-    .navmenu .dropdown ul .active:hover,
-    .navmenu .dropdown ul li:hover > a {
-        color: var(--nav-dropdown-hover-color);
-    }
-
-    .navmenu .dropdown:hover > ul {
-        opacity: 1;
-        top: 100%;
-        visibility: visible;
-    }
-
-    .navmenu .dropdown .dropdown ul {
-        top: 0;
-        left: -90%;
-        visibility: hidden;
-    }
-
-    .navmenu .dropdown .dropdown:hover > ul {
-        opacity: 1;
-        top: 0;
-        left: -100%;
-        visibility: visible;
-    }
+@media (min-width: 1200px) {
+  .navmenu li:hover > a, .navmenu .active, .navmenu .active:focus {
+    color: var(--nav-hover-color);
+  }
 }
 
 /* Mobile Navigation */
+
 @media (max-width: 1199px) {
-    .mobile-nav-toggle {
-        color: var(--nav-color);
-        font-size: 28px;
-        line-height: 0;
-        margin-right: 10px;
-        cursor: pointer;
-        transition: color 0.3s;
-    }
-
-    .navmenu {
-        padding: 0;
-        z-index: 9997;
-    }
-
-    .navmenu ul {
-        display: none;
-        list-style: none;
-        position: absolute;
-        inset: 60px 20px 20px 20px;
-        padding: 10px 0;
-        margin: 0;
-        border-radius: 6px;
-        background-color: var(--nav-mobile-background-color);
-        border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-        box-shadow: none;
-        overflow-y: auto;
-        transition: 0.3s;
-        z-index: 9998;
-    }
-
-    .navmenu a,
-    .navmenu a:focus {
-        color: var(--nav-dropdown-color);
-        padding: 10px 20px;
-        font-family: var(--nav-font);
-        font-size: 17px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        white-space: nowrap;
-        transition: 0.3s;
-    }
-
-    .navmenu a i,
-    .navmenu a:focus i {
-        font-size: 12px;
-        line-height: 0;
-        margin-left: 5px;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: 0.3s;
-        background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-    }
-
-    .navmenu a i:hover,
-    .navmenu a:focus i:hover {
-        background-color: var(--accent-color);
-        color: var(--contrast-color);
-    }
-
-    .navmenu a:hover,
-    .navmenu .active,
-    .navmenu .active:focus {
-        color: var(--nav-dropdown-hover-color);
-    }
-
-    .navmenu .active i,
-    .navmenu .active:focus i {
-        background-color: var(--accent-color);
-        color: var(--contrast-color);
-        transform: rotate(180deg);
-    }
-
-    .navmenu .dropdown ul {
-        position: static;
-        display: none;
-        z-index: 99;
-        padding: 10px 0;
-        margin: 10px 20px;
-        background-color: var(--nav-dropdown-background-color);
-        transition: all 0.5s ease-in-out;
-    }
-
-    .navmenu .dropdown ul ul {
-        background-color: rgba(33, 37, 41, 0.1);
-    }
-
-    .navmenu .dropdown > .dropdown-active {
-        display: block;
-        background-color: rgba(33, 37, 41, 0.03);
-    }
-
-    .mobile-nav-active {
-        overflow: hidden;
-    }
-
-    .mobile-nav-active .mobile-nav-toggle {
-        color: #fff;
-        position: absolute;
-        font-size: 32px;
-        top: 15px;
-        right: 15px;
-        margin-right: 0;
-        z-index: 9999;
-    }
-
-    .mobile-nav-active .navmenu {
-        position: fixed;
-        overflow: hidden;
-        inset: 0;
-        background: rgba(33, 37, 41, 0.8);
-        transition: 0.3s;
-    }
-
-    .mobile-nav-active .navmenu > ul {
-        display: block;
-    }
+  .mobile-nav-toggle {
+    color: var(--nav-color);
+    font-size: 28px;
+    line-height: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
 }
 
-/*--------------------------------------------------------------
-# Global Footer
---------------------------------------------------------------*/
-.footer {
-    color: var(--default-color);
-    background-color: var(--background-color);
-    font-size: 14px;
-    padding: 40px 0;
-    position: relative;
+@media (max-width: 1199px) {
+  .navmenu {
+    padding: 0;
+    z-index: 9997;
+  }
 }
 
-.footer .copyright p {
-    margin-bottom: 0;
+@media (max-width: 1199px) {
+  .navmenu ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    inset: 60px 20px 20px 20px;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 6px;
+    background-color: var(--nav-mobile-background-color);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    box-shadow: none;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
 }
 
-.footer .social-links {
-    margin-top: 10px;
-}
-
-.footer .social-links a {
+@media (max-width: 1199px) {
+  .navmenu a, .navmenu a:focus {
+    color: var(--nav-dropdown-color);
+    padding: 10px 20px;
+    font-family: var(--nav-font);
+    font-size: 17px;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 40%;
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
-    font-size: 16px;
-    color: color-mix(in srgb, var(--default-color), transparent 50%);
-    margin: 0 5px;
+    justify-content: space-between;
+    white-space: nowrap;
     transition: 0.3s;
-}
-
-.footer .social-links a:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-}
-
-.footer .credits {
-    margin-top: 10px;
-    font-size: 13px;
-    text-align: center;
-}
-
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    overflow: hidden;
-    background: var(--background-color);
-    transition: all 0.6s ease-out;
-}
-
-#preloader:before {
-    content: "";
-    position: fixed;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    border: 6px solid #ffffff;
-    border-color: var(--accent-color) transparent var(--accent-color) transparent;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: animate-preloader 1.5s linear infinite;
-}
-
-@keyframes animate-preloader {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-    [data-aos-delay] {
-        transition-delay: 0 !important;
-    }
-}
-
-/*--------------------------------------------------------------
-# Global Page Titles & Breadcrumbs
---------------------------------------------------------------*/
-.page-title {
-    color: var(--default-color);
-    background-color: var(--background-color);
-    position: relative;
-}
-
-.page-title .heading {
-    padding: 80px 0;
-    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-}
-
-.page-title .heading h1 {
-    font-size: 38px;
-    font-weight: 700;
-}
-
-.page-title nav {
-    background-color: color-mix(in srgb, var(--default-color), transparent 95%);
-    padding: 20px 0;
-}
-
-.page-title nav ol {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.page-title nav ol li + li {
-    padding-left: 10px;
-}
-
-.page-title nav ol li + li::before {
-    content: "/";
-    display: inline-block;
-    padding-right: 10px;
-    color: color-mix(in srgb, var(--default-color), transparent 70%);
-}
-
-/*--------------------------------------------------------------
-# Global Sections
---------------------------------------------------------------*/
-section,
-.section {
-    color: var(--default-color);
-    background-color: var(--background-color);
-    padding: 60px 0;
-    scroll-margin-top: 90px;
-    overflow: clip;
-    position: relative;
+  }
 }
 
 @media (max-width: 1199px) {
-
-    section,
-    .section {
-        scroll-margin-top: 66px;
-    }
+  .navmenu a:hover, .navmenu .active, .navmenu .active:focus {
+    color: var(--nav-dropdown-hover-color);
+  }
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
+# Global Footer
+-------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
+# Preloader
+-------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+-------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
+# Global Page Titles & Breadcrumbs
+-------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
+# Global Sections
+-------------------------------------------------------------- */
+
+section, .section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 90px;
+  overflow: clip;
+  position: relative;
+}
+
+@media (max-width: 1199px) {
+  section, .section {
+    scroll-margin-top: 66px;
+  }
+}
+
+/* --------------------------------------------------------------
 # Global Section Titles
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
+
 .section-title {
-    text-align: center;
-    padding-bottom: 60px;
-    position: relative;
+  text-align: center;
+  padding-bottom: 60px;
+  position: relative;
 }
 
 .section-title h2 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 15px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 
 .section-title p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Hero Section
---------------------------------------------------------------*/
-.hero {
-    width: 100%;
-    position: relative;
-    padding: 80px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+-------------------------------------------------------------- */
 
-.hero h2 {
-    margin: 0;
-    font-size: 48px;
-    font-weight: 700;
+.hero {
+  width: 100%;
+  position: relative;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero p {
-    margin: 10px 0 0 0;
-    font-size: 24px;
-    color: var(--heading-color);
+  font-size: 24px;
+  color: var(--heading-color);
+  margin: 10px 0 0 0;
 }
 
 @media (max-width: 768px) {
-    .hero h2 {
-        font-size: 32px;
-    }
-
-    .hero p {
-        font-size: 18px;
-    }
-}
-
-.hero .hero-newsletter {
-    margin-top: 25px;
-}
-
-.hero .hero-newsletter p {
+  .hero p {
     font-size: 18px;
-    margin: 0 0 15px 0;
-}
-
-.hero .hero-newsletter .newsletter-form {
-    margin-bottom: 15px;
-    padding: 6px 8px;
-    position: relative;
-    background-color: var(--surface-color);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 80%);
-    box-shadow: 0px 0 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    transition: 0.3s;
-    border-radius: 4px;
-}
-
-.hero .hero-newsletter .newsletter-form:focus-within {
-    border-color: var(--accent-color);
-}
-
-.hero .hero-newsletter .newsletter-form input[type=email] {
-    border: 0;
-    padding: 4px;
-    width: 100%;
-    background-color: transparent;
-    color: var(--default-color);
-}
-
-.hero .hero-newsletter .newsletter-form input[type=email]:focus-visible {
-    outline: none;
+  }
 }
 
 :root {
-    --accent-color: #164710; /* Зелене основне тло */
-    --contrast-color: white; /* Білий текст на кнопці */
-}
-
-.hero .hero-newsletter .newsletter-form input[type=email]:focus-visible {
-    outline: none;
-}
-
-.hero .hero-newsletter .newsletter-form input[type=submit] {
-    border: 0;
-    font-size: 16px;
-    padding: 0 20px;
-    margin: -7px -9px -7px 0;
-    background: var(--accent-color);
-    color: var(--contrast-color);
-    transition: 0.3s;
-    border-radius: 0 4px 4px 0;
-}
-
-.hero .hero-newsletter .newsletter-form input[type=submit]:hover {
-    background: color-mix(in srgb, var(--accent-color), transparent 10%);
-}
-
-.hero .hero-newsletter .newsletter-form input[type=submit]:hover {
-    background: color-mix(in srgb, var(--accent-color), transparent 10%);
+  --accent-color: #164710;
+  --contrast-color: white;
 }
 
 .hero .social-links {
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero .social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    color: color-mix(in srgb, var(--default-color), transparent 50%);
-    margin-right: 10px;
-    transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  margin-right: 10px;
+  transition: 0.3s;
 }
 
 .hero .social-links a:hover {
-    color: var(--default-color);
+  color: var(--default-color);
 }
 
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # About Section
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
+
 .about ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .about ul li {
-    padding-bottom: 5px;
-    display: flex;
-    align-items: center;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .about ul i {
-    font-size: 20px;
-    padding-right: 4px;
-    color: var(--accent-color);
+  font-size: 20px;
+  padding-right: 4px;
+  color: #df1529;
 }
 
-.about .read-more {
-    background: var(--accent-color);
-    color: var(--contrast-color);
-    font-family: var(--heading-font);
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 1px;
-    padding: 10px 28px;
-    border-radius: 5px;
-    transition: 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.about .read-more i {
-    font-size: 18px;
-    margin-left: 5px;
-    line-height: 0;
-    transition: 0.3s;
-}
-
-.about .read-more:hover {
-    background: color-mix(in srgb, var(--accent-color), transparent 20%);
-}
-
-.about .read-more:hover i {
-    transform: translate(5px, 0);
-}
-
-/*--------------------------------------------------------------
+/* --------------------------------------------------------------
 # Contact Section
---------------------------------------------------------------*/
+-------------------------------------------------------------- */
+
 .contact .info-item {
-    background: color-mix(in srgb, var(--default-color), transparent 96%);
-    padding: 30px;
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  padding: 20px;
+  border-radius: 10%;
 }
 
 .contact .info-item i {
-    font-size: 38px;
-    line-height: 0;
-    color: var(--accent-color);
-}
-
-.contact .info-item h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 20px 0 10px 0;
+  line-height: 0;
+  color: antiquewhite;
 }
 
 .contact .info-item p {
-    padding: 0;
-    line-height: 24px;
-    font-size: 14px;
-    margin-bottom: 0;
+  padding: 0;
+  line-height: 24px;
+  margin-bottom: 0;
 }
 
 .contact .php-email-form {
-    background: color-mix(in srgb, var(--default-color), transparent 96%);
-    padding: 30px;
-    height: 100%;
+  background: color-mix(in srgb, var(--default-color), transparent 96%);
+  height: 100%;
+  padding: 15px;
+  font-family: "Century Gothic";
+  border-style: none;
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=tel], /* Замінили email на tel */
-.contact .php-email-form textarea {
-    font-size: 14px;
-    padding: 10px 15px;
-    box-shadow: none;
-    border-radius: 0;
-    color: var(--default-color);
-    background-color: var(--surface-color);
-    border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+.contact .php-email-form input[type=text], .contact .php-email-form input[type=tel], .contact .php-email-form textarea {
+  font-size: 14px;
+  padding: 10px 15px;
+  box-shadow: none;
+  border-radius: 0;
+  color: var(--default-color);
+  background-color: var(--surface-color);
+  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=tel]:focus, /* Замінили email на tel */
-.contact .php-email-form textarea:focus {
-    border-color: var(--accent-color);
-}
-
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=tel]::placeholder, /* Замінили email на tel */
-.contact .php-email-form textarea::placeholder {
-    color: color-mix(in srgb, var(--default-color), transparent 70%);
+.contact .php-email-form input[type=text]:focus, .contact .php-email-form input[type=tel]:focus, .contact .php-email-form textarea:focus {
+  border-color: var(--accent-color);
 }
 
 .contact .php-email-form button[type=submit] {
-    background: var(--accent-color);
-    color: var(--contrast-color);
-    border: 0;
-    padding: 10px 30px;
-    transition: 0.4s;
-    border-radius: 4px;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border: 0;
+  padding: 10px 30px;
+  transition: 0.4s;
+  border-radius: 4px;
 }
 
 .contact .php-email-form button[type=submit]:hover {
-    background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-
-/*Call-button*/
+/* Call-button */
 
 .call-button {
-    position: fixed;
-    bottom: 15px; /* Відстань від низу */
-    right: 15px; /* Відстань від правого краю */
-    background-color: rgba(76, 175, 80, 0.5);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 100px; /* Кругла кнопка */
-    text-align: center;
-    font-size: 16px;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    z-index: 9999; /* Щоб кнопка була поверх інших елементів */
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background-color: rgba(76, 175, 80, 0.5);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
 .call-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /* Загальні стилі для розділу послуг */
+
 .services {
-    padding: 60px 0;
-    background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+  padding: 60px 0;
+  background-color: color-mix(in srgb, var(--default-color), transparent 96%);
 }
 
 .section-title {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .section-title h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ffffff;
-
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .section-title p {
-    font-size: 16px;
-    color: #ffffff;
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .service-item {
-    background-color: rgba(52, 72, 60, 0.3);
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
-    text-align: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-    height: 180px; /* фіксована висота для всіх карток */
+  background-color: rgba(52, 72, 60, 0.3);
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  text-align: center;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  height: 180px;
 }
 
-
 .service-item h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 .service-item ul {
-    list-style: none;
-    padding: 0;
-    weight: 80px;
-    color: #ffffff;
+  list-style: none;
+  padding: 0;
+  weight: 80px;
+  color: #ffffff;
 }
 
 .service-item ul li {
-    font-size: 16px;
-    margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .service-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    border-radius: 50%; /* Круглі кнопки */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  border-radius: 50%;
 }
 
 /* Для мобільних */
+
 @media (max-width: 767px) {
-    .service-item {
-        padding: 20px;
-    }
-
-    .section-title h2 {
-        font-size: 28px;
-    }
-
-    .service-item h3 {
-        font-size: 20px;
-    }
-
-    .service-item ul li {
-        font-size: 14px;
-    }
+  .service-item {
+    padding: 20px;
+  }
 }
 
-/* Акція для Власників*/
+@media (max-width: 767px) {
+  .section-title h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .service-item h3 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .service-item ul li {
+    font-size: 14px;
+  }
+}
+
+/* Акція для Власників */
+
 .promotion-section {
-    display: flex;
-    gap: 20px;
-    background-color: color-mix(in srgb, var(--default-color), transparent 100%);
-    max-width: 1290px;
-    margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  background-color: color-mix(in srgb, var(--default-color), transparent 100%);
+  max-width: 1000px;
+  margin: 0 auto;
 }
-
 
 /* Ліва колонка (заголовки) */
-.promotion-sidebar {
-    flex: 1;
-    max-width: 250px;
-    align-items: stretch; /* Розтягує дочірні елементи */
 
+.promotion-sidebar {
+  flex: 1;
+  max-width: 250px;
+  font-family: 'Tinos', sans-serif;
 }
 
 .service-title {
-    cursor: pointer;
-    padding: 10px;
-    border-bottom: 4px solid transparent;
-    transition: 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 4px solid transparent;
+  transition: 0.3s ease-in-out;
+  font-family: 'Tinos', sans-serif;
 }
 
 .service-title:hover {
-    border-bottom: 4px solid #007bff; /* Додаємо нижній */
+  border-bottom: 4px solid rgb(210, 105, 30);
 }
 
 /* Блок карток (контент праворуч) */
+
 .promotion-details {
-    flex: 2;
-    min-height: 325px;
-    max-width: 80%;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
+  flex: 2;
+  min-height: 325px;
+  max-width: 80%;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Century Gothic', sans-serif;
 }
 
 /* Контейнер для карток */
+
 .service-cards {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Окрема картка */
+
 .service-card {
-    position: absolute;
-    width: 100%;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: left;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  position: absolute;
+  width: 100%;
+  border-radius: 8px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  font-size: 1.2rem;
+  font-family: 'Tinos', sans-serif;
 }
 
 /* Активна картка */
+
 .service-card.active {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media screen and (max-width: 768px) {
-    .promotion-section {
-        flex-direction: column; /* Переносить лілу колонку над картками */
-        align-items: flex-end;
-        margin: 0 auto;
-        width: 100%;
-    }
-
-    /* Ліва колонка */
-    .promotion-sidebar {
-        width: 100%; /* Забираємо обмеження на ширину */
-        order: 0; /* Переносимо ліву колонку в верх */
-        padding: 10px; /* Додаємо паддінг */
-        text-align: right;
-    }
-
-    /* Заголовки як випадаюче меню */
-    .service-title {
-        display: block;
-        background-color: color-mix(in srgb, var(--default-color));
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    /* Контейнер для карток */
-    .promotion-details {
-        max-width: 100%;
-        width: 100%;
-        min-height: 300px;
-        padding: 20px;
-    }
-
-    .service-cards {
-        width: 100%;
-        min-height: 300px;
-        height: auto;
-    }
-    .service-card {
-        max-height: 0; /* Початково приховані */
-        opacity: 0;
-        overflow: hidden;
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .service-card.active {
-        max-height: 500px; /* Достатньо велике значення, щоб вміст помістився */
-        opacity: 1;
-    }
+  .promotion-section {
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
+/* Ліва колонка */
+
+@media screen and (max-width: 768px) {
+  .promotion-sidebar {
+    width: 100%;
+    order: 0;
+    padding: 10px;
+    text-align: right;
+    color: var(--accent-color);
+    transform: perspective(0px);
+  }
+}
+
+/* Заголовки як випадаюче меню */
+
+@media screen and (max-width: 768px) {
+  .service-title {
+    display: block;
+    background-color: color-mix(in srgb, var(--default-color));
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+
+/* Контейнер для карток */
+
+@media screen and (max-width: 768px) {
+  .promotion-details {
+    max-width: 100%;
+    width: 100%;
+    min-height: 300px;
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .service-cards {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .service-card {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .service-card.active {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
 
 .centered-text {
-    text-align: center;
-    color: yellow; /* Вирівнює текст по центру */
-    font-size: 50px;
+  text-align: center;
+  color: yellow;
+  font-size: 50px;
 }
 
+a {
+  color: blue;
+  text-decoration: none;
+}
 
+a:hover {
+  color: wheat;
+}
+
+a:active {
+  color: red;
+}
+
+a:visited {
+  color: gray;
+}
 

@@ -268,36 +268,29 @@
                        style="margin-top: 8px;padding-top: 22px;font-family: 'Century Gothic';margin-right: -8px;padding-left: 13px;padding-bottom: 0px;padding-right: 14px;margin-left: -1px;">
                         Хочете знайти ідеальну нерухомість або отримати поради щодо продажу? Заповніть форму, і ми
                         швидко зв'яжемося з вами для детальної консультації.</p>
-                    <form data-aos="fade-right" data-aos-delay="350" action="#" method="post" class="php-email-form"
-                          style="margin-left: 2px;margin-top: 45px;padding-top: 1px;padding-bottom: 114px;margin-bottom: -73px;padding-left: 27px;padding-right: 27px;">
-                        <div class="row gy-4"
-                             style="border-radius: 20px;margin-top: -2px;margin-left: -25px;margin-right: -11px;padding-right: 15px;">
-                            <div class="col-md-6"><input class="form-control form-control form-control" type="text"
-                                                         name="name" placeholder="Імʼя" required=""
-                                                         style="font-family: 'Century Gothic';"></div>
-                            <div class="col-md-6"><input class="form-control form-control form-control" type="tel"
-                                                         name="phone" placeholder="Телефон" required=""
-                                                         pattern="^\+?\d{10,15}$"
-                                                         title="Введіть коректний номер телефону"
-                                                         style="font-family: 'Century Gothic';"></div>
-                            <div class="col-12"><input class="form-control form-control form-control" type="text"
-                                                       name="subject" placeholder="Тема звернення" required=""
-                                                       style="font-family: 'Century Gothic';"></div>
-                            <div class="col-12"><textarea class="form-control form-control form-control" name="message"
-                                                          rows="6" placeholder="Повідомлення" required=""
-                                                          style="margin-bottom: 38px;padding-bottom: 25px;font-family: 'Century Gothic';"></textarea>
+                    <form action="{% url 'consultation' %}" method="post" class="php-email-form">
+                        {% csrf_token %}
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" name="name" placeholder="Імʼя" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="tel" name="phone" placeholder="Телефон" required>
+                            </div>
+                            <div class="col-12">
+                                <input class="form-control" type="text" name="subject" placeholder="Тема звернення"
+                                       required>
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control" name="message" rows="6" placeholder="Повідомлення"
+                                          required></textarea>
                             </div>
                             <div class="col-12 text-center">
-                                <div class="loading"><span>Loading</span></div>
-                                <div class="error-message"></div>
-                                <div class="sent-message"><span>Ваше повідомлення направлено на розгляд</span></div>
-                                <button type="submit"
-                                        style="font-family: &quot;Century Gothic&quot;;border-color: var(--contrast-color);background: #69837e;border-radius: 14px;">
-                                    Відправити повідомлення
-                                </button>
+                                <button type="submit">Відправити повідомлення</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

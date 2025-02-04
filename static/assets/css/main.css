@@ -98,20 +98,35 @@ body {
 }
 
 /* !* Контейнер для відео *! */
+
 /* .video-container { */
+
 /* position: fixed; */
+
 /* top: 0; */
+
 /* left: 0; */
+
 /* width: 100%; */
+
 /* height: 100%; */
+
 /* overflow: hidden; */
+
 /* z-index: -1; !* Відправляємо відео на задній план *! */
+
 /* } */
+
 /* !* Відео займає всю область *! */
+
 /* .video-container video { */
+
 /* width: 100%; */
+
 /* height: 100%; */
+
 /* object-fit: cover; !* Заповнює екран без спотворення *! */
+
 /* } */
 
 /* !* Темне затемнення (необов’язково) *! */
@@ -825,7 +840,7 @@ section, .section {
 }
 
 a {
-  color: blue;
+  color: rgba(223, 142, 68, 0.36);
   text-decoration: none;
 }
 
@@ -834,10 +849,51 @@ a:hover {
 }
 
 a:active {
-  color: red;
+  color: rgba(34, 34, 34, 0.8);
 }
 
 a:visited {
   color: gray;
+}
+
+@media (max-width: 768px) {
+  .people-img {
+    width: 173px;
+    margin-right: 228px;
+    position: absolute;
+    margin-top: 149px;
+    z-index: 9999;
+  }
+}
+
+.oberit-zagolovok {
+  color: var(--background-color);
+  font-size: 14px;
+  background: rgba(223, 142, 68, 0.36);
+  border-radius: 16px;
+  margin-top: 6px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-top: 9px;
+  margin-left: 37px;
+  padding-right: 113px;
+  margin-right: 1058px;
+}
+
+@media (max-width: 768px) {
+  .oberit-zagolovok {
+    padding-right: 0px;
+    padding-top: 15px;
+    padding-left: 10px;
+    margin-left: 20px;
+    padding-bottom: 16px;
+    margin-right: 151px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .people-img {
+    display: none;
+  }
 }
 

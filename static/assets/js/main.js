@@ -116,7 +116,32 @@
             });
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".php-email-form");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Запобігає стандартній відправці форми
 
+            const formData = new FormData(form);
+
+            fetch("/consultation/", { // Заміни на твій URL для обробки форми
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);  // Для перевірки
+                    if (data.status === "ok") {
+                        $('#modal-1').modal('show');  // Використовуємо правильний ID
+                    } else {
+                        alert("Помилка при відправці форми. Спробуйте ще раз.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Сталася помилка. Спробуйте ще раз.");
+                });
+        });
+    });
 
 
 })();

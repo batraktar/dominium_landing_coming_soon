@@ -57,7 +57,7 @@
 @media (min-width: 800px) {
   .logo-img {
     height: 73px;
-    color: rgb(3, 3, 215);
+    color: rgb(3,3,215);
     margin-left: 28px;
   }
 }
@@ -85,16 +85,19 @@
 
 .content {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
   color: var(--default-color);
   font-family: var(--default-font);
   background: #133e44;
-  min-height: 100vh;
+  min-height: 100%;
   margin: 0;
   position: relative;
+  padding-bottom: 100px;
 }
 
 /* !* Контейнер для відео *! */
@@ -151,7 +154,7 @@ body {
 
 body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -721,7 +724,7 @@ section, .section {
 }
 
 .service-title:hover {
-  border-bottom: 4px solid rgb(210, 105, 30);
+  border-bottom: 4px solid rgb(210,105,30);
 }
 
 /* Блок карток (контент праворуч) */
@@ -840,7 +843,7 @@ section, .section {
 }
 
 a {
-  color: rgba(223, 142, 68, 0.36);
+  color: rgba(223,142,68,0.36);
   text-decoration: none;
 }
 
@@ -849,7 +852,7 @@ a:hover {
 }
 
 a:active {
-  color: rgba(34, 34, 34, 0.8);
+  color: rgba(34,34,34,0.8);
 }
 
 a:visited {
@@ -869,7 +872,7 @@ a:visited {
 .oberit-zagolovok {
   color: var(--background-color);
   font-size: 14px;
-  background: rgba(223, 142, 68, 0.36);
+  background: rgba(223,142,68,0.36);
   border-radius: 16px;
   margin-top: 6px;
   padding-bottom: 8px;
@@ -891,7 +894,7 @@ a:visited {
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 768px) {
   .people-img {
     display: none;
   }

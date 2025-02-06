@@ -41,7 +41,8 @@ def consultation_view(request):
 
 
 def index(request):
-    return render(request, 'index-1-1.html')
+    return render(request, 'base.html')
 
-# def action_for_owners(request):
-#     return render(request, 'action_for_owners.html')
+
+def custom_404(request, exception):
+    return render(request, "404.html", status=404)

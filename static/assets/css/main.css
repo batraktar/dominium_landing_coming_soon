@@ -93,7 +93,7 @@
 body {
   color: var(--default-color);
   font-family: var(--default-font);
-  background: #133e44;
+  background: #133e44; !important;
   min-height: 100%;
   margin: 0;
   position: relative;

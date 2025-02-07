@@ -843,7 +843,7 @@ section, .section {
 }
 
 a {
-  color: rgba(223,142,68,0.36);
+  color: #df8e44;
   text-decoration: none;
 }
 
@@ -855,9 +855,6 @@ a:active {
   color: rgba(34,34,34,0.8);
 }
 
-a:visited {
-  color: gray;
-}
 
 @media (max-width: 768px) {
   .people-img {

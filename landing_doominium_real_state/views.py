@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 TELEGRAM_TOKEN = "7639849573:AAFfoDuLlhgDj0wuOw6qzEfFHl6pLTnE8ik"
-CHAT_IDS = [396360105]  # Список ID
+CHAT_IDS = [396360105, 7679436754]  # Список ID
 
 
 @csrf_exempt

@@ -41,7 +41,10 @@ def consultation_view(request):
 
 
 def index(request):
-    return render(request, 'base.html')
+    return render(request, 'landing_dominium.html')
+
+def base(request):
+    return render(request, 'start_page.html')
 
 
 def custom_404(request, exception):

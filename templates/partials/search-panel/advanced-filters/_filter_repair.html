@@ -1,0 +1,90 @@
+<!-- Тип ремонту -->
+<div class="relative">
+    <label class="block text-sm font-medium text-gray-700 mb-2"
+    >Тип ремонту</label
+    >
+    <div class="relative">
+        <div id="repair-type-dropdown" class="relative">
+            <button
+                    id="repair-type-btn"
+                    class="w-full pr-8 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex justify-between items-center"
+            >
+                      <span id="repair-type-selected" class="px-2"
+                      >Будь-який</span
+                      >
+                <div
+                        class="w-4 h-4 flex items-center justify-center text-gray-500"
+                >
+                    <i class="ri-arrow-down-s-line"></i>
+                </div>
+            </button>
+            <div
+                    id="repair-type-options"
+                    class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg hidden"
+            >
+                <div class="p-2">
+                    <div class="mb-2">
+                        <label
+                                class="flex items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
+                        >
+                            <div class="custom-checkbox">
+                                <input
+                                        type="checkbox"
+                                        value="no-repair"
+                                        class="repair-type-option"
+                                />
+                                <span class="checkmark"></span>
+                            </div>
+                            <span>Без ремонту</span>
+                        </label>
+                    </div>
+                    <div class="mb-2">
+                        <label
+                                class="flex items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
+                        >
+                            <div class="custom-checkbox">
+                                <input
+                                        type="checkbox"
+                                        value="cosmetic"
+                                        class="repair-type-option"
+                                />
+                                <span class="checkmark"></span>
+                            </div>
+                            <span>Косметичний</span>
+                        </label>
+                    </div>
+                    <div class="mb-2">
+                        <label
+                                class="flex items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
+                        >
+                            <div class="custom-checkbox">
+                                <input
+                                        type="checkbox"
+                                        value="euro"
+                                        class="repair-type-option"
+                                />
+                                <span class="checkmark"></span>
+                            </div>
+                            <span>Євроремонт</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label
+                                class="flex items-center cursor-pointer p-2 hover:bg-gray-50 rounded"
+                        >
+                            <div class="custom-checkbox">
+                                <input
+                                        type="checkbox"
+                                        value="designer"
+                                        class="repair-type-option"
+                                />
+                                <span class="checkmark"></span>
+                            </div>
+                            <span>Дизайнерський</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 12px;
+    border-radius: 50px;
+    flex-grow: 1;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease-in-out;
+    width: 100%;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-button, .filter-button {
+    border: none;
+    padding: 12px 20px;
+    margin-left: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.search-button {
+    background: #163d28;
+    color: white;
+}
+
+.search-button:hover {
+    background: #112b1e;
+    transform: scale(1.05);
+}
+
+.search-icon {
+    margin-right: 10px;
+    color: #163d28;
+}
+
+@media (min-width: 1024px) {
+    .search-container {
+        max-width: 900px;
+        margin: 0 auto;
+        border-radius: 15px;
+    }
+
+    .search-input {
+        font-size: 18px;
+        padding: 14px;
+    }
+
+    .search-button, .filter-button {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        padding: 8px;
+        border-radius: 15px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .search-button, .filter-button {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        padding: 10px;
+        margin: 5px 0;
+    }
+
+    .filter-dropdown {
+        width: 100%;
+        left: 0;
+        top: 50px;
+    }
+
+    .filter-dropdown.active {
+        position: static;
+        transform: none;
+    }
+
+    .custom-dropdown select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .custom-dropdown::after {
+        right: 5px;
+    }
+}

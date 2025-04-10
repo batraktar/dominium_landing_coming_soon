@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Modern Luxury Villa | Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/e charts/5.5.0/echarts.min.js"></script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .thumbnail-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+        }
+
+        .thumbnail-img:hover {
+            opacity: 1;
+        }
+
+        #modalImage {
+            max-height: 80vh;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-button {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.75rem;
+            border-radius: 9999px;
+            transition: background 0.2s ease;
+        }
+
+        .gallery-button:hover {
+            background: white;
+        }
+
+        @media (max-width: 640px) {
+            .thumbnail-img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .gallery-button {
+                padding: 0.5rem;
+            }
+
+            .gallery-button i {
+                font-size: 1.25rem;
+            }
+        }
+
+        .mobile-map {
+            height: 240px !important;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white min-h-screen">
+<nav class="bg-white shadow-sm fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-['Pacifico']">logo</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-700 hover:text-primary">Buy</a>
+                <a href="#" class="text-gray-700 hover:text-primary">Rent</a>
+                <a href="#" class="text-gray-700 hover:text-primary">Sell</a>
+                <a href="#" class="text-gray-700 hover:text-primary">About</a>
+                <button class="bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90">Sign In</button>
+            </div>
+            <button class="md:hidden flex items-center" onclick="toggleMobileMenu()">
+                <i class="ri-menu-line text-2xl text-gray-700"></i>
+            </button>
+        </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+        <div class="px-4 py-2 space-y-2">
+            <a href="#" class="block py-2 text-gray-700 hover:text-primary">Buy</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-primary">Rent</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-primary">Sell</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-primary">About</a>
+            <button class="w-full mt-2 bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90">Sign In
+            </button>
+        </div>
+    </div>
+</nav>
+<main class="pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="flex mb-8 overflow-x-auto custom-scrollbar" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3 whitespace-nowrap">
+                <li><a href="#" class="text-gray-500 hover:text-primary">Home</a></li>
+                <li><i class="ri-arrow-right-s-line text-gray-400"></i></li>
+                <li><a href="#" class="text-gray-500 hover:text-primary">California</a></li>
+                <li><i class="ri-arrow-right-s-line text-gray-400"></i></li>
+                <li><a href="#" class="text-gray-500 hover:text-primary">Beverly Hills</a></li>
+                <li><i class="ri-arrow-right-s-line text-gray-400"></i></li>
+                <li class="text-gray-700">1234 Sunset Boulevard</li>
+            </ol>
+        </nav>
+        <div id="desktopGallery" class="hidden md:grid grid-cols-[2fr,1fr] gap-2 h-[600px] mb-8"></div>
+
+        <div class="md:hidden relative h-[400px] mb-8 rounded-lg overflow-hidden group mobile-gallery">
+            <div class="relative w-full h-full" id="gallery">
+                <img src="https://cdn.riastatic.com/photos/dom/photo/31534/3153400/315340002/315340002xl.webp"
+                     class="w-full h-full object-cover cursor-pointer" alt="Property Main Image"
+                     onclick="openGallery(0)">
+                <button onclick="prevImage()"
+                        class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white/90 p-2 sm:p-3 rounded-full hover:bg-white gallery-button">
+                    <i class="ri-arrow-left-s-line text-gray-700 text-xl"></i>
+                </button>
+                <button onclick="nextImage()"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white/90 p-2 sm:p-3 rounded-full hover:bg-white gallery-button">
+                    <i class="ri-arrow-right-s-line text-gray-700 text-xl"></i>
+                </button>
+                <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <div class="w-2 h-2 rounded-full bg-white/90"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/50"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/50"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/50"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/50"></div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-4 sm:px-6 sm:py-6">
+                <h1 class="text-xl sm:text-3xl font-bold text-white mb-2">Modern Luxury Villa</h1>
+                <p class="text-xs sm:text-lg text-white leading-tight">1234 Sunset Boulevard, Beverly Hills, CA
+                    90210</p>
+            </div>
+
+            <div class="absolute top-3 right-3 flex space-x-2">
+                <button class="bg-white/90 p-2 sm:p-3 rounded-full hover:bg-white cursor-pointer gallery-button">
+                    <i class="ri-heart-line text-gray-700"></i>
+                </button>
+                <button class="bg-white/90 p-2 sm:p-3 rounded-full hover:bg-white cursor-pointer gallery-button">
+                    <i class="ri-share-line text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        <div id="galleryModal"
+             class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-4 overflow-auto">
+            <div class="relative w-full h-full flex items-center justify-center">
+                <div class="relative w-full max-w-6xl mx-4">
+                    <div class="relative aspect-[16/9]">
+                        <img id="modalImage" src="" class="w-full h-full object-contain" alt="Gallery Image">
+                    </div>
+                    <button onclick="prevModalImage()"
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 p-3 rounded-full hover:bg-white">
+                        <i class="ri-arrow-left-s-line text-gray-700"></i>
+                    </button>
+                    <button onclick="nextModalImage()"
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 p-3 rounded-full hover:bg-white">
+                        <i class="ri-arrow-right-s-line text-gray-700"></i>
+                    </button>
+                    <button onclick="closeGallery()"
+                            class="absolute top-4 right-4 bg-white/90 p-3 rounded-full hover:bg-white">
+                        <i class="ri-close-line text-gray-700"></i>
+                    </button>
+                </div>
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                    <div class="flex space-x-4 overflow-x-auto p-2">
+                        <div class="flex space-x-2">
+                            <img src="https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-lutsk-tsentr-obed-popek__295067042xl.jpg"
+                                 class="w-20 h-20 object-cover rounded cursor-pointer opacity-50 hover:opacity-100"
+                                 onclick="showModalImage(0)" alt="Thumbnail 1">
+                            <img src="https://cdn.riastatic.com/photosnew/dom/photo/dolgosrochnaya-arenda-komnata-kiev-shulyavka-beresteyskiy-pobedy-prospekt__314072519xl.jpg"
+                                 class="w-20 h-20 object-cover rounded cursor-pointer opacity-50 hover:opacity-100"
+                                 onclick="showModalImage(1)" alt="Thumbnail 2">
+                            <img src="https://cdn.riastatic.com/photos/dom/photo/31534/3153400/315340002/315340002xl.webp"
+                                 class="w-20 h-20 object-cover rounded cursor-pointer opacity-50 hover:opacity-100"
+                                 onclick="showModalImage(2)" alt="Thumbnail 3">
+                            <img src="https://readdy.ai/api/search-image?query=luxury modern villa master bedroom, floor-to-ceiling windows, designer bed, seating area, walk-in closet, en-suite bathroom, professional real estate photography&width=1200&height=600&seq=4&orientation=landscape"
+                                 class="w-20 h-20 object-cover rounded cursor-pointer opacity-50 hover:opacity-100"
+                                 onclick="showModalImage(3)" alt="Thumbnail 4">
+                            <img src="https://readdy.ai/api/search-image?query=luxury modern villa backyard with infinity pool, outdoor kitchen, lounge area, landscaping, night lighting, professional real estate photography&width=1200&height=600&seq=5&orientation=landscape"
+                                 class="w-20 h-20 object-cover rounded cursor-pointer opacity-50 hover:opacity-100"
+                                 onclick="showModalImage(4)" alt="Thumbnail 5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const images = [
+                "https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-lutsk-tsentr-obed-popek__295067042xl.jpg",
+                "https://cdn.riastatic.com/photosnew/dom/photo/dolgosrochnaya-arenda-komnata-kiev-shulyavka-beresteyskiy-pobedy-prospekt__314072519xl.jpg",
+                "https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-harkov-alekseevka-pobedy-prospekt__314785984xl.jpg",
+                "https://cdn.riastatic.com/photos/dom/photo/31534/3153400/315340002/315340002xl.webp",
+                "https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-harkov-alekseevka-pobedy-prospekt__297564228xl.jpg"
+            ];
+
+            let currentIndex = 0;
+            let modalCurrentIndex = 0;
+
+            function updateMainImage() {
+                document.querySelector('#gallery img').src = images[currentIndex];
+                updateDots();
+            }
+
+            function updateModalImage() {
+                document.getElementById('modalImage').src = images[modalCurrentIndex];
+                updateThumbnails();
+            }
+
+            function updateDots() {
+                const dots = document.querySelectorAll('#gallery .absolute.bottom-4 div');
+                dots.forEach((dot, index) => {
+                    dot.className = `w-2 h-2 rounded-full ${index === currentIndex ? 'bg-white/90' : 'bg-white/50'}`;
+                });
+            }
+
+            function updateThumbnails() {
+                const thumbnails = document.querySelectorAll('.thumbnail-img');
+                thumbnails.forEach((thumb, index) => {
+                    thumb.style.opacity = index === modalCurrentIndex ? '1' : '0.5';
+                });
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateMainImage();
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateMainImage();
+            }
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            const gallery = document.getElementById('gallery');
+            gallery.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+
+            gallery.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 40) {
+                    nextImage();
+                } else if (touchEndX > touchStartX + 40) {
+                    prevImage();
+                }
+            }
+
+            function prevModalImage() {
+                modalCurrentIndex = (modalCurrentIndex - 1 + images.length) % images.length;
+                updateModalImage();
+            }
+
+            function nextModalImage() {
+                modalCurrentIndex = (modalCurrentIndex + 1) % images.length;
+                updateModalImage();
+            }
+
+            function openGallery(index) {
+                currentIndex = index; // якщо хочеш синхронізувати основну галерею з модалкою
+                modalCurrentIndex = index;
+                updateModalImage();
+                document.getElementById('galleryModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGallery() {
+                document.getElementById('galleryModal').classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            function showModalImage(index) {
+                modalCurrentIndex = index;
+                updateModalImage();
+            }
+
+            let modalTouchStartX = 0;
+            let modalTouchEndX = 0;
+
+            const modal = document.getElementById('galleryModal');
+            modal.addEventListener('touchstart', (e) => {
+                modalTouchStartX = e.changedTouches[0].screenX;
+            }, false);
+
+            modal.addEventListener('touchend', (e) => {
+                modalTouchEndX = e.changedTouches[0].screenX;
+                handleModalSwipe();
+            }, false);
+
+            function handleModalSwipe() {
+                if (modalTouchEndX < modalTouchStartX - 40) {
+                    nextModalImage();
+                } else if (modalTouchEndX > modalTouchStartX + 40) {
+                    prevModalImage();
+                }
+            }
+
+
+            document.addEventListener('keydown', function (event) {
+                if (document.getElementById('galleryModal').classList.contains('hidden')) return;
+                if (event.key === 'Escape') closeGallery();
+                if (event.key === 'ArrowLeft') prevModalImage();
+                if (event.key === 'ArrowRight') nextModalImage();
+            });
+
+            // Автоматичне створення thumbnail-ів (опціонально)
+            window.addEventListener('DOMContentLoaded', () => {
+                const container = document.querySelector('#galleryModal .flex.space-x-2');
+                container.innerHTML = '';
+                images.forEach((src, index) => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = `Thumbnail ${index + 1}`;
+                    img.className = 'thumbnail-img';
+                    img.onclick = () => showModalImage(index);
+                    container.appendChild(img);
+                });
+                updateThumbnails();
+            });
+        </script>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+            <div class="lg:col-span-2">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mb-4 sm:mb-8">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-0">$12,500,000</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center">
+                                <i class="ri-hotel-bed-line text-gray-500 mr-2"></i>
+                                <span class="text-gray-700">6 beds</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="ri-shower-line text-gray-500 mr-2"></i>
+                                <span class="text-gray-700">7.5 baths</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="ri-ruler-line text-gray-500 mr-2"></i>
+                                <span class="text-gray-700">8,500 sqft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 py-6">
+                        <h3 class="text-xl font-semibold mb-4">Description</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Experience the epitome of luxury living in this stunning modern villa. Nestled in the
+                            prestigious Beverly Hills, this architectural masterpiece offers the perfect blend of
+                            sophistication and comfort. The property features expansive living spaces with
+                            floor-to-ceiling windows that flood the interior with natural light and provide breathtaking
+                            views of the surrounding landscape.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200 py-6">
+                        <h3 class="text-xl font-semibold mb-4">Features & Amenities</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">Swimming Pool</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">Wine Cellar</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">Home Theater</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">Smart Home</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">Spa</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="ri-checkbox-circle-line text-primary"></i>
+                                <span class="text-gray-600">3-Car Garage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mb-4 sm:mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Location</h3>
+                    <div class="h-[250px] sm:h-[300px] md:h-[400px] rounded-lg overflow-hidden relative mobile-map">
+                        <div id="map" class="w-full h-full"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-sm sticky top-24">
+                    <div class="flex items-center space-x-4 mb-4 sm:mb-6">
+                        <img src="https://public.readdy.ai/ai/img_res/d7da5d2a670a20bee78d6b3ba98fdf7c.jpg"
+                             class="w-16 h-16 rounded-full object-cover" alt="Agent Photo">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Sarah Anderson</h4>
+                            <p class="text-gray-500">Luxury Property Specialist</p>
+                        </div>
+                    </div>
+                    <form class="space-y-4" id="contactForm">
+                        <div>
+                            <input type="text" placeholder="Your Name"
+                                   class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email"
+                                   class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Your Phone"
+                                   class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <textarea placeholder="Message" rows="4"
+                                      class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary"></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full bg-primary text-white py-3 !rounded-button hover:bg-primary/90">Contact
+                            Agent
+                        </button>
+                    </form>
+                    <div class="flex space-x-4 mt-6">
+                        <button class="flex-1 flex items-center justify-center space-x-2 border border-gray-200 py-2 !rounded-button hover:bg-gray-50">
+                            <i class="ri-phone-line"></i>
+                            <span>Call</span>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center space-x-2 border border-gray-200 py-2 !rounded-button hover:bg-gray-50">
+                            <i class="ri-message-2-line"></i>
+                            <span>Message</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+        <div class="text-center">
+            <i class="ri-checkbox-circle-line text-primary text-4xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Message Sent Successfully!</h3>
+            <p class="text-gray-600 mb-6">We'll get back to you as soon as possible.</p>
+            <button onclick="closeModal()" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('successModal').classList.remove('hidden');
+    });
+
+    function closeModal() {
+        document.getElementById('successModal').classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+    }
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth >= 768) {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+    });
+</script>
+<script>
+    const lat = 34.090009;
+    const lon = -118.406853;
+
+    const map = L.map('map').setView([lat, lon], 15);
+
+    // Шар — стандартна карта OpenStreetMap
+    const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Шар — супутникова карта від Esri
+    const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri'
+    });
+
+    // Маркер
+    const marker = L.marker([lat, lon]).addTo(map)
+        .bindPopup('<b>Modern Luxury Villa</b><br>1234 Sunset Boulevard')
+        .openPopup();
+
+    // Контроль перемикання шарів
+    const baseMaps = {
+        "Map": street,
+        "Satellite": satellite
+    };
+
+    L.control.layers(baseMaps).addTo(map);
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('desktopGallery');
+        if (!container) return;
+
+        const mainImage = images[0] || '';
+        const sideImages = images.slice(1, 3); // 2 додаткові
+
+        container.innerHTML = `
+        <div class="relative h-full rounded-lg overflow-hidden">
+            <img src="${mainImage}" class="w-full h-full object-cover cursor-pointer" onclick="openGallery(0)">
+        </div>
+        <div class="grid grid-rows-2 gap-2 h-full">
+            ${sideImages.map((src, i) => `
+                <div class="relative rounded-lg overflow-hidden">
+                    <img src="${src}" class="w-full h-full object-cover cursor-pointer" onclick="openGallery(${i + 1})">
+                </div>
+            `).join('')}
+        </div>
+    `;
+    });
+
+</script>
+
+</body>
+</html>

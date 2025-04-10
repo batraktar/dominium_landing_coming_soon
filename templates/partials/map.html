@@ -1,0 +1,80 @@
+<div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mb-4 sm:mb-8">
+    <h3 class="text-xl font-semibold mb-4">Location</h3>
+    <div class="h-[250px] sm:h-[300px] md:h-[400px] rounded-lg overflow-hidden relative mobile-map">
+        <div id="map" class="w-full h-full z-0"></div>
+        <div id="map-controls"
+             class="absolute top-2 right-2 z-10 bg-white rounded shadow px-2 py-1 text-sm sm:text-base">
+            <label class="mr-2">
+                <input type="radio" name="basemap" value="map" checked> Map
+            </label>
+            <label>
+                <input type="radio" name="basemap" value="satellite"> Satellite
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const lat = parseFloat('{{ property.latitude|default:0|stringformat:"f" }}'.replace(',', '.'));
+        const lon = parseFloat('{{ property.longitude|default:0|stringformat:"f" }}'.replace(',', '.'));
+
+        if (lat && lon) {
+            const map = L.map('map').setView([lat, lon], 15);
+
+            const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            });
+
+            const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri'
+            });
+
+            street.addTo(map);
+
+            const marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup("<b>{{ property.title }}</b><br>{{ property.address }}")
+                .openPopup();
+
+            setTimeout(() => map.invalidateSize(), 500);
+
+            // Обробка перемикання карти
+            const radios = document.querySelectorAll('#map-controls input[name="basemap"]');
+            radios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.value === 'map') {
+                        map.removeLayer(satellite);
+                        map.addLayer(street);
+                    } else {
+                        map.removeLayer(street);
+                        map.addLayer(satellite);
+                    }
+                });
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Мобільна адаптація перемикача */
+    #map-controls {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    @media (min-width: 640px) {
+        #map-controls {
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+    }
+
+    #map-controls input {
+        transform: scale(1.1);
+        margin-right: 4px;
+    }
+</style>

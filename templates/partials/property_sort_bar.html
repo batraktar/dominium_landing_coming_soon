@@ -1,0 +1,115 @@
+<!-- Панель сортування та перегляду -->
+<div class="bg-white border-t border-b border-gray-200 py-3">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-3 md:mb-0">
+                <div class="flex items-center mr-4">
+                    <button
+                            class="w-8 h-8 flex items-center justify-center text-primary bg-blue-50 rounded-l border border-gray-300"
+                    >
+                        <i class="ri-layout-grid-line ri-lg"></i>
+                    </button>
+                    <!--                        <a-->
+                    <!--                                href="https://readdy.ai/home/b56b4e8b-1258-49e8-a97b-124d64090b08/56ed2f1a-55c9-4ccb-a2b2-78e2aa1117a4"-->
+                    <!--                                data-readdy="true"-->
+                    <!--                                class="w-8 h-8 flex items-center justify-center text-gray-500 bg-white rounded-r border border-l-0 border-gray-300"-->
+                    <!--                        >-->
+                    <i class="ri-list-check-2 ri-lg"></i>
+                    </a>
+                </div>
+                <span class="text-gray-700">Знайдено 12 об'єктів</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm text-gray-700 mr-2">Сортувати:</span>
+                <div class="relative">
+                    <div id="sort-dropdown" class="relative">
+                        <button
+                                id="sort-btn"
+                                class="pr-8 py-1 pl-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex items-center"
+                        >
+                            <span id="sort-selected">За ціною (від дешевих)</span>
+                            <div
+                                    class="w-4 h-4 flex items-center justify-center text-gray-500 ml-2"
+                            >
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </button>
+                        <div
+                                id="sort-options"
+                                class="absolute z-20 mt-1 w-64 right-0 bg-white border border-gray-300 rounded shadow-lg hidden"
+                        >
+                            <div class="py-1">
+                                <button
+                                        class="sort-option w-full text-left px-4 py-2 hover:bg-gray-50 focus:outline-none"
+                                        data-value="price_asc"
+                                >
+                                    <div class="flex items-center">
+                                        <div
+                                                class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                                        >
+                                            <i class="ri-check-line sort-check"></i>
+                                        </div>
+                                        За ціною (від дешевих)
+                                    </div>
+                                </button>
+                                <button
+                                        class="sort-option w-full text-left px-4 py-2 hover:bg-gray-50 focus:outline-none"
+                                        data-value="price_desc"
+                                >
+                                    <div class="flex items-center">
+                                        <div
+                                                class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                                        >
+                                            <i class="ri-check-line sort-check hidden"></i>
+                                        </div>
+                                        За ціною (від дорогих)
+                                    </div>
+                                </button>
+                                <button
+                                        class="sort-option w-full text-left px-4 py-2 hover:bg-gray-50 focus:outline-none"
+                                        data-value="date"
+                                >
+                                    <div class="flex items-center">
+                                        <div
+                                                class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                                        >
+                                            <i class="ri-check-line sort-check hidden"></i>
+                                        </div>
+                                        За датою додавання
+                                    </div>
+                                </button>
+                                <button
+                                        class="sort-option w-full text-left px-4 py-2 hover:bg-gray-50 focus:outline-none"
+                                        data-value="area_asc"
+                                >
+                                    <div class="flex items-center">
+                                        <div
+                                                class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                                        >
+                                            <i class="ri-check-line sort-check hidden"></i>
+                                        </div>
+                                        За площею (від менших)
+                                    </div>
+                                </button>
+                                <button
+                                        class="sort-option w-full text-left px-4 py-2 hover:bg-gray-50 focus:outline-none"
+                                        data-value="area_desc"
+                                >
+                                    <div class="flex items-center">
+                                        <div
+                                                class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                                        >
+                                            <i class="ri-check-line sort-check hidden"></i>
+                                        </div>
+                                        За площею (від більших)
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

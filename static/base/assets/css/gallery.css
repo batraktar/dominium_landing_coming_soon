@@ -1,0 +1,84 @@
+/* gallery.css */
+
+:where([class^="ri-"])::before {
+    content: "\f3c2";
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.thumbnail-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.thumbnail-img:hover {
+    opacity: 1;
+}
+
+/* Розширює зображення у модальному вікні */
+#modalImage {
+    max-height: 220vh; /* Було 80vh */
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+
+.gallery-button {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.75rem;
+    border-radius: 9999px;
+    transition: background 0.2s ease;
+}
+
+.gallery-button:hover {
+    background: white;
+}
+
+@media (max-width: 640px) {
+    .thumbnail-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .gallery-button {
+        padding: 0.5rem;
+    }
+
+    .gallery-button i {
+        font-size: 1.25rem;
+    }
+}
+
+.mobile-map {
+    height: 240px !important;
+}
+
+

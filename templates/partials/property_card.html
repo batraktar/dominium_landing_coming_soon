@@ -1,0 +1,78 @@
+<div class="bg-white rounded shadow-md overflow-hidden hover:shadow-lg transition-shadow h-[380px] flex flex-col">
+    <!-- Зображення -->
+    <div class="relative h-48">
+        {% if property.main_image %}
+        <img src="{{ property.main_image.image.url }}"
+             alt="{{ property.title }}"
+             class="w-full h-full object-cover object-top">
+        {% else %}
+        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+            Без фото
+        </div>
+        {% endif %}
+        <button
+                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full"
+        >
+            <i class="ri-heart-line text-gray-700"></i>
+        </button>
+    </div>
+
+    <!-- Контент -->
+    <div class="p-4 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-start mb-2 relative group">
+                <h3 class="text-xl font-bold text-gray-900">{{ property.price }} грн</h3>
+
+                <!-- Tooltip валют -->
+                <div
+                        class="currency-tooltip opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute -top-12 left-0 bg-white shadow-lg rounded p-2 transition-all duration-200 z-10 text-sm"
+                >
+                    <div class="flex flex-col">
+                        <span class="whitespace-nowrap">${{ property.price_usd }} USD</span>
+                        <span class="whitespace-nowrap">€ {{ property.price_eur }} EUR</span>
+                    </div>
+                    <div class="absolute -bottom-2 left-4 w-4 h-4 bg-white transform rotate-45"></div>
+                </div>
+
+                <span class="px-2 py-1 bg-blue-100 text-primary text-xs rounded-full">
+                    {{ property.type }}
+                </span>
+            </div>
+
+            <div class="flex flex-wrap gap-4 mb-3">
+                <div class="flex items-center">
+                    <div class="w-4 h-4 flex items-center justify-center text-gray-500 mr-1">
+                        <i class="ri-ruler-2-line"></i>
+                    </div>
+                    <span class="text-sm text-gray-700">{{ property.area }} м²</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 flex items-center justify-center text-gray-500 mr-1">
+                        <i class="ri-door-open-line"></i>
+                    </div>
+                    <span class="text-sm text-gray-700">{{ property.rooms }} кімнати</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 flex items-center justify-center text-gray-500 mr-1">
+                        <i class="ri-building-line"></i>
+                    </div>
+                    <span class="text-sm text-gray-700">{{ property.floor }} поверх</span>
+                </div>
+            </div>
+
+            <div class="flex items-start mb-4">
+                <div class="w-4 h-4 flex items-center justify-center text-gray-500 mr-1 mt-0.5">
+                    <i class="ri-map-pin-line"></i>
+                </div>
+                <span class="text-sm text-gray-700">{{ property.address }}</span>
+            </div>
+        </div>
+
+        <!-- Кнопка -->
+        <a href="{% url 'property_detail' property.pk %}"
+           class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2 !rounded-button whitespace-nowrap mt-auto text-center block">
+            Детальніше
+        </a>
+
+    </div>
+</div>

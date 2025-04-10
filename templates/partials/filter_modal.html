@@ -1,0 +1,193 @@
+<section
+        class="hero bg-cover bg-center py-20"
+        style="background-image: url('https://public.readdy.ai/ai/img_res/392b9cf0338864a880b4c78f5a54d8cb.jpg')"
+>
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                Знайдіть свій ідеальний дім
+            </h1>
+            <p class="text-xl text-white mb-8">
+                Професійний підхід до пошуку нерухомості
+            </p>
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <div class="flex-center">
+                    <button id="filterBtn" class="button button-secondary whitespace-nowrap">
+                        <i class="ri-filter-3-line mr-2"></i>
+                        Фільтри
+                    </button>
+                    <div class="flex-1 mx-4">
+                        <div class="relative">
+                            <i class="ri-search-line input-icon"></i>
+                            <input
+                                    type="text"
+                                    placeholder="Введіть локацію, тип нерухомості або ключове слово..."
+                                    class="input"
+                            />
+                        </div>
+                    </div>
+                    <button class="button button-primary whitespace-nowrap">
+                        <i class="ri-search-line mr-2"></i>
+                        Пошук
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="filterModal" class="modal">
+    <div
+            class="bg-white w-full max-w-2xl mx-auto my-auto rounded-lg shadow-xl p-6"
+    >
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold">Фільтри пошуку</h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                <i class="ri-close-line ri-2x"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Тип нерухомості</label
+                >
+                <div class="relative">
+                    <button
+                            type="button"
+                            class="w-full p-3 border rounded-button bg-gray-50 text-left flex justify-between items-center"
+                            onclick="toggleDropdown('propertyType')"
+                    >
+                        <span id="propertyTypeSelected">Оберіть тип</span>
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+                    <div
+                            id="propertyType"
+                            class="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg hidden"
+                    >
+                        <div class="p-2">
+                            <label
+                                    class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"
+                            >
+                                <input
+                                        type="checkbox"
+                                        class="form-checkbox h-4 w-4 text-accent rounded"
+                                        value="apartments"
+                                />
+                                <span class="ml-2">Квартири</span>
+                            </label>
+                            <label
+                                    class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"
+                            >
+                                <input
+                                        type="checkbox"
+                                        class="form-checkbox h-4 w-4 text-accent rounded"
+                                        value="houses"
+                                />
+                                <span class="ml-2">Будинки</span>
+                            </label>
+                            <label
+                                    class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"
+                            >
+                                <input
+                                        type="checkbox"
+                                        class="form-checkbox h-4 w-4 text-accent rounded"
+                                        value="land"
+                                />
+                                <span class="ml-2">Земля</span>
+                            </label>
+                            <label
+                                    class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"
+                            >
+                                <input
+                                        type="checkbox"
+                                        class="form-checkbox h-4 w-4 text-accent rounded commercial-checkbox"
+                                        value="commercial"
+                                />
+                                <span class="ml-2">Комерційна</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="commercialType" class="mt-4 hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Тип комерційної нерухомості</label
+                    >
+                    <select class="w-full p-3 border rounded-button bg-gray-50">
+                        <option value="">Оберіть тип</option>
+                        <option value="business-center">Бізнес центр</option>
+                        <option value="shopping-center">Торгово-офісний центр</option>
+                        <option value="admin-building">Адмінбудівля</option>
+                        <option value="other">Інше</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Тип угоди</label
+                >
+                <select class="w-full p-3 border rounded-button bg-gray-50">
+                    <option>Оренда</option>
+                    <option>Продаж</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Ціна від</label
+                >
+                <input
+                        type="number"
+                        class="w-full p-3 border rounded-button bg-gray-50"
+                        placeholder="0"
+                />
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Ціна до</label
+                >
+                <input
+                        type="number"
+                        class="w-full p-3 border rounded-button bg-gray-50"
+                        placeholder="1000000"
+                />
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Кількість кімнат</label
+                >
+                <select class="w-full p-3 border rounded-button bg-gray-50">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5+</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Площа від (м²)</label
+                >
+                <input
+                        type="number"
+                        class="w-full p-3 border rounded-button bg-gray-50"
+                        placeholder="0"
+                />
+            </div>
+        </div>
+        <div
+                class="fixed bottom-0 left-0 right-0 bg-white p-4 border-t md:static md:border-0 md:p-0 md:mt-6 md:flex md:justify-end md:space-x-4"
+        >
+            <button
+                    id="resetFilters"
+                    class="w-full md:w-auto px-6 py-3 bg-gray-200 text-gray-700 rounded-button mb-2 md:mb-0"
+            >
+                Скинути
+            </button>
+
+            <button
+                    id="applyFilters"
+                    class="w-full md:w-auto px-6 py-3 bg-primary text-white rounded-button"
+            >
+                Застосувати
+            </button>
+        </div>
+    </div>
+</div>

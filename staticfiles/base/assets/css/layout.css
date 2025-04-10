@@ -1,0 +1,39 @@
+body {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    font-family: var(--default-font);
+}
+
+/* --------------------------------------------------------------
+# Global Header
+-------------------------------------------------------------- */
+
+@media (min-width: 968px) {
+    .header {
+        color: var(--default-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        padding: 0 15px;
+        transition: all ease-in-out 0.3s;
+        overflow-y: auto;
+        z-index: 997;
+        min-width: 200px;
+        align-items: center;
+    }
+}
+
+/* --------------------------------------------------------------
+# Global Sections
+-------------------------------------------------------------- */
+
+section, .section {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 60px 0;
+    overflow: clip;
+    padding-top: 0px;
+    padding-bottom: 84px;
+}

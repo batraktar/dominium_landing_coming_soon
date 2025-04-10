@@ -1,0 +1,30 @@
+@media (min-width: 1024px) {
+    .properties-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .property-card {
+        border-radius: 15px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .property-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .property-image {
+        border-radius: 15px 15px 0 0;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .property-details {
+        padding: 15px;
+        font-size: 16px;
+    }
+}

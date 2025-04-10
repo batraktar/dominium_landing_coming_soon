@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Пошук нерухомості — DOMINIUM{% endblock %}
+
+{% block head %}
+<!--<script>-->
+<!--    tailwind.config = {-->
+<!--        theme: {-->
+<!--            extend: {-->
+<!--                colors: {primary: "#2196F3", secondary: "#FF5722"},-->
+<!--                borderRadius: {-->
+<!--                    none: "0px",-->
+<!--                    sm: "4px",-->
+<!--                    DEFAULT: "8px",-->
+<!--                    md: "12px",-->
+<!--                    lg: "16px",-->
+<!--                    xl: "20px",-->
+<!--                    "2xl": "24px",-->
+<!--                    "3xl": "32px",-->
+<!--                    full: "9999px",-->
+<!--                    button: "8px",-->
+<!--                },-->
+<!--            },-->
+<!--        },-->
+<!--    };-->
+<!--</script>-->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+        rel="stylesheet"
+/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet"
+/>
+<link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="{% static 'base/assets/css/search_filters.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col">
+
+    <!-- Панель фільтрів -->
+    {% include "partials/base-filters.html" %}
+
+    <!-- Сортування і перемикач виду -->
+
+    <!-- Секція з підказкою про конвертацію валют -->
+    {% include "partials/property_sort_bar.html" %}
+    <div class="w-full max-w-[480px] sm:max-w-full mx-auto px-4 py-6">
+
+        {% include "partials/property_list.html" %}
+
+
+        <!-- Сітка карток нерухомості -->
+        <div class="container mx-auto px-4 py-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+                {% for property in properties %}
+                <div class="w-full max-w-[480px] mx-auto">
+                    {% include "partials/property_card.html" %}
+                </div>
+                {% empty %}
+                <p class="col-span-full text-center text-gray-600">Об'єкти не знайдено.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <!-- Пагінація -->
+        {% include "partials/pagination.html" %}
+    </div>
+</div>
+<div id="advanced-filters-modal"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+    <div class="bg-white max-w-4xl w-full mx-4 p-6 rounded-2xl shadow-lg overflow-auto max-h-[90vh] relative">
+        <button id="close-filters-btn"
+                class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition">
+            <i class="ri-close-line text-gray-700 text-xl"></i>
+        </button>
+        <!-- Вміст розширених фільтрів сюди -->
+        {% include "partials/advanced_filters.html" %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'base/assets/js/search_filters.js' %}"></script>
+{% endblock %}

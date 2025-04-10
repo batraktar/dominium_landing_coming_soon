@@ -1,0 +1,162 @@
+.product-list {
+    max-width: 400px;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Робить всі картки рівномірними */
+}
+
+.card-image {
+    width: 100%;
+    height: 200px; /* Фіксована висота для всіх зображень */
+    background: url('https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')
+        no-repeat center center / cover;
+    flex-shrink: 0; /* Запобігає зміні розміру */
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    flex-grow: 1; /* Робить вміст картки адаптивним */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.favorite-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.icon {
+    height: 24px;
+    width: 24px;
+    fill: white;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.property-type {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #4B5563;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 24px;
+    color: #111827;
+    margin: 5px 0;
+}
+
+.address {
+    color: #4B5563;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-top: 1px solid #D1D5DB;
+    background: #F3F4F6;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.detail .icon {
+    margin-right: 8px;
+    fill: #6B7280;
+}
+
+.bold {
+    font-weight: bold;
+    color: #111827;
+}
+
+.realtor {
+    padding: 15px;
+    border-top: 1px solid #D1D5DB;
+    background: #E5E7EB;
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #6B7280;
+    font-weight: bold;
+}
+
+.realtor-info {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.realtor-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: url('https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80') no-repeat center center/cover;
+    margin-right: 10px;
+}
+
+.realtor-name {
+    font-weight: bold;
+    color: #111827;
+}
+
+.realtor-phone {
+    font-size: 14px;
+    color: #4B5563;
+}
+
+@media (max-width: 768px) {
+    .carousel-item .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    .carousel-item .card {
+        flex: 1 0 90%; /* Одна картка на весь екран */
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+    .carousel-item .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    .carousel-item .card {
+        flex: 1 0 30%; /* Три картки в ряд */
+        max-width: 30%;
+    }
+}
+
+

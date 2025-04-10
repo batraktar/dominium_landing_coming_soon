@@ -1,0 +1,92 @@
+{% load static %}
+<div id="desktopGallery" class="hidden md:grid grid-cols-[2fr,1fr] gap-2 h-[600px] mb-8">
+    {% if property.images.exists %}
+    <div class="relative h-full rounded-lg overflow-hidden">
+        <img src="{{ main_image.image.url }}"
+             class="w-full h-full object-cover cursor-pointer"
+             onclick="openGallery(0)" alt="Main Image">
+    </div>
+    <div class="grid grid-rows-2 gap-2 h-full">
+        {% for image in property.images.all|slice:"1:3" %}
+        <div class="relative rounded-lg overflow-hidden">
+            <img src="{{ image.image.url }}"
+                 class="w-full h-full object-cover cursor-pointer"
+                 onclick="openGallery({{ forloop.counter }})" alt="Gallery Image">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{# Mobile Gallery #}
+<div class="md:hidden relative h-[400px] mb-8 rounded-lg overflow-hidden group mobile-gallery">
+    {% if property.images.exists %}
+    <div class="relative w-full h-full" id="gallery">
+        <img src="{{ main_image.image.url }}"
+             class="w-full h-full object-cover cursor-pointer"
+             onclick="openGallery(0)" alt="Main Image">
+        <button onclick="prevImage()" class="absolute left-3 top-1/2 -translate-y-1/2 gallery-button">
+            <i class="ri-arrow-left-s-line text-gray-700 text-xl"></i>
+        </button>
+        <button onclick="nextImage()" class="absolute right-3 top-1/2 -translate-y-1/2 gallery-button">
+            <i class="ri-arrow-right-s-line text-gray-700 text-xl"></i>
+        </button>
+        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {% for i in property.images.all %}
+            <div class="w-2 h-2 rounded-full {% if forloop.first %}bg-white/90{% else %}bg-white/50{% endif %}"></div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-4 sm:px-6 sm:py-6">
+        <h1 class="text-xl sm:text-3xl font-bold text-white mb-2">{{ property.title }}</h1>
+        <p class="text-xs sm:text-lg text-white leading-tight">{{ property.address }}</p>
+    </div>
+
+    <div class="absolute top-3 right-3 flex space-x-2">
+        <button class="gallery-button"><i class="ri-heart-line text-gray-700"></i></button>
+        <button class="gallery-button"><i class="ri-share-line text-gray-700"></i></button>
+    </div>
+    {% endif %}
+</div>
+
+{# Gallery Modal #}
+<div id="galleryModal"
+     class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-4 overflow-auto">
+    <div class="relative w-full h-full flex items-center justify-center">
+        <div class="relative w-full max-w-6xl mx-4">
+            <div class="relative aspect-[16/9]">
+                <img id="modalImage" src="" class="w-full h-full object-contain" alt="Gallery Image">
+            </div>
+            <button onclick="prevModalImage()" class="absolute left-4 top-1/2 -translate-y-1/2 gallery-button">
+                <i class="ri-arrow-left-s-line text-gray-700"></i>
+            </button>
+            <button onclick="nextModalImage()" class="absolute right-4 top-1/2 -translate-y-1/2 gallery-button">
+                <i class="ri-arrow-right-s-line text-gray-700"></i>
+            </button>
+            <button onclick="closeGallery()" class="absolute top-4 right-4 gallery-button">
+                <i class="ri-close-line text-gray-700"></i>
+            </button>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div class="flex space-x-4 overflow-x-auto p-2">
+                <div class="flex space-x-2">
+                    {% for image in property.images.all %}
+                    <img src="{{ image.image.url }}"
+                         class="thumbnail-img"
+                         onclick="showModalImage({{ forloop.counter0 }})"
+                         alt="Thumbnail {{ forloop.counter }}">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# JS Images array for detail.js #}
+<script>
+    window.propertyImages = {{ property_images_json|safe }};
+</script>
+
+
+<script src="{% static 'base/assets/js/gallery.js' %}"></script>

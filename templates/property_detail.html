@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<link rel="stylesheet" href="{% static 'base/assets/css/style-base.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<main class="pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% include "partials/breadcrumbs.html" %}
+        {% include "partials/gallery.html" %}
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+            <div class="lg:col-span-2">
+                {% include "partials/property_main.html" %}
+                {% include "partials/map.html" %}
+            </div>
+            <div class="lg:col-span-1">
+                {% include "partials/contact_agent.html" %}
+            </div>
+        </div>
+        Чека
+    </div>
+</main>
+{% include 'partials/mobile_nav.html' %}
+
+<div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+        <div class="text-center">
+            <i class="ri-checkbox-circle-line text-primary text-4xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Message Sent Successfully!</h3>
+            <p class="text-gray-600 mb-6">We'll get back to you as soon as possible.</p>
+            <button onclick="closeModal()" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'base/assets/js/filters.js' %}"></script>
+
+{% endblock %}

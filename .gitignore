@@ -1,3 +1,10 @@
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
 /media/property_images/0f79cd18694486aa3231e70c705ac116.jpg
 /media/property_images/0f79cd18694486aa3231e70c705ac116_IB5O2Vd.jpg
 /media/property_images/0f79cd18694486aa3231e70c705ac116_QjAO3cu.jpg

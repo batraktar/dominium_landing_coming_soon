@@ -15,30 +15,47 @@ CHAT_IDS = [396360105, 7679436754]  # Список ID
 @csrf_exempt
 def consultation_view(request):
     if request.method == "POST":
-        name = request.POST.get("name", "Не вказано")
-        phone = request.POST.get("phone", "Не вказано")
-        subject = request.POST.get("subject", "Не вказано")
-        message = request.POST.get("message", "Не вказано")
+        name = request.POST.get("name", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        email = request.POST.get("email", "").strip()
+        message = request.POST.get("message", "").strip()
+        property_url = request.POST.get("property", "Не вказано").strip()
+
+        errors = []
+
+        if not name:
+            errors.append("Імʼя обовʼязкове.")
+        if not phone:
+            errors.append("Номер телефону обовʼязковий.")
+        if not message:
+            errors.append("Повідомлення обовʼязкове.")
+
+        if email and "@" not in email:
+            errors.append("Некоректна пошта.")
+
+        if errors:
+            return JsonResponse({"status": "error", "errors": errors}, status=400)
 
         text = f"""
 📩 *Нова заявка на консультацію*  
 👤 *Ім'я:* {name}  
 📞 *Телефон:* {phone}  
-📌 *Тема:* {subject}  
+✉️ *Пошта:* {email or "Немає"}  
 📝 *Повідомлення:* {message}  
+🔗 *Посилання на об'єкт:* {property_url}
         """
 
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        errors = []
+        send_errors = []
 
         for chat_id in CHAT_IDS:
             payload = {"chat_id": chat_id, "text": text, "parse_mode": "Markdown"}
             response = requests.post(url, json=payload)
             if response.status_code != 200:
-                errors.append({"chat_id": chat_id, "error": response.text})
+                send_errors.append({"chat_id": chat_id, "error": response.text})
 
-        if errors:
-            return JsonResponse({"status": "error", "details": errors}, status=500)
+        if send_errors:
+            return JsonResponse({"status": "error", "details": send_errors}, status=500)
 
         return JsonResponse({"status": "ok"}, status=200)
 

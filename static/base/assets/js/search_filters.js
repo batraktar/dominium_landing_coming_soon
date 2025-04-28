@@ -195,17 +195,17 @@ const closeBtn = document.getElementById("close-filters-btn");
 
 if (modal && openBtn && closeBtn) {
   openBtn.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+    modal.classList.add("show"); // дає display: flex
     setTimeout(() => {
-      modal.classList.add("opacity-100", "scale-100");
-      modal.classList.remove("opacity-0", "scale-95");
-    }, 10);
+      modal.classList.add("visible"); // дає opacity + scale
+    }, 10); // щоб дати браузеру час застосувати display
   });
 
   closeBtn.addEventListener("click", () => {
-    modal.classList.remove("opacity-100", "scale-100");
-    modal.classList.add("opacity-0", "scale-95");
-    setTimeout(() => modal.classList.add("hidden"), 300);
+    modal.classList.remove("visible"); // починається анімація зникнення
+    setTimeout(() => {
+      modal.classList.remove("show"); // ховаємо після завершення
+    }, 300); // дорівнює transition-duration
   });
 }
 

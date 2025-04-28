@@ -81,4 +81,67 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 240px !important;
 }
 
+.gallery-section {
+    width: 100%;
+    margin-bottom: 2rem;
+}
 
+.content-section {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+/* По дефолту показуємо desktop галерею */
+#desktopGallery {
+    display: block;
+}
+
+/* При ширині до 1023px ховаємо desktopGallery */
+@media (max-width: 1023px) {
+    #desktopGallery {
+        display: none;
+    }
+}
+
+#galleryModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#modalImage {
+    width: 100%;
+    height: auto;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Адаптація для телефонів */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    #modalImage {
+        max-height: 70vh;
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Прибрати пропорції 16/9 */
+    .aspect-ratio-fix {
+        aspect-ratio: unset;
+    }
+}

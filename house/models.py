@@ -26,6 +26,7 @@ class Feature(models.Model):
 
 class Property(models.Model):
     title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, max_length=4569)
     address = models.CharField(max_length=255)
     latitude = models.FloatField()
     longitude = models.FloatField()

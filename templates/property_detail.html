@@ -4,7 +4,6 @@
 {% block head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <link rel="stylesheet" href="{% static 'base/assets/css/style-base.css' %}">
@@ -14,22 +13,34 @@
 {% block content %}
 
 <main class="pt-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {% include "partials/breadcrumbs.html" %}
-        {% include "partials/gallery.html" %}
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
-            <div class="lg:col-span-2">
-                {% include "partials/property_main.html" %}
-                {% include "partials/map.html" %}
-            </div>
-            <div class="lg:col-span-1">
-                {% include "partials/contact_agent.html" %}
+    <!-- Галерея (повноширинна секція) -->
+    <section class="gallery-section mb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% include "partials/breadcrumbs.html" %}
+            {% include "partials/gallery.html" %}
+        </div>
+    </section>
+
+    <!-- Контент (Опис + Агент) -->
+    <section class="content-section py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    {% include "partials/property_main.html" %}
+                    {% include "partials/map.html" %}
+                </div>
+                <div class="lg:col-span-1">
+                    {% include "partials/contact_agent.html" %}
+                </div>
             </div>
         </div>
-        Чека
-    </div>
+    </section>
+
 </main>
+
+
+
 {% include 'partials/mobile_nav.html' %}
 
 <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

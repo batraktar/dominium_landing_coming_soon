@@ -35,9 +35,9 @@
 
     <div class="border-t border-gray-200 py-6">
         <h3 class="text-xl font-semibold mb-4">Опис</h3>
-        <p class="text-gray-600 leading-relaxed">
-            {{ property.description }}
-        </p>
+        <div class="property-description text-gray-600 leading-relaxed">
+            {{ property.description|safe }}
+        </div>
     </div>
 
     {% if property.features.exists %}

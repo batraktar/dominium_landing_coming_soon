@@ -1,4 +1,3 @@
-// 🔹 Конфігурація фільтрів
 const filterConfig = {
     apartments: ["Поверх", "Поверховість", "Ремонт", "Опалення", "Меблі", "Без комісії"],
     houses: ["Площа ділянки", "Поверховість", "Опалення", "Меблі"],
@@ -7,23 +6,27 @@ const filterConfig = {
 };
 
 // 🔹 Модальне вікно фільтрів
-const filterBtn = document.getElementById("filterBtn");
+const filterBtn = document.getElementById("filter-btn");
 const filterModal = document.getElementById("filterModal");
-const closeModal = document.getElementById("closeModal");
+const closeModal = document.getElementById("close-filter-modal");
 
 filterBtn?.addEventListener("click", () => {
-    filterModal.classList.add("active");
+    filterModal.classList.remove("hidden");
+    filterModal.classList.add("flex");
 });
 
 closeModal?.addEventListener("click", () => {
-    filterModal.classList.remove("active");
+    filterModal.classList.add("hidden");
+    filterModal.classList.remove("flex");
 });
 
 filterModal?.addEventListener("click", (e) => {
     if (e.target === filterModal) {
-        filterModal.classList.remove("active");
+        filterModal.classList.add("hidden");
+        filterModal.classList.remove("flex");
     }
 });
+
 
 // 🔹 Випадаючий список "Тип нерухомості"
 function toggleDropdown(id) {
@@ -137,15 +140,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// 🔹 Відправка форми “Зв’язок з нами”
-const contactForm = document.querySelector("form");
-contactForm?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const notification = document.createElement("div");
-    notification.className =
-        "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg";
-    notification.textContent = "Повідомлення успішно надіслано!";
-    document.body.appendChild(notification);
-    e.target.reset();
-    setTimeout(() => notification.remove(), 3000);
-});

@@ -1,3 +1,4 @@
+import sys
 from os.path import basename
 from urllib.request import urlopen
 
@@ -8,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Property, PropertyType, DealType, PropertyImage
 from .utils.html_parser import parse_property_from_html
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 
 @csrf_exempt
@@ -41,6 +44,11 @@ def import_property_by_url(request):
                 property_type=property_type_obj,
                 deal_type=deal_type_obj,
             )
+
+            # Перший save — зберігає для появи ID (потрібен у slug)
+            prop.save()
+
+            # Другий save — запускає логіку генерації slug
             prop.save()
 
             for i, img_url in enumerate(data["gallery"]):

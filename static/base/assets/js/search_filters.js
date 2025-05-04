@@ -1,4 +1,68 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const sortBtn = document.getElementById("sort-btn");
+    const sortOptions = document.getElementById("sort-options");
+
+    if (sortBtn && sortOptions) {
+        sortBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            sortOptions.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!sortOptions.contains(e.target)) {
+                sortOptions.classList.add("hidden");
+            }
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const typeBtn = document.getElementById("property-type-btn");
+    const typeOptions = document.getElementById("property-type-options");
+    const typeSelected = document.getElementById("property-type-selected");
+    const checkboxes = document.querySelectorAll(".property-type-option");
+
+    if (typeBtn && typeOptions && typeSelected) {
+        typeBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            typeOptions.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!typeOptions.contains(e.target) && !typeBtn.contains(e.target)) {
+                typeOptions.classList.add("hidden");
+            }
+        });
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", function () {
+                const selected = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.parentElement.nextElementSibling.textContent.trim());
+
+                if (selected.length === 0) {
+                    typeSelected.textContent = "Всі типи";
+                } else if (selected.length === 1) {
+                    typeSelected.textContent = selected[0];
+                } else {
+                    typeSelected.textContent = `Вибрано ${selected.length}`;
+                }
+            });
+        });
+
+        // Зберегти значення при завантаженні
+        const initiallySelected = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.parentElement.nextElementSibling.textContent.trim());
+
+        if (initiallySelected.length === 1) {
+            typeSelected.textContent = initiallySelected[0];
+        } else if (initiallySelected.length > 1) {
+            typeSelected.textContent = `Вибрано ${initiallySelected.length}`;
+        }
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".ri-heart-line").forEach((icon) => {
         icon.addEventListener("click", function () {
             if (this.classList.contains("ri-heart-line")) {
@@ -189,26 +253,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 // search_filters.js
 
-const modal = document.getElementById("advanced-filters-modal");
+    const modal = document.getElementById("advanced-filters-modal");
 const openBtn = document.getElementById("advanced-filters-btn");
 const closeBtn = document.getElementById("close-filters-btn");
 
-if (modal && openBtn && closeBtn) {
-  openBtn.addEventListener("click", () => {
-    modal.classList.add("show"); // дає display: flex
-    setTimeout(() => {
-      modal.classList.add("visible"); // дає opacity + scale
-    }, 10); // щоб дати браузеру час застосувати display
-  });
+    if (modal && openBtn && closeBtn) {
+        openBtn.addEventListener("click", () => {
+            modal.classList.add("show"); // дає display: flex
+            setTimeout(() => {
+                modal.classList.add("visible"); // дає opacity + scale
+            }, 10); // щоб дати браузеру час застосувати display
+        });
 
-  closeBtn.addEventListener("click", () => {
-    modal.classList.remove("visible"); // починається анімація зникнення
-    setTimeout(() => {
-      modal.classList.remove("show"); // ховаємо після завершення
-    }, 300); // дорівнює transition-duration
-  });
+        closeBtn.addEventListener("click", () => {
+            modal.classList.remove("visible"); // починається анімація зникнення
+            setTimeout(() => {
+                modal.classList.remove("show"); // ховаємо після завершення
+            }, 300); // дорівнює transition-duration
+        });
 }
-
 
 
 // Heating type dropdown

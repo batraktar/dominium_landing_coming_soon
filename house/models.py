@@ -1,19 +1,34 @@
 import json
 import random
+import uuid
 
+from django.urls import reverse
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from geopy.geocoders import Nominatim
+from geopy.geocoders import Nominatim 
 
 
 class PropertyType(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+            # якщо такий slug вже існує — додаємо "-1", "-2" і т.д.
+            original_slug = self.slug
+            counter = 1
+            while PropertyType.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+    
 
-
+    
 class DealType(models.Model):
     name = models.CharField(max_length=50)  # Наприклад: Оренда / Продаж
 
@@ -32,52 +47,58 @@ class Property(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, max_length=4569)
     address = models.CharField(max_length=255)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2)
     area = models.PositiveIntegerField()
     rooms = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    property_type = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, null=True, blank=True)
-    deal_type = models.ForeignKey(DealType, on_delete=models.SET_NULL, null=True, blank=True)
-    features = models.ManyToManyField(Feature, blank=True)
+    property_type = models.ForeignKey('PropertyType', on_delete=models.SET_NULL, null=True, blank=True)
+    deal_type = models.ForeignKey('DealType', on_delete=models.SET_NULL, null=True, blank=True)
+    features = models.ManyToManyField('Feature', blank=True)
 
     slug = models.SlugField(unique=True, blank=True)
 
-    # 1. Semantic-friendly slug optimized for indexing
-    def generate_semantic_slug(self):
-        return slugify(f"{self.city}-{self.street}-{self.rooms}k-{self.id or ''}")
-
-    # 2. Data-driven fallback slug for consistent formatting
-    def generate_data_driven_slug(self):
-        return slugify(f"{self.title}-{self.city}-{int(self.price)}usd")
-
-    # 3. Branded expressive slug for marketing-oriented readability
-    def generate_branded_slug(self):
-        brand_tokens = ["garnet", "onyx", "azov", "bravo", "nova"]
-        word = random.choice(brand_tokens)
-        return slugify(f"dominium-{self.title}-{word}")
+    def get_absolute_url(self):
+        return reverse('property_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
 
+    # Генерація slug, де замість ID використовується хеш (6 символів із UUID)
+    def generate_semantic_slug(self):
+        suffix = uuid.uuid4().hex[:6]
+        return slugify(f"{self.city}-{self.address}-{self.rooms}k-{suffix}")
+
+    def generate_data_driven_slug(self):
+        suffix = uuid.uuid4().hex[:6]
+        return slugify(f"{self.title}-{self.address}-{int(self.price)}usd-{suffix}")
+
+    def generate_branded_slug(self):
+        brand_tokens = [
+            "estate", "capital", "vista", "prime", "terra",
+            "urbis", "noble", "domus", "valley", "atlas"
+        ]
+        word = random.choice(brand_tokens)
+        suffix = uuid.uuid4().hex[:6]
+        return slugify(f"dominium-{self.title}-{word}-{suffix}")
+
     def save(self, *args, **kwargs):
-        creating = self.pk is None
+        creating = self.pk is None  # Чи об'єкт щойно створюється
 
-        # Генерація координат
+        # Автоматична генерація координат
         if self.address and (self.latitude is None or self.longitude is None):
-            geolocator = Nominatim(user_agent="dominium")
-            location = geolocator.geocode(self.address)
-            if location:
-                self.latitude = location.latitude
-                self.longitude = location.longitude
+            try:
+                geolocator = Nominatim(user_agent="dominium")
+                location = geolocator.geocode(self.address)
+                if location:
+                    self.latitude = location.latitude
+                    self.longitude = location.longitude
+            except Exception as e:
+                print("⚠️ Geocode error:", e)
 
-        # Збереження без slug — тільки якщо створюється
-        if creating:
-            super().save(*args, **kwargs)
-
-        # Генеруємо slug, якщо його ще нема
+        # Генеруємо slug, якщо він ще не встановлений
         if not self.slug:
             slug_generators = [
                 self.generate_semantic_slug,
@@ -87,13 +108,15 @@ class Property(models.Model):
             base_slug = random.choice(slug_generators)()
             slug = base_slug
             n = 1
-            while Property.objects.filter(slug=slug).exists():
+            # Перевірка на унікальність slug у базі
+            while Property.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{n}"
                 n += 1
             self.slug = slug
 
-        # Записуємо фінальні зміни (тільки 1 раз, якщо id вже є)
+        # Фінальне збереження
         super().save(*args, **kwargs)
+
 
     @property
     def images_json(self):

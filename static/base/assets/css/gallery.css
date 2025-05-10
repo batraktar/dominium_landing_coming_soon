@@ -44,7 +44,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Розширює зображення у модальному вікні */
 #modalImage {
-    max-height: 220vh; /* Було 80vh */
+    max-height: 220vh;
+    /* Було 80vh */
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -91,10 +92,12 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: 2rem;
 }
 
-/* По дефолту показуємо desktop галерею */
 #desktopGallery {
     display: block;
+    width: 85%;
+    margin: 0 auto 2rem auto;
 }
+
 
 /* При ширині до 1023px ховаємо desktopGallery */
 @media (max-width: 1023px) {
@@ -111,6 +114,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 1rem;
     overflow-y: auto;
 }
+
 
 .modal-content {
     width: 100%;

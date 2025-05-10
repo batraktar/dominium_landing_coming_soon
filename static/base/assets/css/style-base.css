@@ -2,6 +2,42 @@
     content: "\f3c2";
 }
 
+@font-face {
+    font-family: 'Ermilov';
+    src: url('/static/base/assets/fonts/Ermilov/Ermilov-bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FixelText';
+    src: url('/static/base/assets/fonts/FixelText/FixelText-Medium.woff2') format('woff2'),
+        url('/static/base/assets/fonts/FixelText/FixelText-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FixelText';
+    src: url('/static/base/assets/fonts/FixelText/FixelText-Regular.woff2') format('woff2'),
+        url('/static/base/assets/fonts/FixelText/FixelText-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+.font-fixel {
+    font-family: 'FixelText', sans-serif;
+}
+
+.font-ermilov {
+    font-family: 'Ermilov', sans-serif;
+}
+
+
+
 .modal {
     display: none;
     position: fixed;
@@ -59,6 +95,7 @@ textarea:focus-visible {
         opacity: 0;
         transform: translate(-50%, 1rem);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, 0);
@@ -87,13 +124,16 @@ select {
 }
 
 .button-primary {
-    background-color: #123D36; /* color.primary */
+    background-color: #123D36;
+    /* color.primary */
     color: white;
 }
 
 .button-secondary {
-    background-color: #E9DFC7; /* color.secondary */
-    color: #123D36; /* color.primary */
+    background-color: #E9DFC7;
+    /* color.secondary */
+    color: #123D36;
+    /* color.primary */
 }
 
 /* Вхідні поля */
@@ -113,7 +153,8 @@ select {
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #D1D5DB; /* gray-400 */
+    color: #D1D5DB;
+    /* gray-400 */
 }
 
 /* Контейнери та розташування */
@@ -176,10 +217,33 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #modalImage {
-    max-height: 220vh;
-    width: 100%;
+    width: auto;
+    max-width: 90%;
+    max-height: 99vh;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
 }
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    #modalImage {
+        width: 100vw;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+    }
+}
+
+
 
 .gallery-button {
     background: rgba(255, 255, 255, 0.9);
@@ -213,11 +277,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .gallery-section {
     width: 100%;
-    margin-bottom: 2rem; /* відступ після галереї */
+    margin-bottom: 2rem;
+    /* відступ після галереї */
 }
 
 .content-section {
     width: 100%;
 }
-
-

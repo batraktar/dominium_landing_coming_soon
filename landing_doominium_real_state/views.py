@@ -4,14 +4,51 @@ from decimal import Decimal
 import requests
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
 from house.models import Property, PropertyType
+from accounts.models import Favorite
+from datetime import date
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 TELEGRAM_TOKEN = "7639849573:AAFfoDuLlhgDj0wuOw6qzEfFHl6pLTnE8ik"
 CHAT_IDS = [396360105, 7679436754]  # Список ID
 
+@login_required
+def liked_properties_view(request):
+    favorites = Favorite.objects.filter(user=request.user).select_related('property')
+    properties = [fav.property for fav in favorites]
+    return render(request, 'likes.html', {'properties': properties})
+
+@require_POST
+@login_required
+def toggle_like(request, property_id):
+    property = get_object_or_404(Property, id=property_id)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, property=property)
+
+    if not created:
+        favorite.delete()
+        return JsonResponse({'status': 'unliked'})
+    return JsonResponse({'status': 'liked'})
+
+def get_exchange_rates():
+    url = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"
+    response = requests.get(url)
+    data = response.json()
+
+    usd_rate = next((float(item['sale']) for item in data if item['ccy'] == 'USD'), None)
+    eur_rate = next((float(item['sale']) for item in data if item['ccy'] == 'EUR'), None)
+
+    return {
+        'USD': usd_rate,
+        'EUR': eur_rate
+    }
+
+# Приклад використання
+rates = get_exchange_rates()
+print(f"USD: {rates['USD']} грн, EUR: {rates['EUR']} грн")
 
 def search_properties(request):
     sort_option = request.GET.get("sort", "price_asc")
@@ -94,9 +131,10 @@ def consultation_view(request):
     return JsonResponse({"status": "error", "message": "Only POST allowed"}, status=405)
 
 
-def property_detail(request, pk):
-    property = get_object_or_404(Property, pk=pk)
+def property_detail(request, slug):
+    property = get_object_or_404(Property, slug=slug)
     images = property.images.all()
+    property.absolute_url = request.build_absolute_uri(property.get_absolute_url())
     main_image = images.filter(is_main=True).first() or images.first()
     image_urls = [img.image.url for img in images]
     return render(request, 'property_detail.html', {
@@ -147,11 +185,26 @@ class SearchFiltersView(ListView):
             queryset = queryset.filter(price__lte=q["price_max"])
 
         # 🔹 Кімнати
-        if q.get("rooms"):
-            if q["rooms"] == "5+":
-                queryset = queryset.filter(rooms__gte=5)
-            else:
-                queryset = queryset.filter(rooms=q["rooms"])
+        room_values = q.get("rooms", "")
+        if room_values:
+            room_list = [r.strip() for r in room_values.split(",") if r.strip()]
+            exact_rooms = []
+            gte_5 = False
+
+            for r in room_list:
+                if r == "5+":
+                    gte_5 = True
+                elif r.isdigit():
+                    exact_rooms.append(int(r))
+
+            room_filter = Q()
+            if exact_rooms:
+                room_filter |= Q(rooms__in=exact_rooms)
+            if gte_5:
+                room_filter |= Q(rooms__gte=5)
+
+            queryset = queryset.filter(room_filter)
+
 
         # 🔹 Сортування
         sort_option = q.get("sort", "price_asc")
@@ -167,18 +220,25 @@ class SearchFiltersView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        usd_rate = Decimal('40')
-        eur_rate = Decimal('43.5')
+        rates = get_exchange_rates()
+        usd_rate = Decimal(rates.get('USD') or 40)
+        eur_rate = Decimal(rates.get('EUR') or 43.5)
 
         for prop in context['properties']:
             prop.price_usd = round(prop.price / usd_rate)
             prop.price_eur = round(prop.price / eur_rate)
 
+        context["room_options"] = ["", "1", "2", "3", "4", "5+"]
         context['found_count'] = context['properties'].count()
         context['sort_option'] = self.request.GET.get("sort", "price_asc")
         context['property_types'] = PropertyType.objects.all()
+        context['usd_rate'] = usd_rate
+        context['eur_rate'] = eur_rate
+        context['today_date'] = date.today().strftime('%d.%m.%Y')
+
+
 
         return context
 
-def landing(request):
-    return render(request, 'landing_dominium.html')
+def signup(request):
+    return render(request, 'partials/auth/sign-up.html')

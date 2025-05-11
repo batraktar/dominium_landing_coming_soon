@@ -1,94 +1,126 @@
 {% load static %}
 {% if property.images.exists %}
-<div id="desktopGallery" class="hidden md:block w-full mb-8">
-    <div class="grid grid-cols-3 gap-2">
-        <div class="col-span-2 relative rounded-lg overflow-hidden aspect-[4/3]">
-            <img src="{{ main_image.image.url }}"
-                 class="w-full h-full object-cover cursor-pointer"
-                 onclick="openGallery(0)" alt="Main Image">
-        </div>
-        <div class="flex flex-col gap-2">
-            {% for image in property.images.all|slice:"1:3" %}
-            <div class="relative rounded-lg overflow-hidden flex-1 aspect-[4/3]">
-                <img src="{{ image.image.url }}"
-                     class="w-full h-full object-cover cursor-pointer"
-                     onclick="openGallery({{ forloop.counter }})" alt="Gallery Image">
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-{% endif %}
+  <div id="desktopGallery" class="hidden overflow-hidden md:block mx-auto mb-8">
+    <div class="absolute top-3 right-3 flex gap-2 z-10">
+      <!-- Лайк -->
+      <button class="like-button w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full" data-property-id="{{ property.id }}">
+        <i class="{% if user.is_authenticated and property in user.favorites.all %}
+               
+                    ri-heart-fill text-red-500
 
+          {% else %}
+            
+                    ri-heart-line text-gray-700
+
+          {% endif %}">
+
+        </i>
+      </button>
+
+      <!-- Поділитись -->
+      <button onclick="navigator.clipboard.writeText('{{ property.get_absolute_url }}'); alert('Посилання скопійовано!')" class="w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full hover:bg-opacity-100 transition"><i class="ri-share-forward-line text-gray-700"></i></button>
+    </div>
+    <div class="grid grid-cols-3 gap-2">
+      <div class="col-span-2 relative rounded-lg overflow-hidden aspect-[4/3]">
+        <img src="{{ main_image.image.url }}" loading="lazy" class="w-full h-full object-cover cursor-pointer" onclick="openGallery(0)" alt="Main Image" />
+      </div>
+      <div class="flex flex-col gap-2">
+        {% for image in property.images.all|slice:'1:3' %}
+          <div class="relative rounded-lg overflow-hidden flex-1 aspect-[4/3]">
+            <img src="{{ image.image.url }}" class="w-full h-full object-cover cursor-pointer" onclick="openGallery({{ forloop.counter }})" alt="Gallery Image" />
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
 
 {# Mobile Gallery #}
 <div class="md:hidden relative h-[400px] mb-8 rounded-lg overflow-hidden group mobile-gallery">
-    {% if property.images.exists %}
+  {% if property.images.exists %}
     <div class="relative w-full h-full" id="gallery">
-        <img src="{{ main_image.image.url }}"
-             class="w-full h-full object-cover cursor-pointer"
-             onclick="openGallery(0)" alt="Main Image">
-        <button onclick="prevImage()" class="absolute left-3 top-1/2 -translate-y-1/2 gallery-button">
-            <i class="ri-arrow-left-s-line text-gray-700 text-xl"></i>
-        </button>
-        <button onclick="nextImage()" class="absolute right-3 top-1/2 -translate-y-1/2 gallery-button">
-            <i class="ri-arrow-right-s-line text-gray-700 text-xl"></i>
-        </button>
-        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {% for i in property.images.all %}
-            <div class="w-2 h-2 rounded-full {% if forloop.first %}bg-white/90{% else %}bg-white/50{% endif %}"></div>
-            {% endfor %}
-        </div>
+      <img src="{{ main_image.image.url }}" class="w-full h-full object-cover cursor-pointer" onclick="openGallery()" alt="Main Image" />
+      <button onclick="prevImage()" class="btn-prev absolute left-3 top-1/2 -translate-y-1/2 gallery-button"><i class="ri-arrow-left-s-line text-gray-700 text-xl"></i></button>
+      <button onclick="nextImage()" class="btn-next absolute right-3 top-1/2 -translate-y-1/2 gallery-button"><i class="ri-arrow-right-s-line text-gray-700 text-xl"></i></button>
+      <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {% for i in property.images.all %}
+          <div class="w-2 h-2 rounded-full {% if forloop.first %}
+              
+              
+              
+              bg-white/90
+
+
+
+            {% else %}
+              
+              
+              
+              bg-white/50
+
+
+
+            {% endif %}"></div>
+        {% endfor %}
+      </div>
     </div>
 
-    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-4 sm:px-6 sm:py-6">
-        <h1 class="text-xl sm:text-3xl font-bold text-white mb-2">{{ property.title }}</h1>
-        <p class="text-xs sm:text-lg text-white leading-tight">{{ property.address }}</p>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent px-4 py-4 sm:px-6 sm:py-6">
+      <h1 class="text-xl sm:text-3xl font-bold text-white mb-2">{{ property.title }}</h1>
+      <p class="text-xs sm:text-lg text-white leading-tight">{{ property.address }}</p>
     </div>
 
-    <div class="absolute top-3 right-3 flex space-x-2">
-        <button class="gallery-button"><i class="ri-heart-line text-gray-700"></i></button>
-        <button class="gallery-button"><i class="ri-share-line text-gray-700"></i></button>
+    <div class="absolute top-3 right-3 flex space-x-2 z-10">
+      <!-- Лайк -->
+      <button class="gallery-button like-button w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full" data-property-id="{{ property.id }}">
+        <i class="{% if user.is_authenticated and property in user.favorites.all %}
+            
+            
+            
+                    ri-heart-fill text-red-500
+
+
+
+          {% else %}
+            
+            
+            
+                    ri-heart-line text-gray-700
+
+
+
+          {% endif %}">
+
+        </i>
+      </button>
+
+      <!-- Поділитись -->
+      <button onclick="navigator.clipboard.writeText('{{ property.get_absolute_url }}'); alert('Посилання скопійовано!')" class="gallery-button w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full"><i class="ri-share-line text-gray-700"></i></button>
     </div>
-    {% endif %}
+  {% endif %}
 </div>
 
 {# Gallery Modal #}
-<div id="galleryModal"
-     class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-4 overflow-auto">
-    <div class="relative w-full modal-content mx-4">
-        <div class="relative aspect-ratio-fix">
-            <img id="modalImage" src="" class="w-full h-auto object-contain" alt="Gallery Image">
-        </div>
-        <button onclick="prevModalImage()" class="absolute left-4 top-1/2 -translate-y-1/2 gallery-button">
-            <i class="ri-arrow-left-s-line text-gray-700"></i>
-        </button>
-        <button onclick="nextModalImage()" class="absolute right-4 top-1/2 -translate-y-1/2 gallery-button">
-            <i class="ri-arrow-right-s-line text-gray-700"></i>
-        </button>
-        <button onclick="closeGallery()" class="absolute top-4 right-4 gallery-button">
-            <i class="ri-close-line text-gray-700"></i>
-        </button>
+<div id="galleryModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-0 overflow-auto">
+  <div class="modal-content w-full h-full m-0 p-0 flex items-center justify-center">
+    <img id="modalImage" src="" class="w-full h-auto object-contain" alt="Gallery Image" />
+    <button onclick="prevModalImage()" class="btn-prev absolute left-4 top-1/2 -translate-y-1/2 gallery-button"><i class="ri-arrow-left-s-line text-gray-700"></i></button>
+    <button onclick="nextModalImage()" class="btn-next absolute right-4 top-1/2 -translate-y-1/2 gallery-button"><i class="ri-arrow-right-s-line text-gray-700"></i></button>
+    <button onclick="closeGallery()" class="absolute top-4 right-4 gallery-button"><i class="ri-close-line text-gray-700"></i></button>
+  </div>
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+    <div class="flex space-x-4 overflow-x-auto p-2">
+      <div class="flex space-x-2">
+        {% for image in property.images.all %}
+          <img src="{{ image.image.url }}" class="thumbnail-img" onclick="showModalImage({{ forloop.counter0 }})" alt="Thumbnail {{ forloop.counter }}" />
+        {% endfor %}
+      </div>
     </div>
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div class="flex space-x-4 overflow-x-auto p-2">
-            <div class="flex space-x-2">
-                {% for image in property.images.all %}
-                <img src="{{ image.image.url }}"
-                     class="thumbnail-img"
-                     onclick="showModalImage({{ forloop.counter0 }})"
-                     alt="Thumbnail {{ forloop.counter }}">
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
+  </div>
 </div>
 
 {# JS Images array for detail.js #}
 <script>
     window.propertyImages = {{ property_images_json|safe }};
 </script>
-
-
 <script src="{% static 'base/assets/js/gallery.js' %}"></script>

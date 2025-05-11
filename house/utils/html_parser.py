@@ -48,16 +48,30 @@ def parse_property_from_html(html_path):
     price_text = soup.select_one(".pdf-header-contacts strong")
     price = int(price_text.text.strip().replace(" ", "").replace("$", "")) if price_text else 0
 
-    detail = soup.select_one(".pdf-detail")
-    rooms, area = 0, 0
-    if detail:
-        spans = detail.find_all("span")
-        for span in spans:
-            if "кімнат" in span.text.lower():
-                try:
-                    rooms = int(span.text.strip().split()[0])
-                except:
-                    pass
+    rooms = None
+
+# 1. Пошук через іконку з кімнатами (як раніше)
+    room_icon = soup.select_one('img[src*="_room-icon.png"]')
+    if room_icon:
+        parent = room_icon.find_parent("span")
+        if parent and parent.text.strip():
+            try:
+                rooms = int(parent.text.strip().split()[0])
+            except Exception as e:
+                print("⚠️ Rooms (icon) parse failed:", e)
+
+    # 2. Якщо не знайшли, шукаємо в табличці з <th>Кіл. кімнат</th>
+    if rooms is None:
+        th = soup.find("th", string=lambda s: s and "Кіл. кімнат" in s)
+        if th:
+            td = th.find_next_sibling("td")
+            if td and td.text.strip().isdigit():
+                rooms = int(td.text.strip())
+
+    # 3. Якщо взагалі не знайдено — ставимо дефолт і попереджаємо
+    if rooms is None:
+        print("❌ Не вдалося визначити кількість кімнат, ставимо 1")
+        rooms = 1
 
     area_icon = soup.select_one('img[src*="_area-icon.png"]')
     if area_icon:

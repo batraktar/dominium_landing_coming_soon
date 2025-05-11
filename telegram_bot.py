@@ -35,7 +35,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # 🔗 Кнопка для підтвердження акаунта
-    confirm_url = f"http://192.168.0.142:8000/verify/{verification.code}/"  # ← виправлено на http
+    confirm_url = f"http://192.168.0.167:8000/verify/{verification.code}/"  # ← виправлено на http
     button = InlineKeyboardButton("✅ Підтвердити акаунт", url=confirm_url)
     markup = InlineKeyboardMarkup([[button]])
 

@@ -284,3 +284,148 @@ input[type="number"]::-webkit-outer-spin-button {
 .content-section {
     width: 100%;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+#scroll-container {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+    padding-bottom: 120px;
+}
+
+@media (min-width: 768px) {
+    #scroll-container {
+        padding-bottom: 0;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@layer utilities {
+    @keyframes zoomPulse1 {
+
+        0%,
+        5% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        25% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        75% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+    }
+
+    @keyframes zoomPulse2 {
+
+        0%,
+        15% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        35% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        60% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        80% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+    }
+
+    @keyframes zoomPulse3 {
+
+        0%,
+        25% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        45% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        70% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        90% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+    }
+
+    .zoom-anim-1 {
+        animation: zoomPulse1 2s ease-in-out infinite;
+    }
+
+    .zoom-anim-2 {
+        animation: zoomPulse2 2s ease-in-out infinite;
+    }
+
+    .zoom-anim-3 {
+        animation: zoomPulse3 2s ease-in-out infinite;
+    }
+
+    .zoom-anim-4 {
+        animation: zoomPulse1 2s ease-in-out infinite reverse;
+    }
+
+    .w-21 {
+        width: 180px;
+    }
+
+    .h-21 {
+        height: 180px;
+    }
+}

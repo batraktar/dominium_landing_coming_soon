@@ -24,12 +24,13 @@ SECRET_KEY = 'django-insecure-!xwek(pq45-*u3vm4q(%itc2$ctwed+a1)jog6r28%f_ega99!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dominium.com.ua', 'www.dominium.com.ua', '127.0.0.1']
+ALLOWED_HOSTS = ['dominium.com.ua', 'www.dominium.com.ua', '127.0.0.1', '192.168.0.167']
 
 # Application definition
 
 INSTALLED_APPS = [
     'geopy',
+    'accounts',
     'house',
     'phonenumber_field',
     'django.contrib.admin',
@@ -64,6 +65,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.liked_properties',  # 👈 додаємо сюди
+
             ],
         },
     },
@@ -123,3 +126,14 @@ LOGIN_URL = '/login/'  # опційно
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'dominium.realty.agency@gmail.com'
+EMAIL_HOST_PASSWORD = 'uieb tikh uolj gauz'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

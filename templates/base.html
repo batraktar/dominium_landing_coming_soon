@@ -1,52 +1,86 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="uk">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}DOMINIUM - Агенція нерухомості{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        DOMINIUM - Агенція нерухомості
+      {% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#123D36",
-                        secondary: "#E9DFC7",
-                        accent: "#377DFF",
-                        background: "#AEB7B6",
-                    },
-                    borderRadius: {
-                        none: "0px",
-                        sm: "4px",
-                        DEFAULT: "8px",
-                        md: "12px",
-                        lg: "16px",
-                        xl: "20px",
-                        "2xl": "24px",
-                        "3xl": "32px",
-                        full: "9999px",
-                        button: "8px",
-                    },
-                },
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#133E44',
+              secondary: '#E9DFC7',
+              accent: '#377DFF',
+              deepOcean: '#133E44',
+              coolSage: '#758F8E',
+              warmSand: '#CAA988',
+              creamBeige: '#E7E0CE'
             },
-        };
+            borderRadius: {
+              button: '8px'
+            }
+          }
+        }
+      }
     </script>
-    <link rel="stylesheet" href="{% static 'base/assets/css/style-base.css' %}">
-    {% block head %}{% endblock %}
-</head>
-<body class="bg-white min-h-screen">
+    <link rel="stylesheet" href="{% static 'base/assets/css/style-base.css' %}" />
+    {% block head %}
 
-{% include 'partials/header.html' %}
-{% include 'partials/mobile_nav.html' %}
+    {% endblock %}
+  </head>
 
-<main class="pt-20">
-    {% block content %}{% endblock %}
-</main>
-{% include 'partials/footer.html' %}
-{% block scripts %}{% endblock %}
-</body>
+  <body class="bg-primary overflow-hidden">
+    <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
+
+    {% include 'partials/preloader.html' %}
+
+    <div class="fade-in">
+      <div id="scroll-container" class="min-h-screen">
+        {% include 'partials/header.html' %}
+        <main class="pt-20 pb-16">
+          {% block content %}
+
+          {% endblock %}
+        </main>
+        {% include 'partials/footer.html' %}
+        {% include 'partials/like-button.html' %}
+        <a href="#" id="scrollToTop" class="hidden fixed bottom-6 right-6 bg-accent text-white p-3 rounded-full shadow-lg hover:bg-opacity-90 z-50 transition-opacity duration-300"><i class="ri-arrow-up-line"></i></a>
+      </div>
+    </div>
+
+    {% include 'partials/mobile_nav.html' %}
+
+    {% block scripts %}
+      <script src="{% static 'base/assets/js/scrollBtn.js' %}"></script>
+      <script src="{% static 'base/assets/js/like-button.js' %}"></script>
+      <script src="{% static 'base/assets/js/scroll-to-reshresh.js' %}"></script>
+    {% endblock %}
+    <script>
+      window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader')
+        console.log('✅ window loaded')
+        if (preloader) {
+          console.log('✅ preloader found')
+          setTimeout(() => {
+            preloader.classList.add('opacity-0', 'pointer-events-none')
+            setTimeout(() => {
+              preloader.remove()
+              document.body.classList.remove('overflow-hidden')
+            }, 700)
+          }, 1000)
+        } else {
+          console.warn('❌ preloader NOT found')
+        }
+      })
+    </script>
+  </body>
 </html>

@@ -15,3 +15,4 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
 
         return self.create_user(telegram_username, password=password, **extra_fields)
+

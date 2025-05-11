@@ -1,7 +1,10 @@
 import json
 import random
 import uuid
-
+import os
+from PIL import Image
+from django.core.files.base import ContentFile
+from io import BytesIO
 from django.urls import reverse
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -137,7 +140,26 @@ class PropertyImage(models.Model):
         return f"Image for {self.property.title}"
 
     def save(self, *args, **kwargs):
-        # Автоматично скидає попереднє головне фото
+        # Обнуляємо попереднє головне фото
         if self.is_main:
             PropertyImage.objects.filter(property=self.property, is_main=True).update(is_main=False)
+
+        # --- Конвертація в WebP ---
+        if self.image and not self.image.name.endswith('.webp'):
+            self.image = self.convert_to_webp(self.image)
+
         super().save(*args, **kwargs)
+
+    def convert_to_webp(self, image_field):
+        img = Image.open(image_field)
+        img = img.convert('RGB')  # WebP не підтримує альфа-канал
+
+        buffer = BytesIO()
+        img.save(buffer, format='WEBP', quality=85)
+
+        name_base = os.path.splitext(image_field.name)[0]
+        webp_name = f"{name_base}.webp"
+
+        return ContentFile(buffer.getvalue(), name=webp_name)
+    
+    

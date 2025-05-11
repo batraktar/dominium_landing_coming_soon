@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const typeBtn = document.getElementById("property-type-btn");
     const typeOptions = document.getElementById("property-type-options");
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-// View toggle
+    // View toggle
     const gridButton = document.querySelector(".ri-layout-grid-line").parentElement;
     const listButton = document.querySelector(".ri-list-check-2").parentElement;
     const resultsGrid = document.querySelector(
@@ -112,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.querySelector(".p-4").classList.add("w-2/3");
         });
     });
-// Property type dropdown
+    // Property type dropdown
     const propertyTypeBtn = document.getElementById("property-type-btn");
     const propertyTypeOptions = document.getElementById("property-type-options");
     const propertyTypeSelected = document.getElementById("property-type-selected");
@@ -145,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-// Rooms dropdown
+    // Rooms dropdown
     const roomsBtn = document.getElementById("rooms-btn");
     const roomsOptions = document.getElementById("rooms-options");
     const roomsSelected = document.getElementById("rooms-selected");
@@ -174,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
             roomsOptions.classList.add("hidden");
         });
     });
-// Sort dropdown
+    // Sort dropdown
     const sortBtn = document.getElementById("sort-btn");
     const sortOptions = document.getElementById("sort-options");
     const sortSelected = document.getElementById("sort-selected");
@@ -200,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sortOptions.classList.add("hidden");
         });
     });
-// Advanced filters toggle
+    // Advanced filters toggle
     const advancedFiltersBtn = document.getElementById("advanced-filters-btn");
     const advancedFiltersPanel = document.getElementById("advanced-filters-panel");
     const advancedFiltersIcon = document.getElementById("advanced-filters-icon");
@@ -220,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
         advancedFiltersIcon.classList.remove("ri-arrow-up-s-line");
         advancedFiltersIcon.classList.add("ri-arrow-down-s-line");
     });
-// Repair type dropdown
+    // Repair type dropdown
     const repairTypeBtn = document.getElementById("repair-type-btn");
     const repairTypeOptions = document.getElementById("repair-type-options");
     const repairTypeSelected = document.getElementById("repair-type-selected");
@@ -251,11 +252,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-// search_filters.js
+    // search_filters.js
 
     const modal = document.getElementById("advanced-filters-modal");
-const openBtn = document.getElementById("advanced-filters-btn");
-const closeBtn = document.getElementById("close-filters-btn");
+    const openBtn = document.getElementById("advanced-filters-btn");
+    const closeBtn = document.getElementById("close-filters-btn");
 
     if (modal && openBtn && closeBtn) {
         openBtn.addEventListener("click", () => {
@@ -271,10 +272,10 @@ const closeBtn = document.getElementById("close-filters-btn");
                 modal.classList.remove("show"); // ховаємо після завершення
             }, 300); // дорівнює transition-duration
         });
-}
+    }
 
 
-// Heating type dropdown
+    // Heating type dropdown
     const heatingTypeBtn = document.getElementById("heating-type-btn");
     const heatingTypeOptions = document.getElementById("heating-type-options");
     const heatingTypeSelected = document.getElementById("heating-type-selected");

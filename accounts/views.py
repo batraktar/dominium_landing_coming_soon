@@ -87,25 +87,36 @@ def register_email(request):
 
 def register_via_telegram(request):
     if request.method == 'POST':
-        username = request.POST.get('telegram_username', '').lstrip('@')
+        telegram_username = request.POST.get('telegram_username', '').lstrip('@')
         password = request.POST.get('password')
         confirm = request.POST.get('confirm')
 
         if password != confirm:
             return render(request, 'partials/auth/telegram.html', {
                 'error': 'Паролі не збігаються',
-                'telegram_username': username,
+                'telegram_username': telegram_username,
             })
 
-        user, created = CustomUser.objects.get_or_create(telegram_username=username)
-        user.password = make_password(password)
-        user.is_active = True
-        user.save()
+        unique_username = telegram_username or f"user_{uuid4().hex[:8]}"
 
-        verification = TelegramVerification.objects.create(user=user, code=uuid4())
+        user, created = User.objects.get_or_create(
+            username=unique_username,
+            defaults={
+                'telegram_username': telegram_username,
+                'password': make_password(password),
+                'is_active': True,
+            }
+        )
+
+        if not created:
+            return render(request, 'partials/auth/telegram.html', {
+                'error': 'Користувач з таким username вже існує',
+            })
+
+        TelegramVerification.objects.create(user=user)
 
         return render(request, 'partials/auth/after-register-telegram.html', {
-            'bot_link': f'https://t.me/dominium_realty_agency_bot?start={verification.code}'
+            'bot_link': 'https://t.me/dominium_realty_agency_bot'
         })
 
 

@@ -1,19 +1,19 @@
 {% load query_transform %}
-<div class="bg-white border-t border-b border-gray-200 py-3">
+<div class="bg-deepOcean py-3">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center mb-3 md:mb-0">
-                <span class="text-gray-700">Знайдено {{ found_count }} об'єктів</span>
+                <span class="text-creamBeige">Знайдено {{ found_count }} об'єктів</span>
             </div>
 
             <div class="flex items-center">
-                <span class="text-sm text-gray-700 mr-2">Сортувати:</span>
+                <span class="text-sm text-creamBeige mr-2">Сортувати:</span>
                 <div class="relative">
                     <button
                         id="sort-btn"
-                        class="pr-8 py-1 pl-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex items-center"
+                        class="pr-8 py-3 pl-2 bg-coolSage rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex items-center"
                     >
-                        <span id="sort-selected">
+                        <span class="text-white" id="sort-selected">
                             {% if sort_option == 'price_asc' %}За ціною (від дешевих)
                             {% elif sort_option == 'price_desc' %}За ціною (від дорогих)
                             {% elif sort_option == 'date' %}За датою додавання

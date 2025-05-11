@@ -1,17 +1,19 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Головна – DOMINIUM{% endblock %}
+{% block title %}
+  Головна – DOMINIUM
+{% endblock %}
 
 {% block content %}
-{% include 'partials/hero.html' %}
-{% include 'partials/filter_modal.html' %}
-{% include 'partials/featured_properties.html' %}
-{% include 'partials/about.html' %}
-{% include 'partials/contact.html' %}
-{% include 'partials/mobile_nav.html' %}
+  {% include 'partials/hero.html' %}
+  {% include 'partials/filter_modal.html' %}
+  {% include 'partials/featured_properties.html' %}
+  {% include 'partials/about.html' %}
+  {% include 'partials/contact.html' %}
+  {% include 'partials/mobile_nav.html' %}
 {% endblock %}
 
-{% block scripts %}
-<script src="{% static 'base/assets/js/filters.js' %}"></script>
-{% endblock %}
+{% comment %} {% block scripts %}
+  <script src="{% static 'base/assets/js/filters.js' %}"></script>
+{% endblock %} {% endcomment %}

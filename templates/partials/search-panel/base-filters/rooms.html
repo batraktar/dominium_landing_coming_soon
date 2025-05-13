@@ -1,22 +1,22 @@
 <div class="relative">
   <input type="hidden" name="rooms" id="rooms-input" value="{{ request.GET.rooms|default:'' }}" />
 
-  <label class="{{ label_class|default:'block text-sm font-medium text-creamBeige mb-1' }}">Кількість кімнат</label>
+  <label class="{{ label_class|default:'block text-sm font-fixel text-creamBeige mb-1' }}">Кількість кімнат</label>
 
   <div class="relative">
     <div class="w-full">
       <div id="rooms-dropdown" class="relative">
-        <button id="rooms-btn" type="button" class="w-full pr-8 py-3 bg-coolSage rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex justify-between items-center">
-          <span id="rooms-selected" class="px-2 text-white">{{ request.GET.rooms|default:'Будь-яка' }}</span>
-          <div class="w-4 h-4 flex items-center justify-center text-gray-500">
+        <button id="rooms-btn" type="button" class="w-full pr-8 py-4 bg-coolSage rounded-[9px] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex justify-between items-center">
+          <span id="rooms-selected" class="px-4 md:px-2 xl:px-4 text-white">{{ request.GET.rooms|default:'Будь-яка' }}</span>
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-500">
             <i class="ri-arrow-down-s-line"></i>
           </div>
         </button>
-        <div id="rooms-options" class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg hidden">
+        <div id="rooms-options" class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-[9px] shadow-lg hidden">
           <div class="p-2">
             <div class="flex flex-wrap gap-2">
               {% for val in room_options %}
-                <button type="button" class="room-option px-3 py-1 border border-gray-300 rounded-full hover:bg-gray-50 focus:outline-none {% if request.GET.rooms == val %}bg-gray-200{% endif %}" data-value="{{ val }}">{{ val|default:'Будь-яка' }}</button>
+                <button type="button" class="room-option text-deepOcean px-4 py-1 text-sm font-fixel border border-coolSage rounded-full hover:bg-gray-50 focus:outline-none {% if request.GET.rooms == val %}bg-gray-200{% endif %}" data-value="{{ val }}">{{ val|default:'Будь-яка' }}</button>
               {% endfor %}
             </div>
           </div>

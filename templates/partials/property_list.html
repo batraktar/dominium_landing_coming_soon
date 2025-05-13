@@ -1,9 +1,16 @@
-<!-- Секція з підказкою про конвертацію валют -->
-<div class="container mx-auto px-4 mt-6">
-  <div class="currency-info bg-creamBeige p-3 rounded shadow-sm flex items-center">
-    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+<div class="container mx-auto">
+  <div class="currency-info bg-creamBeige p-4 font-fixel rounded-[9px] shadow-sm flex items-start sm:items-center gap-2">
+    <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center text-primary">
       <i class="ri-information-line"></i>
     </div>
-    <p class="text-sm text-deepOcean leading-snug">Наведіть курсор на ціну, щоб побачити вартість у доларах та євро (курс на {{ today_date }}: 1$ = {{ usd_rate|floatformat:2 }} грн, 1€ = {{ eur_rate|floatformat:2 }} грн)</p>
+
+    <!-- Для десктопу -->
+    <p class="text-sm text-deepOcean leading-snug hidden lg:block">Наведіть курсор на ціну, щоб побачити вартість у гривнях та гривнях (курс на {{ today_date }}: 1$ = {{ usd_rate|floatformat:2 }} грн, 1€ = {{ eur_rate|floatformat:2 }} грн)</p>
+
+    <!-- Для планшетів -->
+    <p class="text-sm text-deepOcean leading-snug hidden md:block lg:hidden">Натисніть на ціну, щоб побачити вартість у євро та гривнях (курс на {{ today_date }}: 1$ = {{ usd_rate|floatformat:2 }} грн, 1€ = {{ eur_rate|floatformat:2 }} грн)</p>
+
+    <!-- Для мобілок -->
+    <p class="text-sm text-deepOcean leading-snug block md:hidden">Тапніть по ціні, щоб побачити вартість у євро та гривнях (курс на {{ today_date }}: 1$ = {{ usd_rate|floatformat:2 }} грн, 1€ = {{ eur_rate|floatformat:2 }} грн)</p>
   </div>
 </div>

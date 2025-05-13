@@ -1,8 +1,9 @@
-<section class="py-10 pb-12">
+<section class="py-16 pb-28">
   <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-3xl font-ermilov text-white">Пропоновані пропозиції</h2>
+    <div class="mb-6">
+      <h2 class="text-2-5xl font-ermilov text-white text-center mt-2 mb-4">ПРОПОНОВАНІ ПРОПОЗИЦІЇ</h2>
     </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for property in properties %}
         <div class="bg-white rounded-[8px] shadow-lg overflow-hidden flex flex-col">
@@ -40,17 +41,23 @@
               <span class="text-white px-8 border border-coolSage py-2 rounded-full text-sm h-10
                 {% if property.deal_type.name|lower == 'оренда' %}
                   
+                  
                   bg-creamBeige
                   font-fixel
 
+
                 {% elif property.deal_type.name|lower == 'продаж' %}
+                  
                   
                   bg-coolSage
                   font-fixel
 
+
                 {% else %}
                   
+                  
                   bg-red-200
+
 
                 {% endif %}">
                 {{ property.deal_type.name }}

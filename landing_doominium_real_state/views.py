@@ -3,7 +3,10 @@ from decimal import Decimal
 
 import requests
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
+from django.views.decorators.http import require_GET
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
@@ -48,7 +51,7 @@ def get_exchange_rates():
 
 # Приклад використання
 rates = get_exchange_rates()
-print(f"USD: {rates['USD']} грн, EUR: {rates['EUR']} грн")
+print(f"USD: {rates['USD']} UAH, EUR: {rates['EUR']} UAH")
 
 def search_properties(request):
     sort_option = request.GET.get("sort", "price_asc")
@@ -190,21 +193,17 @@ class SearchFiltersView(ListView):
             room_list = [r.strip() for r in room_values.split(",") if r.strip()]
             exact_rooms = []
             gte_5 = False
-
             for r in room_list:
                 if r == "5+":
                     gte_5 = True
                 elif r.isdigit():
                     exact_rooms.append(int(r))
-
             room_filter = Q()
             if exact_rooms:
                 room_filter |= Q(rooms__in=exact_rooms)
             if gte_5:
                 room_filter |= Q(rooms__gte=5)
-
             queryset = queryset.filter(room_filter)
-
 
         # 🔹 Сортування
         sort_option = q.get("sort", "price_asc")
@@ -224,9 +223,13 @@ class SearchFiltersView(ListView):
         usd_rate = Decimal(rates.get('USD') or 40)
         eur_rate = Decimal(rates.get('EUR') or 43.5)
 
+        usd_to_eur = usd_rate / eur_rate  # ключовий момент
+
         for prop in context['properties']:
-            prop.price_usd = round(prop.price / usd_rate)
-            prop.price_eur = round(prop.price / eur_rate)
+            # У тебе ціна вже в USD
+            prop.price_uah = round(prop.price * usd_rate)
+            prop.price_eur = round(prop.price * usd_to_eur)
+
 
         context["room_options"] = ["", "1", "2", "3", "4", "5+"]
         context['found_count'] = context['properties'].count()
@@ -235,10 +238,18 @@ class SearchFiltersView(ListView):
         context['usd_rate'] = usd_rate
         context['eur_rate'] = eur_rate
         context['today_date'] = date.today().strftime('%d.%m.%Y')
-
-
-
         return context
+
+def render_to_response(self, context, **response_kwargs):
+    if self.request.headers.get("x-requested-with") == "XMLHttpRequest":
+        html = render_to_string("partials/property_cards.html", context, request=self.request)
+        return HttpResponse(html)
+    return super().render_to_response(context, **response_kwargs)
+
+
+
+
+
 
 def signup(request):
     return render(request, 'partials/auth/sign-up.html')

@@ -1,17 +1,27 @@
-<section class="hero bg-cover bg-center py-20" style="background-image: url('https://public.readdy.ai/ai/img_res/392b9cf0338864a880b4c78f5a54d8cb.jpg')">
-  <div class="container mx-auto px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-4xl md:text-6xl font-bold text-black mb-6">Знайдіть свій ідеальний дім</h1>
-      <p class="text-xl text-black mb-8">Професійний підхід до пошуку нерухомості</p>
+{% load static %}
+<section class="hero relative bg-cover bg-center py-20 overflow-hidden">
+  <!-- Фонове відео -->
+  <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+    <source src="{% static 'base/assets/video/1.mov' %}" type="video/mov" />Ваш браузер не підтримує відео.
+  </video>
+
+  <!-- Напівпрозора маска (за бажанням) -->
+  <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+
+  <!-- Контент -->
+  <div class="relative z-20 container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-ermilov mb-6">Знайдіть свій ідеальний дім</h1>
+      <p class="text-xl font-fixel mb-8">Професійний підхід до пошуку нерухомості</p>
       <form action="{% url 'property_search' %}" method="get" class="bg-white rounded-button shadow-lg p-4">
         <div class="flex-center">
           <div class="flex-1 mx-4">
             <div class="relative">
               <i class="ri-search-line input-icon text-coolSage"></i>
-              <input type="text" name="q" placeholder="Введіть місто або ключове слово..." class="input placeholder:text-coolSage" value="{{ request.GET.q }}" />
+              <input type="text" name="q" placeholder="Введіть місто або ключове слово..." class="input text-coolSage placeholder:text-coolSage placeholder:font-ermilov" />
             </div>
           </div>
-          <button type="submit" class="button button-primary bg-deepOcean whitespace-nowrap"><i class="ri-search-line mr-2"></i> Пошук</button>
+          <button type="submit" class="button button-primary font-ermilov bg-deepOcean whitespace-nowrap"><i class="ri-search-line mr-2"></i> Пошук</button>
         </div>
       </form>
     </div>

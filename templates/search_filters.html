@@ -21,25 +21,15 @@
   {% include 'partials/property_sort_bar.html' %}
 
   <!-- Список об'єктів -->
-  <div class="w-full max-w-[480px] sm:max-w-full mx-auto px-4 py-6">
-    {% include 'partials/property_list.html' %}
+<!-- Асинхронно оновлюваний блок -->
+<div class="w-full max-w-[480px] sm:max-w-full mx-auto px-4 py-6">
+  {% include 'partials/property_list.html' %}
 
     <!-- Сітка -->
-    <div class="container mx-auto px-4 py-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-        {% for property in properties %}
-          <div class="w-full max-w-[480px] mx-auto">
-            {% include 'partials/property_card.html' %}
-          </div>
-        {% empty %}
-          <p class="col-span-full text-center text-gray-600">Об'єкти не знайдено.</p>
-        {% endfor %}
-      </div>
+    <div id="property-results" class="w-full max-w-[480px] sm:max-w-full mx-auto px-4 py-6">
+      {% include 'partials/property_cards.html' %}
     </div>
-
-    <!-- Пагінація -->
-    {% include 'partials/pagination.html' %}
-  </div>
+    
 
   <!-- Модалка -->
   <div id="advanced-filters-modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">

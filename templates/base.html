@@ -27,7 +27,11 @@
             },
             borderRadius: {
               button: '8px'
-            }
+            },
+            fontSize: {
+              '3-5xl': '2.125rem', // кастомний розмір між 3xl і 4xl
+              '2-5xl': '1.700rem', // кастомний розмір між 2xl і 3xl
+            },
           }
         }
       }
@@ -38,15 +42,18 @@
     {% endblock %}
   </head>
 
-  <body class="bg-primary overflow-hidden">
+  <body class="bg-primary overflow-hidden" {% if request.GET %}data-no-preloader="1"{% endif %}>
     <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
 
     {% include 'partials/preloader.html' %}
 
     <div class="fade-in">
       <div id="scroll-container" class="min-h-screen">
-        {% include 'partials/header.html' %}
-        <main class="pt-20 pb-16">
+        {% block header %}
+          {% include 'partials/header.html' %}
+        {% endblock %}
+
+        <main class="{% block main_padding %}pt-20 pb-16{% endblock %}">
           {% block content %}
 
           {% endblock %}
@@ -64,23 +71,5 @@
       <script src="{% static 'base/assets/js/like-button.js' %}"></script>
       <script src="{% static 'base/assets/js/scroll-to-reshresh.js' %}"></script>
     {% endblock %}
-    <script>
-      window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader')
-        console.log('✅ window loaded')
-        if (preloader) {
-          console.log('✅ preloader found')
-          setTimeout(() => {
-            preloader.classList.add('opacity-0', 'pointer-events-none')
-            setTimeout(() => {
-              preloader.remove()
-              document.body.classList.remove('overflow-hidden')
-            }, 700)
-          }, 1000)
-        } else {
-          console.warn('❌ preloader NOT found')
-        }
-      })
-    </script>
   </body>
 </html>

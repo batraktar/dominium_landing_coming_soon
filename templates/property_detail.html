@@ -46,7 +46,7 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script src="{% static 'base/assets/js/filters.js' %}"></script>
+  {% comment %} <script src="{% static 'base/assets/js/filters.js' %}"></script> {% endcomment %}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js" defer></script>>
 {% endblock %}

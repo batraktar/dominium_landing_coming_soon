@@ -1,6 +1,6 @@
 <!-- Ціна -->
 <div>
-    <label class="{{ label_class|default:'block text-sm font-medium text-creamBeige mb-1' }}">
+    <label class="{{ label_class|default:'block text-sm font-fixel text-creamBeige mb-1' }}">
         Ціна, $(долар)
     </label>
     <div class="flex items-center gap-2">
@@ -9,7 +9,7 @@
                     name="price_min"
                     type="number"
                     value="{{ request.GET.price_min|default:'' }}"
-                    class="w-full py-3 px-3 bg-coolSage rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm placeholder:text-white"
+                    class="w-full py-4 px-4 md:px-2 xl:px-4 font-fixel bg-coolSage rounded-[9px] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm placeholder:text-white"
                     placeholder="Від"
             />
         </div>
@@ -18,7 +18,7 @@
                     name="price_max"
                     type="number"
                     value="{{ request.GET.price_max|default:'' }}"
-                    class="w-full py-3 px-3 bg-coolSage  rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm placeholder:text-white"
+                    class="w-full py-4 px-4 md:px-2 xl:px-4 font-fixel bg-coolSage  rounded-[9px] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm placeholder:text-white"
                     placeholder="До"
             />
         </div>

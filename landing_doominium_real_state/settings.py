@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-!xwek(pq45-*u3vm4q(%itc2$ctwed+a1)jog6r28%f_ega99!
 DEBUG = True
 
 ALLOWED_HOSTS = ['dominium.com.ua', 'www.dominium.com.ua', '127.0.0.1', '192.168.0.142']
+# ALLOWED_HOSTS = ['base.dominium.com.ua', 'www.base.dominium.com.ua']
 
 # Application definition
 
@@ -86,6 +87,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'dominiu2_base',
+#         'USER': 'dominiu2_admin',
+#         'PASSWORD': '*hYDSv$BWRIw5C)}',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

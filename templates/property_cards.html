@@ -1,9 +1,0 @@
-{% for property in properties %}
-  <div class="w-full max-w-[480px] mx-auto">
-    {% include 'partials/property_card.html' %}
-  </div>
-{% empty %}
-  <p class="col-span-full text-center text-gray-600 col-span-full">Об'єкти не знайдено.</p>
-{% endfor %}
-
-{% include 'partials/pagination.html' %}

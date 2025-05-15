@@ -1,32 +1,32 @@
 <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mb-4 sm:mb-8">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6">
-        <h2 class="text-2xl sm:text-3xl font-ermilov text-gray-900 mb-4 sm:mb-0">
+        <h2 class="text-2xl sm:text-3xl font-ermilov text-deepOcean mb-4 sm:mb-0">
             {% if property.deal_type.name == "Оренда" %}
             {{ property.price|floatformat:0 }} ₴/міс
             {% else %}
             {{ property.price|floatformat:0 }} $
             {% endif %}
         </h2>
-        <div class="flex flex-wrap gap-4 text-gray-700">
+        <div class="flex flex-wrap font-fixel text-coolSage gap-4">
             {% if property.rooms %}
             <div class="flex items-center">
-                <i class="ri-hotel-bed-line font-fixel text-gray-500 mr-2"></i>
+                <i class="ri-hotel-bed-line text-coolSage mr-2"></i>
                 <span>{{ property.rooms }} кімнати</span>
             </div>
             {% endif %}
             <div class="flex items-center">
-                <i class="ri-ruler-line font-fixel text-gray-500 mr-2"></i>
+                <i class="ri-ruler-line text-coolSage mr-2"></i>
                 <span>{{ property.area }} м²</span>
             </div>
             {% if property.property_type %}
             <div class="flex items-center">
-                <i class="ri-building-line font-fixel text-gray-500 mr-2"></i>
+                <i class="ri-building-line text-coolSage mr-2"></i>
                 <span>{{ property.property_type.name }}</span>
             </div>
             {% endif %}
             {% if property.deal_type %}
             <div class="flex items-center">
-                <i class="ri-file-list-line font-fixel text-gray-500 mr-2"></i>
+                <i class="ri-file-list-line text-coolSage mr-2"></i>
                 <span>{{ property.deal_type.name }}</span>
             </div>
             {% endif %}
@@ -34,7 +34,7 @@
     </div>
 
     <div class="border-t border-gray-200 py-6">
-        <h3 class="text-xl font-ermilov mb-4">Опис</h3>
+        <h3 class="text-xl font-ermilov text-deepOcean mb-4">Опис</h3>
         <div class="property-description font-fixel text-deepOcean leading-relaxed">
             {{ property.description|safe }}
         </div>

@@ -21,12 +21,11 @@
           preloader.remove()
           document.body.classList.remove('overflow-hidden')
         }, 700)
-      })
+      }, 1000) // Затримка перед видаленням прелоадера
     } else if (preloader && noPreloader) {
       // якщо параметри пошуку — ховаємо одразу
       preloader.remove()
       document.body.classList.remove('overflow-hidden')
     }
   })
-  
 </script>

@@ -6,6 +6,17 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 {% endblock %}
 
+{% block title %}
+  {{ property.title }} – DOMINIUM
+{% endblock %}
+
+{% block main_padding %}pt-[60px]{% endblock %}
+
+{% block preloader %}
+  <div class="preloader">
+    <div class="loader"></div>
+  </div>
+{% endblock %}
 {% block content %}
   <main class="pt-16">
     <!-- Галерея (повноширинна секція) -->

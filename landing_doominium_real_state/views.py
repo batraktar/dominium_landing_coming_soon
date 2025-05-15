@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from django.core.paginator import Paginator
 
 import requests
 from django.db.models import Q
@@ -55,7 +56,6 @@ print(f"USD: {rates['USD']} UAH, EUR: {rates['EUR']} UAH")
 
 def search_properties(request):
     sort_option = request.GET.get("sort", "price_asc")
-
     sort_map = {
         "price_asc": "price",
         "price_desc": "-price",
@@ -63,25 +63,38 @@ def search_properties(request):
         "area_desc": "-area",
         "date": "-created_at",
     }
-
     sort_field = sort_map.get(sort_option, "price")
 
-    # фільтри (приклад — заміни на свої)
     queryset = Property.objects.all()
-    if request.GET.get("rooms"):
-        queryset = queryset.filter(rooms=request.GET["rooms"])
-    if request.GET.get("property_type"):
-        queryset = queryset.filter(property_type_id=request.GET["property_type"])
-    # додай інші фільтри...
 
-    properties = queryset.order_by(sort_field)
+    # Фільтр: кількість кімнат
+    rooms = request.GET.get("rooms")
+    if rooms:
+        queryset = queryset.filter(rooms=rooms)
+
+    # Фільтр: тип нерухомості
+    property_type = request.GET.get("property_type")
+    if property_type:
+        queryset = queryset.filter(property_type_id=property_type)
+
+    queryset = queryset.order_by(sort_field)
+
+    # Пагінація
+    paginator = Paginator(queryset, 15)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        "properties": properties,
-        "found_count": properties.count(),
+        "properties": page_obj,
+        "paginator": paginator,
+        "page_obj": page_obj,
+        "is_paginated": page_obj.has_other_pages(),
+        "found_count": paginator.count,
         "sort_option": sort_option,
+        "property_types": PropertyType.objects.all(),  # для фільтрів
     }
-    return render(request, "property_search_results.html", context)
+
+    return render(request, "search_filters.html", context)
 
 
 @csrf_exempt
@@ -175,6 +188,11 @@ class SearchFiltersView(ListView):
         if property_type_slugs:
             queryset = queryset.filter(property_type__slug__in=property_type_slugs)
 
+        # 🔹 Тип угоди: Оренда / Продаж
+        deal_type_value = q.get("deal_type")
+        if deal_type_value:
+            queryset = queryset.filter(deal_type__name__iexact=deal_type_value.strip())
+
         # 🔹 Площа
         if q.get("area_min"):
             queryset = queryset.filter(area__gte=q["area_min"])
@@ -214,6 +232,7 @@ class SearchFiltersView(ListView):
             "area_desc": "-area",
             "date": "-created_at",
         }
+
         return queryset.order_by(sort_map.get(sort_option, "price"))
 
     def get_context_data(self, **kwargs):

@@ -72,7 +72,7 @@ class Property(models.Model):
     # Генерація slug, де замість ID використовується хеш (6 символів із UUID)
     def generate_semantic_slug(self):
         suffix = uuid.uuid4().hex[:6]
-        return slugify(f"{self.city}-{self.address}-{self.rooms}k-{suffix}")
+        return slugify(f"{self.area}-{self.address}-{self.rooms}k-{suffix}")
 
     def generate_data_driven_slug(self):
         suffix = uuid.uuid4().hex[:6]
@@ -140,26 +140,37 @@ class PropertyImage(models.Model):
         return f"Image for {self.property.title}"
 
     def save(self, *args, **kwargs):
-        # Обнуляємо попереднє головне фото
         if self.is_main:
             PropertyImage.objects.filter(property=self.property, is_main=True).update(is_main=False)
 
-        # --- Конвертація в WebP ---
         if self.image and not self.image.name.endswith('.webp'):
+            # зберігаємо старий шлях до файла для видалення
+            original_path = self.image.path
             self.image = self.convert_to_webp(self.image)
+
+            # після генерації webp — видаляємо старий оригінальний файл
+            if os.path.exists(original_path):
+                try:
+                    os.remove(original_path)
+                except Exception as e:
+                    print(f"⚠️ Помилка при видаленні {original_path}: {e}")
 
         super().save(*args, **kwargs)
 
     def convert_to_webp(self, image_field):
         img = Image.open(image_field)
-        img = img.convert('RGB')  # WebP не підтримує альфа-канал
+
+        max_width = 1280
+        if img.width > max_width:
+            height = int((max_width / img.width) * img.height)
+            img = img.resize((max_width, height), Image.LANCZOS)
+
+        img = img.convert('RGB')
 
         buffer = BytesIO()
-        img.save(buffer, format='WEBP', quality=85)
+        img.save(buffer, format='WEBP', quality=70, method=6)
 
-        name_base = os.path.splitext(image_field.name)[0]
-        webp_name = f"{name_base}.webp"
+        name_base = os.path.splitext(os.path.basename(image_field.name))[0]
+        webp_name = os.path.join("property_images", f"{name_base}.webp")
 
         return ContentFile(buffer.getvalue(), name=webp_name)
-    
-    

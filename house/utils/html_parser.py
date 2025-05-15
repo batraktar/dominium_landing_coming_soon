@@ -1,10 +1,13 @@
 import os
 from urllib.parse import urlsplit
 from urllib.request import urlopen
-
+from uuid import uuid4
 from bs4 import BeautifulSoup
 from django.core.files.base import ContentFile
 from house.models import Property, PropertyType, DealType, PropertyImage
+import logging
+from decimal import Decimal, InvalidOperation
+logger = logging.getLogger(__name__)
 
 
 def get_deal_type(title):
@@ -46,7 +49,24 @@ def parse_property_from_html(html_path):
     address = soup.find("h3").text.strip()
 
     price_text = soup.select_one(".pdf-header-contacts strong")
-    price = int(price_text.text.strip().replace(" ", "").replace("$", "")) if price_text else 0
+    price_raw = price_text.text.strip() if price_text else "0"
+
+    currency = "USD"  # за замовчуванням
+
+    # Пробуємо дістати число з тексту
+    price_clean = price_raw.lower().replace(" ", "")
+
+    if "грн" in price_clean:
+        currency = "UAH"
+        price_clean = price_clean.replace("грн", "")
+    elif "$" in price_clean:
+        price_clean = price_clean.replace("$", "")
+
+    try:
+        price = Decimal(price_clean)
+    except InvalidOperation:
+        logger.error(f"❌ Неможливо розпарсити ціну: '{price_raw}'")
+        price = Decimal(0)
 
     rooms = None
 
@@ -126,25 +146,32 @@ def import_property_from_html(html_path):
 
     # Додаємо головне зображення
     if data["main_image"]:
-        image_name = os.path.basename(urlsplit(data["main_image"]).path)
         try:
-            image_content = ContentFile(urlopen(data["main_image"], timeout=10).read(), name=image_name)
-            PropertyImage.objects.create(property=prop, image=image_content, is_main=True)
+            image_bytes = urlopen(data["main_image"], timeout=10).read()
+            filename = f"{uuid4().hex}.webp"
+            image_content = ContentFile(image_bytes)
+            image_instance = PropertyImage.objects.create(property=prop, is_main=True)
+            image_instance.image.save(filename, image_content, save=True)
+            print(f"✅ Saved main image: {filename}")
         except Exception as e:
-            print("⚠️ Error loading main image:", e)
+            print(f"❌ Error loading main image: {data['main_image']}\n{e}")
+
 
     # Додаємо інші зображення
-    for img_url in data["gallery"]:
-        image_name = os.path.basename(urlsplit(img_url).path)
+    for i, img_url in enumerate(data["gallery"]):
         try:
-            response = urlopen(img_url, timeout=10)
+            response = urlopen(img_url)
             content_type = response.info().get_content_type()
             if not content_type.startswith("image"):
+                logger.warning(f"⚠️ Skipping non-image URL: {img_url} (type: {content_type})")
                 continue
-            image_content = ContentFile(response.read(), name=image_name)
-            PropertyImage.objects.create(property=prop, image=image_content, is_main=False)
+            file_name = basename(img_url.split("?")[0]) or f'image-{i}.jpg'
+            image_file = ContentFile(response.read())
+            image_instance = PropertyImage(property=prop, is_main=(i == 0))
+            image_instance.image.save(file_name, image_file, save=True)
+            logger.info(f"✅ Saved gallery image: {file_name}")
         except Exception as e:
-            print("⚠️ Skipping invalid image:", img_url, str(e))
-            continue
+            logger.error(f"❌ Error loading image: {img_url}\n{e}")
+
 
     return prop

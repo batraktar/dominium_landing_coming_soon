@@ -1,7 +1,7 @@
-<div class="bg-white rounded-[8px] shadow-lg overflow-hidden flex flex-col">
+<div class="bg-white rounded-[8px] shadow-lg overflow-hidden flex flex-col h-full">
   <!-- Зображення + іконки -->
   <div class="relative h-56">
-    {% if property.main_image %}
+    {% if property.main_image and property.main_image.image %}
       <a href="{% url 'property_detail' property.slug %}"><img src="{{ property.main_image.image.url }}" class="w-full h-56 object-cover" alt="{{ property.title }}" /></a>
     {% else %}
       <a href="{% url 'property_detail' property.slug %}"><img src="https://via.placeholder.com/400x300" class="w-full h-48 object-cover" alt="Зображення відсутнє" /></a>
@@ -18,7 +18,19 @@
             
             
             
+            
+            
+            
+            
+            
+            
             ri-heart-fill text-deepOcean
+
+
+
+
+
+
 
 
 
@@ -34,7 +46,19 @@
             
             
             
+            
+            
+            
+            
+            
+            
             ri-heart-line text-coolSage
+
+
+
+
+
+
 
 
 
@@ -54,7 +78,7 @@
   <div class="p-6 flex flex-col flex-grow group relative">
     <!-- Основна ціна -->
     <h3 class="text-xl font-ermilov text-primary transition duration-200">
-      {% if property.deal_type.name == 'Оренда' %}
+      {% if property.deal_type.name|lower|cut:' ' == 'оренда' %}
         {{ property.price|floatformat:0 }} ₴/міс
       {% else %}
         {{ property.price|floatformat:0 }} $
@@ -62,14 +86,17 @@
     </h3>
 
     <!-- Tooltip з конвертованою ціною -->
-    <div class="currency-tooltip opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute -top-11 left-7 bg-white shadow-xl rounded-[8px] px-4 py-2 transition-all duration-200 z-10 text-sm text-coolSage font-fixel">
-      <div class="flex flex-col text-left">
-        {% comment %} <span class="whitespace-nowrap">$ {{ property.price|floatformat:0|add:'0' }}</span> {% endcomment %}
-        <span class="whitespace-nowrap">€ {{ property.price_eur }} EUR</span>
-        <span class="whitespace-nowrap">₴ {{ property.price_uah }} UAH</span>
-      </div>
-      <div class="absolute -bottom-2 left-5 w-4 h-4 bg-white transform rotate-45 shadow-md"></div>
-    </div>
+    {% with deal=property.deal_type.name|lower|cut:' ' %}
+      {% if deal != 'оренда' %}
+        <div class="currency-tooltip opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute -top-11 left-7 bg-white shadow-xl rounded-[8px] px-4 py-2 transition-all duration-200 z-10 text-sm text-coolSage font-fixel">
+          <div class="flex flex-col text-left">
+            <span class="whitespace-nowrap">€ {{ property.price_eur }} EUR</span>
+            <span class="whitespace-nowrap">₴ {{ property.price_uah }} UAH</span>
+          </div>
+          <div class="absolute -bottom-2 left-5 w-4 h-4 bg-white transform rotate-45 shadow-md"></div>
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <p class="text-coolSage font-fixel">{{ property.address }}</p>
 
@@ -88,61 +115,28 @@
       {% endif %}
 
       <span class="text-white px-8 border border-coolSage py-2 rounded-full text-sm h-10
-        {% if property.deal_type.name|lower == 'оренда' %}
-          
-          
-          
-          
-          
-          
-          
-          
-          bg-creamBeige font-fixel
+  {% with deal=property.deal_type.name|lower|cut:' ' %}
+          {% if deal == 'оренда' %}
+            
+            
+      bg-creamBeige font-fixel
 
 
+          {% elif deal == 'продаж' %}
+            
+            
+      bg-coolSage font-fixel
 
 
+          {% else %}
+            
+            
+      bg-red-200 font-fixel
 
 
-
-
-        {% elif property.deal_type.name|lower == 'продаж' %}
-          
-          
-          
-          
-          
-          
-          
-          
-          bg-coolSage font-fixel
-
-
-
-
-
-
-
-
-        {% else %}
-          
-          
-          
-          
-          
-          
-          
-          
-          bg-red-200
-
-
-
-
-
-
-
-
-        {% endif %}">
+          {% endif %}
+        {% endwith %}
+">
         {{ property.deal_type.name }}
       </span>
     </div>

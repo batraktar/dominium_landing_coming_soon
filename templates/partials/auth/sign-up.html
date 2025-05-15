@@ -7,6 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#133E44',
+              secondary: '#E9DFC7',
+              accent: '#377DFF',
+              deepOcean: '#133E44',
+              coolSage: '#758F8E',
+              warmSand: '#CAA988',
+              creamBeige: '#E7E0CE'
+            },
+            borderRadius: {
+              button: '8px'
+            },
+            fontSize: {
+              '3-5xl': '2.125rem', // кастомний розмір між 3xl і 4xl
+              '2-5xl': '1.700rem', // кастомний розмір між 2xl і 3xl
+            },
+          }
+        }
+      }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <style>
       body {
@@ -22,7 +47,7 @@
       }
     </style>
   </head>
-  <body class="h-screen flex items-center justify-center bg-gray-100 text-gray-800">
+  <body class="h-screen flex items-center justify-center bg-deepOcean text-gray-800">
     <div id="signup-wrapper" class="w-[380px] min-h-auto bg-white rounded-xl shadow-lg p-8 flex flex-col justify-between">
       <!-- Registration method selection -->
       {% include 'partials/auth/choose-registration-method.html' %}

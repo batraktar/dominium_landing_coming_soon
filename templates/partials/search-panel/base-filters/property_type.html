@@ -18,25 +18,24 @@
                     class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-[9px] shadow-lg hidden"
             >
                 <div class="p-2">
-                    {% with request.GET.property_type as selected_types %}
                     {% for pt in property_types %}
                     <div class="mb-2">
                         <label class="flex font-fixel text-deepOcean items-center cursor-pointer p-3 hover:bg-gray-50 rounded">
                             <div class="custom-checkbox">
                                 <input
-                                        type="checkbox"
-                                        name="property_type"
-                                        value="{{ pt.slug }}"
-                                        class="property-type-option"
-                                        {% if selected_types and pt.slug in selected_types %}checked{% endif %}
+                                    type="checkbox"
+                                    name="property_type"
+                                    value="{{ pt.slug }}"
+                                    class="property-type-option"
+                                    {% if pt.slug in selected_property_types %}checked{% endif %}
                                 />
                                 <span class="px-1 checkmark"></span>
                             </div>
                             <span>{{ pt.name }}</span>
                         </label>
                     </div>
-                    {% endfor %}
-                    {% endwith %}
+                    {% endfor %}   
+
                 </div>
             </div>
         </div>

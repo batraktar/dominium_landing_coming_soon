@@ -75,17 +75,17 @@
       e.stopPropagation()
       const isOpen = !dropdown.classList.contains('hidden')
       dropdown.classList.toggle('hidden')
-      // Якщо був відкритий — закриваємо і сабмітимо
+      {% comment %} // Якщо був відкритий — закриваємо і сабмітимо
       if (isOpen) {
         form.submit()
-      }
+      } {% endcomment %}
     })
   
     // Закриваємо дропдаун і сабмітимо, якщо клік поза ним
     document.addEventListener('click', function (e) {
       if (!dropdown.classList.contains('hidden')) {
         dropdown.classList.add('hidden')
-        form.submit()
+        {% comment %} form.submit() {% endcomment %}
       }
     })
   

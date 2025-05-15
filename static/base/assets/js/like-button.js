@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', async (e) => {
             e.preventDefault();
+
+            if (!window.userIsAuthenticated) {
+                window.location.href = '/login/';
+                return;
+            }
+
             const propertyId = button.getAttribute('data-property-id');
 
             try {

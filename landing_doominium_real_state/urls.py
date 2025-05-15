@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from landing_doominium_real_state.views import SearchFiltersView, consultation_view, toggle_like, liked_properties_view
-
+from django.shortcuts import render
 from landing_doominium_real_state import views
 
 urlpatterns = [
@@ -20,3 +20,10 @@ urlpatterns = [
             ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:  # Додаємо підтримку медіафайлів у режимі розробки
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+from django.shortcuts import render
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
+handler404 = 'landing_doominium_real_state.urls.custom_404_view'

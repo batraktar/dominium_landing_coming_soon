@@ -180,7 +180,7 @@ class SearchFiltersView(ListView):
             queryset = queryset.filter(
                 Q(title__icontains=query) |
                 Q(address__icontains=query) |
-                Q(description__icontains=query)
+                Q(deal_type__name__icontains=query)
             )
 
         # 🔹 Тип нерухомості
@@ -192,6 +192,8 @@ class SearchFiltersView(ListView):
         deal_type_value = q.get("deal_type")
         if deal_type_value:
             queryset = queryset.filter(deal_type__name__iexact=deal_type_value.strip())
+
+
 
         # 🔹 Площа
         if q.get("area_min"):
@@ -257,6 +259,10 @@ class SearchFiltersView(ListView):
         context['usd_rate'] = usd_rate
         context['eur_rate'] = eur_rate
         context['today_date'] = date.today().strftime('%d.%m.%Y')
+        context['user_is_authenticated'] = self.request.user.is_authenticated
+        context['selected_property_types'] = self.request.GET.getlist("property_type")
+
+        
         return context
 
 def render_to_response(self, context, **response_kwargs):
@@ -266,9 +272,6 @@ def render_to_response(self, context, **response_kwargs):
     return super().render_to_response(context, **response_kwargs)
 
 
-
-
-
-
 def signup(request):
     return render(request, 'partials/auth/sign-up.html')
+

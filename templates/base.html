@@ -11,6 +11,7 @@
     </title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -36,6 +37,11 @@
         }
       }
     </script>
+    <script>
+      window.userIsAuthenticated = {{ user_is_authenticated|yesno:"true,false" }};
+    </script>
+    
+    
     <link rel="stylesheet" href="{% static 'base/assets/css/style-base.css' %}" />
     {% block head %}
 

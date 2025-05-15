@@ -10,12 +10,12 @@
         <a href="/" class="text-deepOcean font-fixel font-normal hover:text-coolSage">Головна</a>
         <a href="/search/" class="text-deepOcean font-fixel font-normal hover:text-coolSage">Пошук</a>
         <a href="/likes/" class="text-deepOcean font-fixel font-normal hover:text-coolSage">Обране</a>
-        <a href="/about/" class="text-deepOcean font-fixel font-normal hover:text-coolSage">Про нас</a>
+        {% comment %} <a href="/about/" class="text-deepOcean font-fixel font-normal hover:text-coolSage">Про нас</a> {% endcomment %}
       </nav>
       <div class="hidden md:flex items-center space-x-4">
-        <a href="#" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-facebook-fill ri-lg"></i></a>
-        <a href="#" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-instagram-fill ri-lg"></i></a>
-        <a href="#" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-tiktok-fill ri-lg"></i></a>
+        <a href="https://www.facebook.com/61573653220530/" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-facebook-fill ri-lg"></i></a>
+        <a href="https://www.instagram.com/dominium_realty_agency" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-instagram-fill ri-lg"></i></a>
+        <a href="https://www.tiktok.com/@dominium_realty_agency" class="w-10 h-10 flex items-center justify-center text-deepOcean hover:text-coolSage"><i class="ri-tiktok-fill ri-lg"></i></a>
 
         {% if request.user.is_authenticated %}
           <div class="flex items-center space-x-2 ml-4">

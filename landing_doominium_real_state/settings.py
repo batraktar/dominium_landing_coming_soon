@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!xwek(pq45-*u3vm4q(%itc2$ctwed+a1)jog6r28%f_ega99!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['dominium.com.ua', 'www.dominium.com.ua', '127.0.0.1', '192.168.0.142']
 # ALLOWED_HOSTS = ['base.dominium.com.ua', 'www.base.dominium.com.ua']

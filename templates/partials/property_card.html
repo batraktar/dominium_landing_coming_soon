@@ -9,6 +9,7 @@
 
     <!-- Like / Share -->
     <div class="absolute top-3 right-3 flex gap-2 z-10">
+      <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
       <button class="like-button w-8 h-8 flex items-center justify-center bg-white bg-opacity-80 rounded-full transition" data-property-id="{{ property.id }}">
         <i class="{% if property.id in liked_ids %}
             
@@ -24,7 +25,9 @@
             
             
             
-            ri-heart-fill text-deepOcean
+            
+            ri-heart-fill text-red-500
+
 
 
 
@@ -52,7 +55,9 @@
             
             
             
+            
             ri-heart-line text-coolSage
+
 
 
 
@@ -114,24 +119,30 @@
         <a href="{% url 'property_detail' property.slug %}" class="bg-white text-deepOcean font-fixel text-sm px-4 py-2 rounded-full h-10 shadow-[inset_0_0_0_1px] shadow-deepOcean flex items-center justify-center">Докладніше</a>
       {% endif %}
 
-      <span class="text-white px-8 border border-coolSage py-2 rounded-full text-sm h-10
+      <span class="text-white px-8 py-2 rounded-full text-sm h-10
   {% with deal=property.deal_type.name|lower|cut:' ' %}
           {% if deal == 'оренда' %}
+            
             
             
       bg-creamBeige font-fixel
 
 
+
           {% elif deal == 'продаж' %}
+            
             
             
       bg-coolSage font-fixel
 
 
+
           {% else %}
             
             
+            
       bg-red-200 font-fixel
+
 
 
           {% endif %}

@@ -1,12 +1,12 @@
 <section class="py-16 overflow-x-hidden">
   <div class="container mx-auto px-4">
     <div class="grid md:grid-cols-2 gap-4 md:gap-6 items-start">
-      <div class="rounded-lg bg-coolSage shadow-lg p-5 sm:p-6 md:p-8 w-full min-w-0">
+      <div class="rounded-lg bg-coolSage shadow-lg p-5 sm:p-6 md:p-[54px] w-full min-w-0">
         <h2 class="text-[28px] md:text-3xl font-ermilov text-primary mb-2">Зв'язок з нами</h2>
         <p class="text-white mb-8 font-fixel">Маєте питання? Залиште свої контакти — ми швидко відповімо.</p>
         <div class="space-y-6">
           <div class="flex items-center">
-            <div class="w-12 h-12 bg-deepOcean bg-opacity-10 rounded-full flex items-center justify-center text-white mr-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white mr-4">
               <i class="ri-map-pin-line ri-lg"></i>
             </div>
             <div>
@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="flex items-center">
-            <div class="w-12 h-12 bg-deepOcean bg-opacity-10 rounded-full flex items-center justify-center text-white mr-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white mr-4">
               <i class="ri-phone-line ri-lg"></i>
             </div>
             <div>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="flex items-center">
-            <div class="w-12 h-12 bg-deepOcean bg-opacity-10 rounded-full flex items-center justify-center text-white mr-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white mr-4">
               <i class="ri-mail-line ri-lg"></i>
             </div>
             <div>
@@ -40,21 +40,23 @@
           </div>
         </div>
       </div>
-      <form class="rounded-lg bg-coolSage shadow-lg p-5 sm:p-6 md:p-8 w-full min-w-0">
+      <form method="post" action="/consultation/" class="rounded-lg bg-coolSage shadow-lg p-5 sm:p-6 md:p-8 w-full min-w-0">
+        {% csrf_token %}
         <div class="grid md:grid-cols-2 gap-6">
           <div>
-            <input type="text" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" placeholder="Імʼя" required />
+            <input type="text" name="name" placeholder="Імʼя" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" required />
           </div>
           <div>
-            <input type="email" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" placeholder="Ваш email" required />
+            <input type="email" name="email" placeholder="Ваш email" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" required />
           </div>
         </div>
         <div class="mt-6">
-          <input type="text" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" placeholder="Тема" required />
+          <input type="text" name="phone" placeholder="Телефон" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" required />
         </div>
         <div class="mt-6">
-          <textarea rows="4" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" placeholder="Повідомлення" required></textarea>
+          <textarea name="message" rows="4" placeholder="Повідомлення" class="w-full p-3 border rounded-button bg-gray-50 font-fixel placeholder:font-fixel" required></textarea>
         </div>
+        <input type="hidden" name="property" value="Головна сторінка" />
         <button type="submit" class="mt-6 w-full bg-deepOcean text-white py-3 rounded-button hover:bg-opacity-90 font-ermilov">Надіслати повідомлення</button>
       </form>
     </div>

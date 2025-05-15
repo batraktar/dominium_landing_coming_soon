@@ -4,18 +4,78 @@
       <h2 class="text-2-5xl font-ermilov text-white text-center mt-2 mb-4">ПРОПОНОВАНІ ПРОПОЗИЦІЇ</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Swiper на мобілках -->
+    <div class="relative block md:hidden">
+      <div class="swiper property-swiper px-1">
+        <div class="swiper-wrapper">
+          {% for property in properties %}
+            <div class="swiper-slide px-2">
+              <div class="bg-white rounded-[8px] shadow-lg overflow-hidden flex flex-col">
+                <div class="relative h-56">
+                  {% if property.main_image %}
+                    <img src="{{ property.main_image.image.url }}" class="w-full h-56 object-cover" alt="{{ property.title }}" />
+                  {% else %}
+                    <img src="https://placehold.co/400x300" class="w-full h-48 object-cover" alt="Зображення відсутнє" />
+                  {% endif %}
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                  <h3 class="text-xl font-ermilov text-primary">
+                    {% if property.deal_type.name == 'Оренда' %}
+                      {{ property.price|floatformat:0 }} ₴/міс
+                    {% else %}
+                      {{ property.price|floatformat:0 }} $
+                    {% endif %}
+                  </h3>
+                  <p class="text-coolSage font-fixel">{{ property.address }}</p>
+                  <div class="flex items-center space-x-4 mt-3 text-gray-600">
+                    {% if property.rooms %}
+                      <span class="flex text-coolSage font-fixel items-center"><i class="ri-home-line mr-1"></i> {{ property.rooms }} кімнати</span>
+                    {% endif %}
+                    <span class="flex text-coolSage font-fixel items-center"><i class="ri-ruler-line mr-1"></i> {{ property.area }} м²</span>
+                  </div>
+                  <div class="mt-auto pt-4 flex items-center gap-x-3">
+                    {% if property.slug %}
+                      <a href="{% url 'property_detail' property.slug %}" class="bg-white text-deepOcean font-fixel text-sm px-4 py-2 rounded-full h-10 shadow-[inset_0_0_0_1px] shadow-deepOcean flex items-center justify-center">Докладніше</a>
+                    {% endif %}
+                    <span class="px-8 py-2 text-sm h-10 font-fixel rounded-full flex items-center justify-center
+                      {% if property.deal_type.name|lower == 'оренда' %}
+                        bg-creamBeige text-deepOcean
+                      {% elif property.deal_type.name|lower == 'продаж' %}
+                        bg-coolSage text-white
+                      {% else %}
+                        bg-red-200 text-white
+                      {% endif %}">
+                      {{ property.deal_type.name }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Стрілки -->
+        <div class="custom-swiper-prev !left-2 top-1/2 -translate-y-1/2 z-10 text-coolSage text-2xl absolute">
+          <i class="ri-arrow-left-s-line"></i>
+        </div>
+        <div class="custom-swiper-next !right-2 top-1/2 -translate-y-1/2 z-10 text-coolSage text-2xl absolute">
+          <i class="ri-arrow-right-s-line"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid на планшетах і десктопах -->
+    <!-- Grid на планшетах і десктопах -->
+    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for property in properties %}
         <div class="bg-white rounded-[8px] shadow-lg overflow-hidden flex flex-col">
           <div class="relative h-56">
             {% if property.main_image %}
               <img src="{{ property.main_image.image.url }}" class="w-full h-56 object-cover" alt="{{ property.title }}" />
             {% else %}
-              <img src="https://via.placeholder.com/400x300" class="w-full h-48 object-cover" alt="Зображення відсутнє" />
+              <img src="https://placehold.co/400x300" class="w-full h-48 object-cover" alt="Зображення відсутнє" />
             {% endif %}
           </div>
-
-          <!-- Ось тут додаємо flex flex-col flex-grow -->
           <div class="p-6 flex flex-col flex-grow">
             <h3 class="text-xl font-ermilov text-primary">
               {% if property.deal_type.name == 'Оренда' %}
@@ -31,32 +91,57 @@
               {% endif %}
               <span class="flex text-coolSage font-fixel items-center"><i class="ri-ruler-line mr-1"></i> {{ property.area }} м²</span>
             </div>
-
-            <!-- Тут mt-auto, щоб притискати ціну та кнопку донизу -->
             <div class="mt-auto pt-4 flex items-center gap-x-3">
               {% if property.slug %}
                 <a href="{% url 'property_detail' property.slug %}" class="bg-white text-deepOcean font-fixel text-sm px-4 py-2 rounded-full h-10 shadow-[inset_0_0_0_1px] shadow-deepOcean flex items-center justify-center">Докладніше</a>
               {% endif %}
-
-              <span class="text-white px-8 border border-coolSage py-2 rounded-full text-sm h-10
+              <span class="px-8 py-2 rounded-full text-sm h-10 font-fixel
                 {% if property.deal_type.name|lower == 'оренда' %}
                   
                   
-                  bg-creamBeige
-                  font-fixel
+                  
+                  
+                  
+                  
+                  
+                  bg-creamBeige text-deepOcean
+
+
+
+
+
 
 
                 {% elif property.deal_type.name|lower == 'продаж' %}
                   
                   
-                  bg-coolSage
-                  font-fixel
+                  
+                  
+                  
+                  
+                  
+                  bg-coolSage text-white
+
+
+
+
+
 
 
                 {% else %}
                   
                   
-                  bg-red-200
+                  
+                  
+                  
+                  
+                  
+                  bg-red-200 text-white
+
+
+
+
+
 
 
                 {% endif %}">
@@ -69,3 +154,19 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+  new Swiper('.property-swiper', {
+    navigation: {
+      nextEl: '.custom-swiper-next',
+      prevEl: '.custom-swiper-prev'
+    },
+    slidesPerView: 1,
+    spaceBetween: 16,
+    grabCursor: true,
+    loop: true,
+    breakpoints: {
+      480: { slidesPerView: 1 }
+    }
+  })
+</script>

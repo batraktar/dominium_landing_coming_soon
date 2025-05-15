@@ -1,16 +1,9 @@
 {% block header %}
   <div class="sticky bg-deepOcean top-0 z-50 shadow-md">
     <div class="container mx-auto px-4 py-4">
-      <form method="get" action="{% url 'property_search' %}">
+      <form method="get" action="{% url 'property_search' %}" id="header-search-form">
         <div class="relative flex-grow">
-          <input
-            type="text"
-            name="q"
-            value="{{ request.GET.q|default:'' }}"
-            class="w-full pl-10 pr-4 py-3 border border-gray-300 text-coolSage placeholder-coolSage rounded-[9px] focus:outline-none focus:ring-2 focus:ring-coolSage focus:border-transparent text-sm"
-            placeholder="Введіть адресу, район або ключові слова"
-          />
-          <!-- Іконка пошуку -->
+          <input type="text" name="q" id="q-main" value="{{ request.GET.q|default:'' }}" class="w-full pl-10 pr-4 py-3 border border-gray-300 text-coolSage placeholder-coolSage rounded-[9px] focus:outline-none focus:ring-2 focus:ring-coolSage focus:border-transparent text-sm" placeholder="Введіть адресу, тип угоди або ключові слова" />
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <div class="w-5 h-5 flex items-center justify-center text-coolSage">
               <i class="ri-search-line text-coolSage"></i>
@@ -22,9 +15,8 @@
   </div>
 {% endblock %}
 
-
 {% block content %}
-  <form method="get" action="{% url 'property_search' %}">
+  <form method="get" action="{% url 'property_search' %}" id="main-search-form">
     <div class="container mx-auto px-4 py-4 space-y-6">
       <!-- Фільтри -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -33,6 +25,9 @@
         {% include 'partials/search-panel/base-filters/area.html' %}
         {% include 'partials/search-panel/base-filters/rooms.html' %}
       </div>
+
+      <!-- приховане поле q -->
+      <input type="hidden" name="q" id="q-hidden" value="{{ request.GET.q|default:'' }}" />
 
       <!-- Кнопка пошуку -->
       <button type="submit" class="w-full md:w-[172px] lg:w-[236px] xl:w-[300px] 2xl:w-[365px] bg-coolSage hover:bg-blue-600 text-white font-fixel pr-8 py-4 px-6 rounded-[9px] whitespace-nowrap">Пошук</button>
@@ -59,4 +54,27 @@
       </div>
     </div>
   </form>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('[DEBUG] JS працює') // ← має зʼявитись
+    
+      const headerQField = document.getElementById('q-main')
+      const hiddenQField = document.getElementById('q-hidden')
+      const searchForm = document.getElementById('main-search-form')
+      const submitBtn = searchForm?.querySelector('button[type="submit"]')
+    
+      if (submitBtn && headerQField && hiddenQField) {
+        console.log('[DEBUG] Всі елементи знайдено, підключаємо submit')
+        submitBtn.addEventListener('click', function () {
+          hiddenQField.value = headerQField.value
+          console.log('[DEBUG] Копіюємо q =>', hiddenQField.value)
+        })
+      } else {
+        console.warn('[DEBUG] ❌ Не знайдено: submitBtn:', submitBtn, 'headerQField:', headerQField, 'hiddenQField:', hiddenQField)
+      }
+    })
+  </script>
 {% endblock %}

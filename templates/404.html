@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}
+  Сторінку не знайдено - DOMINIUM
+{% endblock %}
+
+{% block content %}
+  <div class="flex items-center justify-center min-h-screen bg-deepOcean text-coolSage text-center px-4">
+    <div>
+      <div id="error-text-blocks">
+        <!-- Варіанти повідомлень (приховані, показується лише один через JS) -->
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">404</h1>
+          <p class="text-2xl font-fixel mb-6">Цієї сторінки не існує... ще</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">404</h1>
+          <p class="text-2xl font-fixel mb-2">Тут порожньо, як у квартирі без ремонту.</p>
+          <p class="text-xl font-fixel mb-6 italic opacity-80">Але головна — жива і працює 😎</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Помилка 404</h1>
+          <p class="text-2xl font-fixel mb-6">Ви піднялись не на той поверх. Але ми вже викликаємо ліфт.</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Об'єкт не знайдено</h1>
+          <p class="text-2xl font-fixel mb-6">Можливо, його щойно продали. Або ви не туди зайшли :)</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">404</h1>
+          <p class="text-2xl font-fixel mb-6">Сторінки немає. Як квартири у Львові до $10,000</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Ще будується</h1>
+          <p class="text-2xl font-fixel mb-6">Ця сторінка ще не здана в експлуатацію.</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Ой...</h1>
+          <p class="text-2xl font-fixel mb-6">Ми нічого не знайшли. Може, й не шукали?</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Хмм...</h1>
+          <p class="text-2xl font-fixel mb-6">Цієї сторінки немає, як квартири за $5000</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">404</h1>
+          <p class="text-2xl font-fixel mb-6">Можливо, ви шукали головну?</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Тут нічого немає</h1>
+          <p class="text-2xl font-fixel mb-6">Спробуйте ще раз. Але на іншій сторінці.</p>
+        </div>
+        <div class="error-variant hidden">
+          <h1 class="text-6xl font-ermilov mb-4">Помилка 404</h1>
+          <p class="text-2xl font-fixel mb-6">Якщо це житло — то точно не у нашій базі</p>
+        </div>
+      </div>
+
+      <a href="/" class="inline-block bg-coolSage hover:bg-accent text-white font-fixel px-6 py-3 rounded-button transition">Повернутись на головну</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const variants = document.querySelectorAll('.error-variant')
+      if (variants.length > 0) {
+        const randomIndex = Math.floor(Math.random() * variants.length)
+        variants[randomIndex].classList.remove('hidden')
+      }
+    })
+  </script>
+{% endblock %}
